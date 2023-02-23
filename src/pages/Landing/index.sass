@@ -1,0 +1,76 @@
+$backdrop-red: #f833216e
+$content-bg: #fff	
+$logo-bg: #475a3e
+
+.location-bar
+	display: flex
+	align-self: center
+	align-items: center
+	margin-top: 10px
+
+	background-color: $content-bg
+	text-transform: uppercase
+	font-weight: bold
+	color: #807777
+
+	padding: 1rem
+	padding-left: 2rem
+	padding-right: 2rem
+
+	border-radius: 100vmax
+
+	& > a
+		margin-left: 1rem
+		display: flex
+
+
+
+.landing-header
+	top: 10px // for position: sticky
+
+	display: flex
+	flex-direction: row
+	position: sticky
+
+	background-color: $content-bg
+	border: solid $logo-bg 3px
+
+	margin-top: 1rem
+	margin-left: 1rem
+	margin-right: 1rem
+
+	box-sizing: border-box
+
+.header-logo
+	background-color: $logo-bg
+	padding: 1rem
+
+	text-transform: uppercase
+	font-size: 200%
+	font-weight: bold
+	letter-spacing: 10px
+
+	color: $content-bg
+
+#header-items
+	flex-grow: 1
+	display: flex
+	flex-direction: row-reverse
+
+	padding: 1rem
+
+	& > *
+		margin-left: .5rem
+		margin-right: .5rem
+
+main.landing
+	display: flex
+	flex-direction: column
+
+	height: 100%
+
+	background-color: #f7f2e6
+	background-image: linear-gradient(135deg, $backdrop-red 25%, transparent 25%), linear-gradient(225deg, $backdrop-red 25%, transparent 25%), linear-gradient(45deg, $backdrop-red 25%, transparent 25%), linear-gradient(315deg, $backdrop-red 25%, #f7f2e6 25%)
+	background-position: 40px 0, 40px 0, 0 0, 0 0
+	background-size: 40px 40px
+	background-repeat: repeat
