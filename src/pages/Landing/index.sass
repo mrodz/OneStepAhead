@@ -80,11 +80,30 @@ $logo-and-welcome-width: 20%
 .image-carousel-blurb
 	position: absolute
 	
-	z-index: 2
+	z-index: 3
 	left: 0
 	bottom: 0
 
 	background-color: $content-bg
+
+@keyframes fade-out
+	0%
+		opacity: 1
+	100%
+		opacity: 0
+
+.fade-out
+	animation: fade-out 500ms forwards
+
+@keyframes fade-in
+	0%
+		opacity: 0
+	100%
+		opacity: 1
+
+.fade-in
+	animation: fade-in 500ms forwards
+	// todo
 
 .carousel-dot
 	color: $content-bg
