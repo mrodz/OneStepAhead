@@ -77,7 +77,7 @@ const IMAGES = [
   },
   {
     url: parm,
-    description: 'Check out our freshly-grated cheese'
+    description: 'Check out our fresh cheese'
   }
 ]
 
@@ -93,17 +93,11 @@ function useRollover(size: number, initial: number = 0): [number, () => void, ()
   const [state, setState] = useState(initial)
 
   function inc() {
-    // let ret
     setState(state => rollover("up", state, size))
-    // alert(ret)
-    // return ret
   }
 
   function dec() {
-    // let ret
     setState(state => rollover("down", state, size))
-    // alert(ret)
-    // return ret
   }
 
   return [state, inc, dec]
@@ -122,17 +116,32 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
   
   const newSrc = useRef<null | string>(null)
   const timeoutId = useRef<any>(null)
+  const autoAdvance = useRef(true)
 
   useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (!autoAdvance.current) {
+        clearInterval(intervalId)
+        return
+      }
+
+      advance(false)
+    }, 5_000)
+    
     return () => {
       if (timeoutId.current !== null) {
         clearTimeout(timeoutId.current)
       }
+
+      if (autoAdvance.current) {
+        clearInterval(intervalId)
+      }
     }
   }, [])
 
-  function advance() {
+  function advance(flag = true) {
     if (switching) return
+    if (flag) autoAdvance.current = false
     
     setSwitching(true)
     newSrc.current = images[rollover("up", currentIdx, images.length - 1)].url
@@ -143,8 +152,9 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
     }, 500)
   }
 
-  function retract() {
+  function retract(flag = true) {
     if (switching) return
+    if (flag) autoAdvance.current = false
     
     setSwitching(true)
     newSrc.current = images[rollover("down", currentIdx, images.length - 1)].url
@@ -166,22 +176,25 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
         {images[currentIdx].description}
       </div>
 
-      <IconButton onClick={advance} sx={{
+      <IconButton onClick={() => advance()} sx={{
         position: 'absolute',
         zIndex: 10,
         top: '50%',
         bottom: '50%',
-        right: 0,
+        right: '4px',
+        height: 'max-content'
       }}>
         <ArrowForwardIosIcon />
       </IconButton>
       
-      <IconButton onClick={retract} sx={{
+      <IconButton onClick={() => retract()} sx={{
         position: 'absolute',
         zIndex: 10,
         top: '50%',
         bottom: '50%',
-        left: 0
+        left: '4px',
+        height: 'max-content'
+      
       }}>
         <ArrowBackIosIcon />
       </IconButton>
