@@ -1,6 +1,7 @@
 $backdrop-red: #f833216e
-$content-bg: #fff	
+$content-bg: #fff
 $logo-bg: #475a3e
+$carousel-delay: 500
 
 $logo-and-welcome-width: 20%
 
@@ -79,7 +80,8 @@ $logo-and-welcome-width: 20%
 
 .image-carousel-blurb
 	position: absolute
-	
+	font-size: 120%
+
 	z-index: 3
 	left: 0
 	bottom: 0
@@ -93,7 +95,7 @@ $logo-and-welcome-width: 20%
 		opacity: 0
 
 .fade-out
-	animation: fade-out 500ms forwards
+	animation: fade-out #{$carousel-delay}ms forwards
 
 @keyframes fade-in
 	0%
@@ -102,13 +104,13 @@ $logo-and-welcome-width: 20%
 		opacity: 1
 
 .fade-in
-	animation: fade-in 500ms forwards
+	animation: fade-in #{$carousel-delay}ms forwards
 	// todo
 
 .carousel-dot
 	color: $content-bg
 	font-size: 48pt
-	transition: opacity 10s
+	transition: opacity 1s
 	opacity: .5
 
 	&[data-on]
@@ -148,3 +150,6 @@ section#top
 	flex-direction: column
 
 	height: 100vh
+
+:export
+	delay: $carousel-delay
