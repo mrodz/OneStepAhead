@@ -1,4 +1,4 @@
-$backdrop-red: #f833216e
+$backdrop-red: #f8332196
 $content-bg: #fff
 $logo-bg: #475a3e
 $carousel-delay: 500
@@ -78,6 +78,20 @@ $logo-and-welcome-width: 20%
 	box-sizing: border-box
 	position: relative
 
+.image-carousel-img
+	height: 100%
+	width: 100% /// ?
+	background-position: center top
+	background-size: 100% auto
+
+@keyframes blurb-slide-in
+	0%
+		background: red
+		// transform: translateX(-100vw)
+	100%
+		background: green
+		transform: translateX(0px)
+
 .image-carousel-blurb
 	position: absolute
 	font-size: 120%
@@ -87,6 +101,16 @@ $logo-and-welcome-width: 20%
 	bottom: 0
 
 	background-color: $content-bg
+	box-shadow: inset -5px 5px 10px #937e7e63
+
+	// & > span
+	// 	top: 50%
+	// 	bottom: 50%
+
+	// 	position: absolute
+	// 	transform: translateX(-100vw)
+	// 	animation: blurb-slide-in 2s forwards
+
 
 @keyframes fade-out
 	0%
@@ -110,7 +134,7 @@ $logo-and-welcome-width: 20%
 .carousel-dot
 	color: $content-bg
 	font-size: 48pt
-	transition: opacity 1s
+	transition: opacity .5s
 	opacity: .5
 
 	&[data-on]
@@ -141,9 +165,14 @@ main.landing
 
 	background-color: #f7f2e6
 	background-image: linear-gradient(135deg, $backdrop-red 25%, transparent 25%), linear-gradient(225deg, $backdrop-red 25%, transparent 25%), linear-gradient(45deg, $backdrop-red 25%, transparent 25%), linear-gradient(315deg, $backdrop-red 25%, #f7f2e6 25%)
-	background-position: 40px 0, 40px 0, 0 0, 0 0
-	background-size: 40px 40px
+
+	$tile-width: max(2rem, 40px)
+
+	background-position: $tile-width 0, $tile-width 0, 0 0, 0 0
+	background-size: $tile-width $tile-width
 	background-repeat: repeat
+
+
 
 section#top
 	display: flex
@@ -153,3 +182,5 @@ section#top
 
 :export
 	delay: $carousel-delay
+
+/////////////////////////////////

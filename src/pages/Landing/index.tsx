@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef, useCallback, memo } from 'react'
+
 import Phone from '@mui/icons-material/Phone'
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'; import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
@@ -110,18 +111,12 @@ function useRollover(size: number, initial: number = 0): [number, () => void, ()
 	return [state, inc, dec]
 }
 
-/**
- * BOTTOM > TOP
- * @fade-out(TOP) & @fade-in(BOTTOM)
- * TOP = BOTTOM
- * BOTTOM = next()
- */
 function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 	const [currentIdx, inc, dec] = useRollover(images.length - 1, startIdx)
 
 	const [switching, setSwitching] = useState(false)
 
-	const [newSrc, setNewSrc] = useState<null | string>(null) // = useRef<null | string>(null)
+	const [newSrc, setNewSrc] = useState<null | string>(null)
 	const timeoutId = useRef<Array<any>>([])
 
 	const nextButton = useRef<HTMLButtonElement>(null)
@@ -129,7 +124,6 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 	const advance = useCallback(() => {
 		if (switching) return
-		// if (flag) autoAdvance.current = false
 
 		setSwitching(true)
 		setNewSrc(images[rollover("up", currentIdx, images.length - 1)].url)
@@ -142,7 +136,6 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 	const retract = useCallback(() => {
 		if (switching) return
-		// if (flag) autoAdvance.current = false
 
 		setSwitching(true)
 		setNewSrc(images[rollover("down", currentIdx, images.length - 1)].url)
@@ -158,15 +151,8 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 			if (autoAdvance.current) {
 				nextButton.current?.click()
 			} else {
-				// debugger
 				clearInterval(intervalId)
 			}
-			// if (!autoAdvance.current) {
-			// 	clearInterval(intervalId)
-			// 	return
-			// }
-
-			// advance(false)
 		}, styles.delay * 20)
 
 		return () => {
@@ -183,9 +169,9 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 	return (
 		<div className="image-carousel landing-content-spacing">
-			<div role="img" className={switching ? "fade-out" : ""} style={{ backgroundImage: `url(${images[currentIdx].url})`, height: '100%', backgroundPosition: 'center top', backgroundSize: '100% auto' }}></div>
+			<div role="img" className={`image-carousel-img${switching ? " fade-out" : ""}`} style={{ backgroundImage: `url(${images[currentIdx].url})`, }}></div>
 			{switching && (
-				<div role="img" className={switching ? "fade-in" : ""} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, width: '100%', left: 0, /*backgroundColor: "red",*/ height: '100%', backgroundPosition: 'center top', backgroundSize: '100% auto' }}></div>
+				<div role="img" className={`image-carousel-img${switching ? " fade-in" : ""}`} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, left: 0, /*backgroundColor: "red",*/ }}></div>
 			)}
 
 			<div className="image-carousel-blurb important-left-items">
@@ -202,7 +188,7 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 				height: 'max-content'
 			}}>
 				<IconButton ref={nextButton} onClick={advance}>
-					<ArrowForwardIosIcon />
+					<KeyboardArrowRightIcon />
 				</IconButton>
 			</Avatar>
 
@@ -217,7 +203,7 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 			}}>
 				<IconButton onClick={retract} >
-					<ArrowBackIosIcon />
+					<KeyboardArrowLeftIcon />
 				</IconButton>
 			</Avatar>
 
@@ -251,6 +237,7 @@ export default function Landing() {
 				<ImageCarousel images={IMAGES} />
 			</section>
 			<section>
+
 			</section>
 		</main>
 	)
