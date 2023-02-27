@@ -1,10 +1,8 @@
-import React from 'react';
-import logo from './logo.svg'
 import './App.sass'
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Landing from './pages/Landing';
-import NotFound from './pages/404';
-import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles';
+import { BrowserRouter, Routes, Route } from "react-router-dom"
+import Landing from './pages/Landing'
+import NotFound from './pages/404'
+import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles'
 
 const themeOptions: ThemeOptions = {
 	palette: {
@@ -41,4 +39,4 @@ export default function App() {
 			</BrowserRouter >
 		</ThemeProvider>
 	)
-};
+}

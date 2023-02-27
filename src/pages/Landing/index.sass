@@ -120,7 +120,18 @@ $logo-and-welcome-width: 20%
 
 .fade-in
 	animation: fade-in #{$carousel-delay}ms forwards
-	// todo
+
+@keyframes jiggle
+	33%
+		transform: translateY(-10px)
+	66%
+		transform: translateY(10px)
+	100%
+		transform: translateY(0px)
+
+.jiggle-header
+	animation: jiggle .5s forwards
+		
 
 .carousel-dot
 	color: $content-bg

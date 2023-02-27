@@ -1,12 +1,15 @@
 import { useEffect, useState, useRef, useCallback, memo } from 'react'
 
 import Phone from '@mui/icons-material/Phone'
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'; import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
-import LocalDiningIcon from '@mui/icons-material/LocalDining';
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import LocalDiningIcon from '@mui/icons-material/LocalDining'
 
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
+import Avatar from '@mui/material/Avatar'
+import Typography from '@mui/material/Typography'
 
 import pizza from './pizza.webp'
 import wine from './wine.jpg'
@@ -15,12 +18,34 @@ import pasta from './pasta.jpg'
 
 import './index.sass'
 import styles from './index.sass'
-import { Avatar, Divider, Typography } from '@mui/material';
 
-function LocationBar() {
+/**
+ * @param signal a callback function, will fire when this comes into view.
+ * @returns JSX
+ */
+function LocationBar(props: { signal?: (arg: boolean) => void }) {
+	const header = useRef<HTMLDivElement>(null)
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(([entry]) => {
+			props?.signal?.(entry.isIntersecting)
+		}, { root: null, rootMargin: '0px', threshold: 1.0 })
+
+		const copy = header.current // required per the rules of useEffect with DOM elements.
+
+		if (copy) observer.observe(copy)
+
+		return () => {
+			if (copy) observer.unobserve(copy)
+		}
+	}, [header])
+
 	return (
-		<div className="location-bar">
-			5490 W Centinela Ave, Westchester, CA 90045 <Button sx={{ padding: 0 }} variant='text' href="tel:310-670-8122"><Phone /> (310) 670-8122</Button>
+		<div className="location-bar" ref={header}>
+			5490 W Centinela Ave, Westchester, CA 90045
+			<Button sx={{ padding: 0 }} variant='text' href="tel:310-670-8122">
+				<Phone /> (310) 670-8122
+			</Button>
 		</div >
 	)
 }
@@ -91,11 +116,10 @@ const IMAGES: ImageCarouselImage[] = [
 ]
 
 function rollover(dir: "up" | "down", value: number, limit: number) {
-	if (dir === "up") {
+	if (dir === "up")
 		return ++value > limit ? 0 : value
-	} else {
-		return --value < 0 ? limit : value
-	}
+
+	return --value < 0 ? limit : value
 }
 
 function useRollover(size: number, initial: number = 0): [number, () => void, () => void] {
@@ -149,22 +173,21 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			if (autoAdvance.current) {
+			if (autoAdvance.current)
 				nextButton.current?.click()
-			} else {
+			else
 				clearInterval(intervalId)
-			}
 		}, styles.delay * 20)
 
 		return () => {
 			if (timeoutId.current.length !== 0) {
 				let id
-				while ((id = timeoutId.current.pop()) !== undefined)
+				while ((id = timeoutId.current.pop()) !== undefined) {
 					clearTimeout(id)
+				}
 			}
 
-			if (autoAdvance.current)
-				clearInterval(intervalId)
+			if (autoAdvance.current) clearInterval(intervalId)
 		}
 	}, [])
 
@@ -215,9 +238,13 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 const YEARS_OF_OPERATION = new Date().getFullYear() - 1960
 
-function Header() {
+/**
+ * @param jiggleHeader if true, apply a shake animation to the header.
+ * @returns 
+ */
+function Header(props: { jiggleHeader: boolean }) {
 	return (
-		<div className='landing-header landing-content-spacing'>
+		<div className={`landing-header landing-content-spacing ${props.jiggleHeader ? 'jiggle-header' : ''}`}>
 			<div className='header-logo important-left-items'>
 				Compari's
 			</div>
@@ -248,15 +275,15 @@ function HeroTransition() {
 		return (
 			<div id="transition" className="single-cell">
 				<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
-					<path fill={TRANSITION_COLORS[0]} fill-opacity="1" d="M0,128L17.1,112C34.3,96,69,64,103,90.7C137.1,117,171,203,206,240C240,277,274,267,309,224C342.9,181,377,107,411,96C445.7,85,480,139,514,138.7C548.6,139,583,85,617,106.7C651.4,128,686,224,720,245.3C754.3,267,789,213,823,176C857.1,139,891,117,926,122.7C960,128,994,160,1029,165.3C1062.9,171,1097,149,1131,128C1165.7,107,1200,85,1234,106.7C1268.6,128,1303,192,1337,192C1371.4,192,1406,128,1423,96L1440,64L1440,320L1422.9,320C1405.7,320,1371,320,1337,320C1302.9,320,1269,320,1234,320C1200,320,1166,320,1131,320C1097.1,320,1063,320,1029,320C994.3,320,960,320,926,320C891.4,320,857,320,823,320C788.6,320,754,320,720,320C685.7,320,651,320,617,320C582.9,320,549,320,514,320C480,320,446,320,411,320C377.1,320,343,320,309,320C274.3,320,240,320,206,320C171.4,320,137,320,103,320C68.6,320,34,320,17,320L0,320Z"></path>
+					<path fill={TRANSITION_COLORS[0]} fillOpacity="1" d="M0,128L17.1,112C34.3,96,69,64,103,90.7C137.1,117,171,203,206,240C240,277,274,267,309,224C342.9,181,377,107,411,96C445.7,85,480,139,514,138.7C548.6,139,583,85,617,106.7C651.4,128,686,224,720,245.3C754.3,267,789,213,823,176C857.1,139,891,117,926,122.7C960,128,994,160,1029,165.3C1062.9,171,1097,149,1131,128C1165.7,107,1200,85,1234,106.7C1268.6,128,1303,192,1337,192C1371.4,192,1406,128,1423,96L1440,64L1440,320L1422.9,320C1405.7,320,1371,320,1337,320C1302.9,320,1269,320,1234,320C1200,320,1166,320,1131,320C1097.1,320,1063,320,1029,320C994.3,320,960,320,926,320C891.4,320,857,320,823,320C788.6,320,754,320,720,320C685.7,320,651,320,617,320C582.9,320,549,320,514,320C480,320,446,320,411,320C377.1,320,343,320,309,320C274.3,320,240,320,206,320C171.4,320,137,320,103,320C68.6,320,34,320,17,320L0,320Z"></path>
 				</svg>
 				<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
 					<rect width="100%" height="100%" fill={TRANSITION_COLORS[0]} />
-					<path fill={TRANSITION_COLORS[1]} fill-opacity="1" d="M0,192L24,192C48,192,96,192,144,181.3C192,171,240,149,288,128C336,107,384,85,432,101.3C480,117,528,171,576,176C624,181,672,139,720,133.3C768,128,816,160,864,154.7C912,149,960,107,1008,117.3C1056,128,1104,192,1152,181.3C1200,171,1248,85,1296,80C1344,75,1392,149,1416,186.7L1440,224L1440,320L1416,320C1392,320,1344,320,1296,320C1248,320,1200,320,1152,320C1104,320,1056,320,1008,320C960,320,912,320,864,320C816,320,768,320,720,320C672,320,624,320,576,320C528,320,480,320,432,320C384,320,336,320,288,320C240,320,192,320,144,320C96,320,48,320,24,320L0,320Z"></path>
+					<path fill={TRANSITION_COLORS[1]} fillOpacity="1" d="M0,192L24,192C48,192,96,192,144,181.3C192,171,240,149,288,128C336,107,384,85,432,101.3C480,117,528,171,576,176C624,181,672,139,720,133.3C768,128,816,160,864,154.7C912,149,960,107,1008,117.3C1056,128,1104,192,1152,181.3C1200,171,1248,85,1296,80C1344,75,1392,149,1416,186.7L1440,224L1440,320L1416,320C1392,320,1344,320,1296,320C1248,320,1200,320,1152,320C1104,320,1056,320,1008,320C960,320,912,320,864,320C816,320,768,320,720,320C672,320,624,320,576,320C528,320,480,320,432,320C384,320,336,320,288,320C240,320,192,320,144,320C96,320,48,320,24,320L0,320Z"></path>
 				</svg>
 				<svg preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
 					<rect width="100%" height="100%" fill={TRANSITION_COLORS[1]} />
-					<path fill={TRANSITION_COLORS[2]} fill-opacity="1" d="M0,192L24,192C48,192,96,192,144,181.3C192,171,240,149,288,128C336,107,384,85,432,101.3C480,117,528,171,576,176C624,181,672,139,720,133.3C768,128,816,160,864,154.7C912,149,960,107,1008,117.3C1056,128,1104,192,1152,181.3C1200,171,1248,85,1296,80C1344,75,1392,149,1416,186.7L1440,224L1440,320L1416,320C1392,320,1344,320,1296,320C1248,320,1200,320,1152,320C1104,320,1056,320,1008,320C960,320,912,320,864,320C816,320,768,320,720,320C672,320,624,320,576,320C528,320,480,320,432,320C384,320,336,320,288,320C240,320,192,320,144,320C96,320,48,320,24,320L0,320Z"></path>
+					<path fill={TRANSITION_COLORS[2]} fillOpacity="1" d="M0,192L24,192C48,192,96,192,144,181.3C192,171,240,149,288,128C336,107,384,85,432,101.3C480,117,528,171,576,176C624,181,672,139,720,133.3C768,128,816,160,864,154.7C912,149,960,107,1008,117.3C1056,128,1104,192,1152,181.3C1200,171,1248,85,1296,80C1344,75,1392,149,1416,186.7L1440,224L1440,320L1416,320C1392,320,1344,320,1296,320C1248,320,1200,320,1152,320C1104,320,1056,320,1008,320C960,320,912,320,864,320C816,320,768,320,720,320C672,320,624,320,576,320C528,320,480,320,432,320C384,320,336,320,288,320C240,320,192,320,144,320C96,320,48,320,24,320L0,320Z"></path>
 				</svg>
 				<div style={{ backgroundColor: TRANSITION_COLORS[2] }}></div> {/* this div expands to paint remaining space the color of TRANSITION_COLORS[2] */}
 			</div>
@@ -295,10 +322,12 @@ function HeroTransition() {
 }
 
 function HeroSection() {
+	const [jiggle, setJiggle] = useState(false)
+
 	return (
 		<section id="hero">
-			<LocationBar />
-			<Header />
+			<LocationBar signal={(atTop) => setJiggle(!atTop)} />
+			<Header jiggleHeader={jiggle} />
 			<ImageCarousel images={IMAGES} />
 		</section>
 	)
