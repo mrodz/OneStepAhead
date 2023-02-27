@@ -29,7 +29,7 @@ function LocationBar(props: { signal?: (arg: boolean) => void }) {
 	useEffect(() => {
 		const observer = new IntersectionObserver(([entry]) => {
 			props?.signal?.(entry.isIntersecting)
-		}, { root: null, rootMargin: '0px', threshold: 1.0 })
+		}, { root: null, rootMargin: '0px', threshold: 0.01 })
 
 		const copy = header.current // required per the rules of useEffect with DOM elements.
 
@@ -145,7 +145,6 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 	const timeoutId = useRef<Array<any>>([])
 
 	const nextButton = useRef<HTMLButtonElement>(null)
-	const autoAdvance = useRef(true)
 
 	const advance = useCallback(() => {
 		if (switching) return
@@ -173,10 +172,7 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 	useEffect(() => {
 		const intervalId = setInterval(() => {
-			if (autoAdvance.current)
-				nextButton.current?.click()
-			else
-				clearInterval(intervalId)
+			nextButton.current?.click()
 		}, styles.delay * 20)
 
 		return () => {
@@ -187,9 +183,24 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 				}
 			}
 
-			if (autoAdvance.current) clearInterval(intervalId)
+			clearInterval(intervalId)
 		}
-	}, [])
+	}, [timeoutId])
+
+  useEffect(() => {
+    // Here, we ASYNCHRONOUSLY preload images to avoid flickering in
+    // the carousel.
+    // IN DEV MODE ONLY: will create duplicate nodes due to React.StrictMode's policy.
+    // The duplicates can be safely ignored.
+    for (const { url } of images) {
+      let imagePreload = document.createElement("link")
+      imagePreload.rel = "preload"
+      imagePreload.href = url
+      imagePreload.as = "image"
+
+      document.head.appendChild(imagePreload)
+    }
+  }, [])
 
 	return (
 		<div className="image-carousel landing-content-spacing">
