@@ -2,7 +2,6 @@ import { useEffect, useState, useRef, useCallback, memo } from 'react'
 
 import Phone from '@mui/icons-material/Phone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import LocalDiningIcon from '@mui/icons-material/LocalDining'
 
@@ -10,6 +9,8 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
+
+import ParallaxImageSplit, { ParallaxImageTextSection } from './ParallaxImageSplit'
 
 import pizza from './pizza.webp'
 import wine from './wine.jpg'
@@ -122,6 +123,36 @@ function rollover(dir: "up" | "down", value: number, limit: number) {
 	return --value < 0 ? limit : value
 }
 
+type ParallaxImageItem = {
+	title: string,
+	url: string,
+	content: string
+}
+
+interface ParallaxImagesSectionProps {
+	items: ParallaxImageItem[]
+}
+
+function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
+	let result = new Array(items.length)
+
+	for (let i = 0; i < items.length; i++) {
+		const { url, title, content } = items[i]
+
+		const image = <ParallaxImageSplit fileName={url} alt={title} leading={i % 2 == 0 ? 'L' : 'R'} />
+
+		result.push(
+			<ParallaxImageTextSection title={title} content={content} image={image} even={i % 2 == 0} />
+		)
+	}
+
+	return (
+		<section id="parallax-images" style={{ marginTop: '5rem' }}>
+			{result}
+		</section>
+	)
+}
+
 function useRollover(size: number, initial: number = 0): [number, () => void, () => void] {
 	const [state, setState] = useState(initial)
 
@@ -187,20 +218,28 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 		}
 	}, [timeoutId])
 
-  useEffect(() => {
-    // Here, we ASYNCHRONOUSLY preload images to avoid flickering in
-    // the carousel.
-    // IN DEV MODE ONLY: will create duplicate nodes due to React.StrictMode's policy.
-    // The duplicates can be safely ignored.
-    for (const { url } of images) {
-      let imagePreload = document.createElement("link")
-      imagePreload.rel = "preload"
-      imagePreload.href = url
-      imagePreload.as = "image"
+	// DELETE ALL REFS TO `canAppendHead` IN PRODUCTION
+	// THIS IS TO REMOVE DUPLICATES
+	const canAppendHead = useRef<boolean>(true)
 
-      document.head.appendChild(imagePreload)
-    }
-  }, [])
+	useEffect(() => {
+		if (canAppendHead.current) {
+			// Here, we ASYNCHRONOUSLY preload images to avoid flickering in
+			// the carousel.
+			// IN DEV MODE ONLY: will create duplicate nodes due to React.StrictMode's policy.
+			// The duplicates can be safely ignored.
+			for (const { url } of images) {
+				let imagePreload = document.createElement("link")
+				imagePreload.rel = "preload"
+				imagePreload.href = url
+				imagePreload.as = "image"
+
+				document.head.appendChild(imagePreload)
+			}
+
+			canAppendHead.current = false
+		}
+	}, [])
 
 	return (
 		<div className="image-carousel landing-content-spacing">
@@ -344,11 +383,25 @@ function HeroSection() {
 	)
 }
 
+const PARALLAX_IMAGES: ParallaxImageItem[] = [
+	{
+		content: 'Lorem Ipsum Dolor Sit Amet',
+		title: 'This is a title!',
+		url: pizza
+	},
+	{
+		content: 'woo back baby',
+		title: 'Titulo número dos chamaquita',
+		url: wine
+	}
+]
+
 export default function Landing() {
 	return (
 		<main className="landing">
 			<HeroSection />
 			<HeroTransition />
+			<ParallaxImagesSection items={PARALLAX_IMAGES} />
 		</main>
 	)
 }
