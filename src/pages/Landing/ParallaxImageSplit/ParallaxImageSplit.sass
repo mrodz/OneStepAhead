@@ -1,8 +1,8 @@
 
-[data-even] > .first-description
+[data-even] > .ParallaxImageTextSection__first-description
 	text-align: right
 
-.parallax-image-text-section
+.ParallaxImageTextSection__parallax-image-text-section
 	display: grid
 	grid-template-columns: 1fr 2fr
 	overflow: hidden
@@ -11,12 +11,12 @@
 		grid-template-columns: 2fr 1fr
 		margin-right: 0
 
-		&>.first-description
+		&>.ParallaxImageTextSection__first-description
 			display: block
 			margin-left: auto
 			// width: fit-content
 
-	&>.first-description
+	&>.ParallaxImageTextSection__first-description
 		padding: 1rem
 		width: 80%
 
@@ -26,7 +26,7 @@
 .parallax-items > :not(:last-child)
 	padding-bottom: 8rem
 
-.parallax-image-wrapper
+.ParallaxImageSplit__parallax-image-wrapper
 	display: flex
 	flex-direction: row
 	overflow: hidden
@@ -38,7 +38,7 @@
 		width: inherit
 		height: inherit
 
-	& .parallax-image
+	& .ParallaxImageSplit__parallax-image
 		opacity: 0
 		width: 100%
 		height: 100%
@@ -51,10 +51,10 @@
 		&[data-fade-second]
 			animation: fade-in-parallax-image 3s .3s forwards
 
-.parallax-image-wrapper-1
+.ParallaxImageSplit__parallax-image-wrapper-1
 	width: 100%
 
-.text-section-image
+.ParallaxImageTextSection__text-section-image
 	display: flex
 	align-items: center
 

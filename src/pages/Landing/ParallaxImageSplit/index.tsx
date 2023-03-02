@@ -74,19 +74,19 @@ interface ParallaxImageTextSectionProps {
 export function ParallaxImageTextSection(props: ParallaxImageTextSectionProps) {
 	const components = [
 		(
-			<div className="first-description" key={0}>
+			<div className="ParallaxImageTextSection__first-description" key={0}>
 				<div>
 					<h1>
 						{props.title}
 					</h1>
-					<section className="text-content">
+					<section className="ParallaxImageTextSection__text-content">
 						{props.content}
 					</section>
 				</div>
 			</div>
 		),
 		(
-			<div className="text-section-image" key={1}>
+			<div className="ParallaxImageTextSection__text-section-image" key={1}>
 				<>
 					{props.image}
 				</>
@@ -107,7 +107,7 @@ export function ParallaxImageTextSection(props: ParallaxImageTextSectionProps) {
 	}
 
 	return (
-		<div className="parallax-image-text-section" {...!props?.even && { "data-even": true }}>
+		<div className="ParallaxImageTextSection__parallax-image-text-section" {...!props?.even && { "data-even": true }}>
 			{fin}
 		</div>
 	)
@@ -231,13 +231,13 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 	return (
 		<>
 			<ParallaxProvider>
-				<div className={'parallax-image-wrapper-1 ' + (props?.className ?? '')} data-parallax-image-split>
-					<div className='parallax-image-wrapper'>
+				<div className={'ParallaxImageSplit__parallax-image-wrapper-1 ' + (props?.className ?? '')} data-parallax-image-split>
+					<div className='ParallaxImageSplit__parallax-image-wrapper'>
 						<Parallax speed={speed(leading)}>
-							<img data-fade-first className='parallax-image' draggable="false" src={leftProduct} loading='lazy' alt={props?.alt ? prefixAlt('left half, ') : ''} />
+							<img data-fade-first className='ParallaxImageSplit__parallax-image' draggable="false" src={leftProduct} loading='lazy' alt={props?.alt ? prefixAlt('left half, ') : ''} />
 						</Parallax>
 						<Parallax speed={speed(!leading)}>
-							<img data-fade-second className='parallax-image' draggable="false" src={rightProduct} loading='lazy' alt={props?.alt ? prefixAlt('right half, ') : ''} />
+							<img data-fade-second className='ParallaxImageSplit__parallax-image' draggable="false" src={rightProduct} loading='lazy' alt={props?.alt ? prefixAlt('right half, ') : ''} />
 						</Parallax>
 					</div>
 				</div>

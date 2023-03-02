@@ -8,7 +8,7 @@ $logo-and-welcome-width: 20%
 	border: $color solid 2px
 	box-sizing: border-box
 
-.location-bar
+.LocationBar__location-bar
 	display: flex
 	align-self: center
 	align-items: center
@@ -37,8 +37,9 @@ $logo-and-welcome-width: 20%
 	margin-left: 2rem
 	margin-right: 2rem
 
-.landing-header
+.Header__landing-header
 	top: 10px // for position: sticky
+	transform: translateX(0) // for animation
 
 	display: flex
 	flex-direction: row
@@ -53,7 +54,7 @@ $logo-and-welcome-width: 20%
 
 	box-sizing: border-box
 
-.header-logo
+.Header__header-logo
 	background-color: $logo-bg
 
 	text-transform: uppercase
@@ -75,7 +76,7 @@ $logo-and-welcome-width: 20%
 		margin-left: .5rem
 		margin-right: .5rem
 
-.image-carousel
+.ImageCarousel__image-carousel
 	margin-top: 1rem
 	height: 100%
 	margin-bottom: 1rem
@@ -83,7 +84,7 @@ $logo-and-welcome-width: 20%
 	box-sizing: border-box
 	position: relative
 
-.image-carousel-img
+.ImageCarousel__image-carousel-img
 	height: 100%
 	width: 100%
 
@@ -92,7 +93,7 @@ $logo-and-welcome-width: 20%
 
 	box-shadow: inset 0px -20px 15px #5042428a
 
-.image-carousel-blurb
+.ImageCarousel__image-carousel-blurb
 	position: absolute
 	font-size: 120%
 
@@ -129,11 +130,23 @@ $logo-and-welcome-width: 20%
 	100%
 		transform: translateY(0px)
 
-.jiggle-header
+.Header__jiggle-header
 	animation: jiggle .5s forwards
-		
 
-.carousel-dot
+@keyframes hide-header
+	30%
+		transform: translateY(10px)
+		opacity: 1
+	50%
+		transform: translateY(-100%)
+	100%
+		transform: translateY(0)
+		opacity: 0
+
+.Header__hide-header
+	animation: hide-header 1s forwards
+
+.Dot__carousel-dot
 	color: $content-bg
 	font-size: 48pt
 	transition: opacity .5s
@@ -142,10 +155,7 @@ $logo-and-welcome-width: 20%
 	&[data-on]
 		opacity: 1
 
-// .carousel-dot[data-on]
-// 	opacity: 1
-
-.carousel-dots
+.ImageCarouselDots__carousel-dots
 	position: absolute
 	display: flex
 	flex-direction: row

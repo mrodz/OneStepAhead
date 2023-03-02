@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef, useCallback, memo } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 import Phone from '@mui/icons-material/Phone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
@@ -42,7 +43,7 @@ function LocationBar(props: { signal?: (arg: boolean) => void }) {
 	}, [header])
 
 	return (
-		<div className="location-bar" ref={header}>
+		<div className="LocationBar__location-bar" ref={header}>
 			5490 W Centinela Ave, Westchester, CA 90045
 			<Button sx={{ padding: 0 }} variant='text' href="tel:310-670-8122">
 				<Phone /> (310) 670-8122
@@ -71,7 +72,7 @@ interface ImageCarouselDotsProps {
 
 const Dot = memo((props: { on?: boolean }) => {
 	return (
-		<div className="carousel-dot" {...props?.on && { "data-on": true }}>
+		<div className="Dot__carousel-dot" {...props?.on && { "data-on": true }}>
 			&bull;
 		</div>
 	)
@@ -81,7 +82,7 @@ function ImageCarouselDots({ len, idx = 0 }: ImageCarouselDotsProps) {
 	const dots = Array.from({ length: len }, (_, i) => <Dot on={i === idx} key={i} />)
 
 	return (
-		<div className="carousel-dots">
+		<div className="ImageCarouselDots__carousel-dots">
 			{dots}
 		</div>
 	)
@@ -242,13 +243,13 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 	}, [])
 
 	return (
-		<div className="image-carousel landing-content-spacing">
-			<div role="img" className={`image-carousel-img${switching ? " fade-out" : ""}`} style={{ backgroundImage: `url(${images[currentIdx].url})`, }}></div>
+		<div className="ImageCarousel__image-carousel landing-content-spacing">
+			<div role="img" className={`ImageCarousel__image-carousel-img ${switching ? "fade-out" : ""}`} style={{ backgroundImage: `url(${images[currentIdx].url})`, }}></div>
 			{switching && (
-				<div role="img" className={`image-carousel-img${switching ? " fade-in" : ""}`} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, left: 0, /*backgroundColor: "red",*/ }}></div>
+				<div role="img" className={`ImageCarousel__image-carousel-img ${switching ? "fade-in" : ""}`} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, left: 0, /*backgroundColor: "red",*/ }}></div>
 			)}
 
-			<div className="image-carousel-blurb important-left-items">
+			<div className="ImageCarousel__image-carousel-blurb important-left-items">
 				{images[currentIdx].description}
 			</div>
 
@@ -274,7 +275,6 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 				bottom: '50%',
 				left: '10px',
 				height: 'max-content'
-
 			}}>
 				<IconButton onClick={retract} >
 					<KeyboardArrowLeftIcon />
@@ -293,9 +293,27 @@ const YEARS_OF_OPERATION = new Date().getFullYear() - 1960
  * @returns 
  */
 function Header(props: { jiggleHeader: boolean }) {
+	const header = useRef<HTMLDivElement>(null)
+
+	const [extended, setExtended] = useState(true)
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(([entry]) => {
+			setExtended(entry.isIntersecting)
+		}, { root: null, rootMargin: '0px', threshold: 1.0 })
+
+		const copy = header.current // required per the rules of useEffect with DOM elements.
+
+		if (copy) observer.observe(copy)
+
+		return () => {
+			if (copy) observer.unobserve(copy)
+		}
+	}, [header])
+
 	return (
-		<div className={`landing-header landing-content-spacing ${props.jiggleHeader ? 'jiggle-header' : ''}`}>
-			<div className='header-logo important-left-items'>
+		<header ref={header} className={`Header__landing-header landing-content-spacing ${props.jiggleHeader ? 'Header__jiggle-header' : ''} ${!extended ? 'Header__hide-header' : ''}`}>
+			<div className='Header__header-logo important-left-items'>
 				Compari's
 			</div>
 			<nav id="header-items">
@@ -303,7 +321,7 @@ function Header(props: { jiggleHeader: boolean }) {
 				<HeaderButton content='Our Story' />
 				<HeaderButton content='Hours' />
 			</nav>
-		</div>
+		</header>
 	)
 }
 
@@ -374,9 +392,13 @@ function HeroTransition() {
 function HeroSection() {
 	const [jiggle, setJiggle] = useState(false)
 
+	const cb = useCallback((atTop: boolean) => {
+		setJiggle(!atTop)
+	}, [])
+
 	return (
 		<section id="hero">
-			<LocationBar signal={(atTop) => setJiggle(!atTop)} />
+			<LocationBar signal={cb} />
 			<Header jiggleHeader={jiggle} />
 			<ImageCarousel images={IMAGES} />
 		</section>
