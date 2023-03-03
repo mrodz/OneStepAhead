@@ -54,13 +54,15 @@ $logo-and-welcome-width: 20%
 
 	box-sizing: border-box
 
+.Header__title
+	text-align: center
+	font-size: 200%
+	font-weight: bold
+
 .Header__header-logo
 	background-color: $logo-bg
 
 	text-transform: uppercase
-	text-align: center
-	font-size: 200%
-	font-weight: bold
 	letter-spacing: 10px
 
 	color: $content-bg
@@ -92,6 +94,15 @@ $logo-and-welcome-width: 20%
 	background-size: 100% auto
 
 	box-shadow: inset 0px -20px 15px #5042428a
+
+.Header__footer
+	max-width: 100%
+	height: 100%
+
+	padding: 2rem
+
+	background-color: $logo-bg
+	color: $content-bg
 
 .ImageCarousel__image-carousel-blurb
 	position: absolute
@@ -134,14 +145,16 @@ $logo-and-welcome-width: 20%
 	animation: jiggle .5s forwards
 
 @keyframes hide-header
-	30%
-		transform: translateY(10px)
+	0%
 		opacity: 1
+	30%
+		opacity: .3
 	50%
+		opacity: 0
 		transform: translateY(-100%)
 	100%
-		transform: translateY(0)
 		opacity: 0
+		transform: translateY(0)
 
 .Header__hide-header
 	animation: hide-header 1s forwards
@@ -184,7 +197,11 @@ main.landing
 	background-size: $tile-width $tile-width
 	background-repeat: repeat
 
-	padding-bottom: 2rem
+#visit-us
+	margin-top: 3rem
+	margin-bottom: 3rem
+
+	font-size: 300%
 
 #transition
 	height: 100%
@@ -204,6 +221,19 @@ main.landing
 .single-cell
 	grid-column: 1
 	grid-row: 1
+
+.ParallaxImagesSection__bg
+	background-color: #e4dede
+
+	display: flex
+	justify-content: center
+	align-items: center
+
+	& > svg
+		opacity: .2
+		width: 10%
+		height: 10%
+	
 
 #theory-explanation
 	background-color: $content-bg
@@ -235,6 +265,11 @@ section#theory
 
 	background-color: $content-bg
 	margin-top: 2rem
+	margin-bottom: 3rem
+
+section#parallax-images
+	display: grid
+	max-width: 100%
 
 :export
 	colorMain: $logo-bg

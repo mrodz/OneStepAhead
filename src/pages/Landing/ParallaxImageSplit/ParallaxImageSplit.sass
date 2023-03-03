@@ -1,7 +1,3 @@
-
-[data-even] > .ParallaxImageTextSection__first-description
-	text-align: right
-
 .ParallaxImageTextSection__parallax-image-text-section
 	display: grid
 	grid-template-columns: 1fr 2fr
@@ -9,16 +5,11 @@
 
 	&[data-even]
 		grid-template-columns: 2fr 1fr
-		margin-right: 0
-
-		&>.ParallaxImageTextSection__first-description
-			display: block
-			margin-left: auto
-			// width: fit-content
 
 	&>.ParallaxImageTextSection__first-description
+		background-color: #fff
+
 		padding: 1rem
-		width: 80%
 
 	&>[data-parallax-image-split]
 		min-width: max-content
