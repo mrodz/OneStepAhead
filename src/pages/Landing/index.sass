@@ -1,4 +1,6 @@
-$backdrop-red: #f8332196
+@import '../../App.sass'
+
+$backdrop-red: #f833214f
 $content-bg: #fff
 $logo-bg: #475a3e
 $carousel-delay: 500
@@ -104,6 +106,19 @@ $logo-and-welcome-width: 20%
 	background-color: $logo-bg
 	color: $content-bg
 
+	display: flex
+	justify-content: center
+
+	& > *:not(:last-child)::after
+		content: ''
+		border-right: solid white 1px
+		margin-right: .5rem
+		padding-right: .5rem
+
+	& > #copyright::before
+		content: '©'
+		margin-right: .5rem
+
 .ImageCarousel__image-carousel-blurb
 	position: absolute
 	font-size: 120%
@@ -121,28 +136,26 @@ $logo-and-welcome-width: 20%
 	100%
 		opacity: 0
 
-.fade-out
-	animation: fade-out #{$carousel-delay}ms forwards
+.ImageCarousel__fade-out
+	@include fade-out($duration: #{$carousel-delay}ms)
 
-@keyframes fade-in
-	0%
-		opacity: 0
-	100%
-		opacity: 1
+.ImageCarousel__fade-in
+	@include fade-in($duration: #{$carousel-delay}ms)
 
-.fade-in
-	animation: fade-in #{$carousel-delay}ms forwards
-
-@keyframes jiggle
-	33%
-		transform: translateY(-10px)
-	66%
-		transform: translateY(10px)
-	100%
-		transform: translateY(0px)
+.Landing__fade-in
+	@include fade-in($duration: 2s)
 
 .Header__jiggle-header
-	animation: jiggle .5s forwards
+	@include jiggle($duration: .5s)
+
+.Header__dial
+	position: fixed
+	bottom: 20px
+	right: 20px
+
+	&:not(:hover)
+		transform-origin: bottom center
+		@include pulse($duration: 3s)
 
 @keyframes hide-header
 	0%
@@ -233,7 +246,6 @@ main.landing
 		opacity: .2
 		width: 10%
 		height: 10%
-	
 
 #theory-explanation
 	background-color: $content-bg

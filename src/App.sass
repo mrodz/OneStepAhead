@@ -1,0 +1,60 @@
+@keyframes fade-out
+	0%
+		opacity: 1
+	100%
+		opacity: 0
+
+@mixin fade-out($duration)
+	animation: fade-out $duration forwards
+
+@keyframes fade-in
+	0%
+		opacity: 0
+	100%
+		opacity: 1
+
+@mixin fade-in($duration)
+	animation: fade-in $duration forwards
+
+@keyframes grow
+	0%
+		scale: 0
+	100%
+		scale: 1
+
+@mixin grow($duration)
+	animation: grow $duration forwards
+
+@keyframes shrink
+	0%
+		scale: 1
+	100%
+		scale: 0
+
+@mixin shrink($duration)
+	animation: shrink $duration forwards
+
+@keyframes jiggle
+	33%
+		transform: translateY(-10px)
+	66%
+		transform: translateY(10px)
+	100%
+		transform: translateY(0px)
+
+@mixin jiggle($duration)
+	animation: jiggle $duration forwards
+
+@keyframes pulse
+	0%
+		transform: scaleX(1) scaleY(1)
+		// scale: 1
+	33%
+		transform: scaleX(1.2) scaleY(1.2)
+		// scale: 1.1
+	66%
+		transform: scaleX(1) scaleY(1)
+		// scale: 1
+
+@mixin pulse($duration)
+	animation: pulse $duration infinite forwards

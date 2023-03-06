@@ -1,15 +1,23 @@
 import { useEffect, useState, useRef, useCallback, memo } from 'react'
-import { useInView } from 'react-intersection-observer'
 
 import Phone from '@mui/icons-material/Phone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
+
 import LocalDiningIcon from '@mui/icons-material/LocalDining'
+import MenuBookIcon from '@mui/icons-material/MenuBook'
+import PersonPinIcon from '@mui/icons-material/PersonPin'
+import WatchIcon from '@mui/icons-material/Watch'
 
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
+import SpeedDial from '@mui/material/SpeedDial'
+import SpeedDialAction from '@mui/material/SpeedDialAction'
+import SpeedDialIcon from '@mui/material/SpeedDialIcon'
+
 
 import ParallaxImageSplit, { ParallaxImageTextSection } from './ParallaxImageSplit'
 
@@ -20,17 +28,22 @@ import pasta from './pasta.jpg'
 
 import './index.sass'
 import styles from './index.sass'
+// import { Badge, BadgeProps, styled } from '@mui/material'
+
+interface LocationBarProps {
+	signal?: (arg: boolean) => void
+}
 
 /**
  * @param signal a callback function, will fire when this comes into view.
  * @returns JSX
  */
-function LocationBar(props: { signal?: (arg: boolean) => void }) {
+function LocationBar({ signal }: LocationBarProps) {
 	const header = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(([entry]) => {
-			props?.signal?.(entry.isIntersecting)
+			signal?.(entry.isIntersecting)
 		}, { root: null, rootMargin: '0px', threshold: 0.01 })
 
 		const copy = header.current // required per the rules of useEffect with DOM elements.
@@ -40,7 +53,7 @@ function LocationBar(props: { signal?: (arg: boolean) => void }) {
 		return () => {
 			if (copy) observer.unobserve(copy)
 		}
-	}, [header])
+	}, [header, signal])
 
 	return (
 		<div className="LocationBar__location-bar" ref={header}>
@@ -140,10 +153,10 @@ function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 	for (let i = 0; i < items.length; i++) {
 		const { url, title, content } = items[i]
 
-		const image = <ParallaxImageSplit fileName={url} alt={title} leading={i % 2 == 0 ? 'L' : 'R'} />
+		const image = <ParallaxImageSplit fileName={url} alt={title} leading={i % 2 === 0 ? 'L' : 'R'} />
 
 		result.push(
-			<ParallaxImageTextSection title={title} content={content} image={image} even={i % 2 == 0} />
+			<ParallaxImageTextSection key={i} title={title} content={content} image={image} even={i % 2 === 0} />
 		)
 	}
 
@@ -165,6 +178,23 @@ function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 	)
 }
 
+function preloadImages(sources: string[]) {
+	let preloadedImages = new Array(sources.length)
+
+	for (const source of sources) {
+		const image = new Image()
+
+		// allow garbage collection on duplicate values.
+		image.onload = function () {
+			let idx = preloadedImages.indexOf(this)
+			if (idx !== -1) preloadedImages.splice(idx, 1)
+		}
+
+		preloadedImages.push(image)
+		image.src = source
+	}
+}
+
 function useRollover(size: number, initial: number = 0): [number, () => void, () => void] {
 	const [state, setState] = useState(initial)
 
@@ -184,10 +214,10 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 	const [switching, setSwitching] = useState(false)
 
-	const [newSrc, setNewSrc] = useState<null | string>(null)
-	const timeoutId = useRef<Array<any>>([])
+	const [newSrc, setNewSrc] = useState<string>(null!)
+	const timeoutId = useRef<NodeJS.Timeout[]>([])
 
-	const nextButton = useRef<HTMLButtonElement>(null)
+	const nextButton = useRef<HTMLButtonElement>(null!)
 
 	const advance = useCallback(() => {
 		if (switching) return
@@ -218,10 +248,13 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 			nextButton.current?.click()
 		}, styles.delay * 20)
 
+		// allows cleanup of ref value
+		const clone = timeoutId.current
+
 		return () => {
-			if (timeoutId.current.length !== 0) {
+			if (clone.length !== 0) {
 				let id
-				while ((id = timeoutId.current.pop()) !== undefined) {
+				while ((id = clone.pop()) !== undefined) {
 					clearTimeout(id)
 				}
 			}
@@ -230,34 +263,17 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 		}
 	}, [timeoutId])
 
-	// DELETE ALL REFS TO `canAppendHead` IN PRODUCTION
-	// THIS IS TO REMOVE DUPLICATES
-	const canAppendHead = useRef<boolean>(true)
-
+	// Here, we ASYNCHRONOUSLY preload images to avoid flickering in
+	// the carousel.
 	useEffect(() => {
-		if (canAppendHead.current) {
-			// Here, we ASYNCHRONOUSLY preload images to avoid flickering in
-			// the carousel.
-			// IN DEV MODE ONLY: will create duplicate nodes due to React.StrictMode's policy.
-			// The duplicates can be safely ignored.
-			for (const { url } of images) {
-				let imagePreload = document.createElement("link")
-				imagePreload.rel = "preload"
-				imagePreload.href = url
-				imagePreload.as = "image"
-
-				document.head.appendChild(imagePreload)
-			}
-
-			canAppendHead.current = false
-		}
-	}, [])
+		preloadImages(images.map(img => img.url))
+	}, [images])
 
 	return (
 		<div className="ImageCarousel__image-carousel landing-content-spacing">
-			<div role="img" className={`ImageCarousel__image-carousel-img ${switching ? "fade-out" : ""}`} style={{ backgroundImage: `url(${images[currentIdx].url})`, }}></div>
+			<div role="img" className={`ImageCarousel__image-carousel-img ${switching ? "ImageCarousel__fade-out" : ""}`} style={{ backgroundImage: `url(${images[currentIdx].url})`, }}></div>
 			{switching && (
-				<div role="img" className={`ImageCarousel__image-carousel-img ${switching ? "fade-in" : ""}`} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, left: 0, /*backgroundColor: "red",*/ }}></div>
+				<div role="img" className={`ImageCarousel__image-carousel-img ${switching ? "ImageCarousel__fade-in" : ""}`} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, left: 0, /*backgroundColor: "red",*/ }}></div>
 			)}
 
 			<div className="ImageCarousel__image-carousel-blurb important-left-items">
@@ -299,6 +315,46 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 const YEARS_OF_OPERATION = new Date().getFullYear() - 1960
 
+interface DialAction {
+	icon: JSX.Element,
+	name: string,
+	cb: () => void
+}
+
+class DialAction implements DialAction {
+	constructor(icon: JSX.Element, name: string) {
+		this.icon = icon
+		this.name = name
+		this.cb = undefined!
+	}
+
+	onClick(cb: () => void): this {
+		this.cb = cb
+		return this
+	}
+}
+
+const actions: readonly DialAction[] = [
+	new DialAction(<MenuBookIcon />, 'View Our Menu'),
+	new DialAction(<PersonPinIcon />, 'Learn About Us'),
+	new DialAction(<WatchIcon />, 'Check Our Hours'),
+	new DialAction(<KeyboardArrowUpIcon />, 'Back to Top')
+		.onClick(() => window.scrollTo({ top: 0, left: 0 }))
+]
+
+// const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+// 	'& .MuiBadge-badge': {
+// 		backgroundColor: 'red',
+// 		right: -3,
+// 		top: -7,
+// 		width: 12,
+// 		height: 12,
+// 		borderRadius: '50%',
+// 		padding: '4px 4px',
+// 		pointerEvents: 'none'
+// 	},
+// }))
+
 /**
  * @param jiggleHeader if true, apply a shake animation to the header.
  * @returns 
@@ -323,16 +379,38 @@ function Header(props: { jiggleHeader: boolean }) {
 	}, [header])
 
 	return (
-		<header ref={header} className={`Header__landing-header landing-content-spacing ${props.jiggleHeader ? 'Header__jiggle-header' : ''} ${!extended ? 'Header__hide-header' : ''}`}>
-			<div className='Header__header-logo Header__title important-left-items'>
-				Compari's
-			</div>
-			<nav id="header-items">
-				<HeaderButton content='Menu' emphasized />
-				<HeaderButton content='Our Story' />
-				<HeaderButton content='Hours' />
-			</nav>
-		</header>
+		<>
+			<header ref={header} className={`Header__landing-header landing-content-spacing ${props.jiggleHeader ? 'Header__jiggle-header' : ''} ${!extended ? 'Header__hide-header' : ''}`}>
+				<div className='Header__header-logo Header__title important-left-items'>
+					Compari's
+				</div>
+				<nav id="header-items">
+					<HeaderButton content='Menu' emphasized />
+					<HeaderButton content='Our Story' />
+					<HeaderButton content='Hours' />
+				</nav>
+			</header>
+
+			<SpeedDial
+				className="Header__dial"
+				hidden={extended}
+				ariaLabel="SpeedDial basic example"
+				icon={
+					// <StyledBadge variant={notify ? "dot" : 'standard'} overlap="circular" color="secondary">
+					<SpeedDialIcon className="Header__dial-icon" />
+					// </StyledBadge>
+				}
+			>
+				{actions.map((action) => (
+					<SpeedDialAction
+						key={action.name}
+						icon={action.icon}
+						tooltipTitle={action.name}
+						onClick={action.cb}
+					/>
+				))}
+			</SpeedDial>
+		</>
 	)
 }
 
@@ -419,31 +497,50 @@ function HeroSection() {
 function FooterSection() {
 	return (
 		<footer className="Header__footer">
-			Lorem Ipsum
+			<span id="copyright">{new Date().getFullYear()} Compari's Restaurant, Mateo Rodriguez Web Development</span>
 		</footer>
 	)
 }
 
 const PARALLAX_IMAGES: ParallaxImageItem[] = [
 	{
-		content: 'Lorem Ipsum Dolor Sit Amet',
+		content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
 		title: 'This is a title!',
 		url: pizza
 	},
 	{
-		content: 'woo back baby',
-		title: 'Titulo número dos chamaquita',
+		content: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
+		title: 'Title #2',
 		url: wine
 	}
 ]
 
 export default function Landing() {
+	const greeting = useRef<HTMLDivElement>(null)
+
+	const [visible, setVisible] = useState(false)
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(([entry]) => {
+			// setVisible(entry.isIntersecting)
+			if (!visible && entry.isIntersecting) setVisible(true)
+		}, { root: null, rootMargin: '0px', threshold: 0.1 })
+
+		const copy = greeting.current // required per the rules of useEffect with DOM elements.
+
+		if (copy) observer.observe(copy)
+
+		return () => {
+			if (copy) observer.unobserve(copy)
+		}
+	}, [greeting, visible])
+
 	return (
 		<main className="landing">
 			<HeroSection />
 			<HeroTransition />
 			<ParallaxImagesSection items={PARALLAX_IMAGES} />
-			<div id="visit-us" className="Header__title">
+			<div ref={greeting} id="visit-us" className={`Header__title ${visible ? 'Landing__fade-in' : ''}`}>
 				Visit us Today!
 			</div>
 			<FooterSection />
