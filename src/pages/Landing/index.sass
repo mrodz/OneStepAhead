@@ -32,6 +32,7 @@ $logo-and-welcome-width: 20%
 		display: flex
 
 .important-left-items
+	vertical-align: middle
 	width: $logo-and-welcome-width
 	padding: 1rem
 
@@ -66,6 +67,12 @@ $logo-and-welcome-width: 20%
 
 	text-transform: uppercase
 	letter-spacing: 10px
+
+	display: flex
+	align-items: center
+	justify-content: center
+	// margin-top: auto
+	// margin-bottom: auto
 
 	color: $content-bg
 
@@ -105,9 +112,6 @@ $logo-and-welcome-width: 20%
 
 	background-color: $logo-bg
 	color: $content-bg
-
-	display: flex
-	justify-content: center
 
 	& > *:not(:last-child)::after
 		content: ''

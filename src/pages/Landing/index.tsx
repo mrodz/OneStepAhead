@@ -17,7 +17,7 @@ import Typography from '@mui/material/Typography'
 import SpeedDial from '@mui/material/SpeedDial'
 import SpeedDialAction from '@mui/material/SpeedDialAction'
 import SpeedDialIcon from '@mui/material/SpeedDialIcon'
-
+import useMediaQuery from '@mui/material/useMediaQuery'
 
 import ParallaxImageSplit, { ParallaxImageTextSection } from './ParallaxImageSplit'
 
@@ -26,8 +26,9 @@ import wine from './wine.jpg'
 import parm from './parm.jpg'
 import pasta from './pasta.jpg'
 
-import './index.sass'
 import styles from './index.sass'
+import './index.sass'
+import './media.sass'
 // import { Badge, BadgeProps, styled } from '@mui/material'
 
 interface LocationBarProps {
@@ -360,6 +361,7 @@ const actions: readonly DialAction[] = [
  * @returns 
  */
 function Header(props: { jiggleHeader: boolean }) {
+	const mobile = useMediaQuery('(min-width:)')
 	const header = useRef<HTMLDivElement>(null)
 
 	const [extended, setExtended] = useState(true)
@@ -381,9 +383,9 @@ function Header(props: { jiggleHeader: boolean }) {
 	return (
 		<>
 			<header ref={header} className={`Header__landing-header landing-content-spacing ${props.jiggleHeader ? 'Header__jiggle-header' : ''} ${!extended ? 'Header__hide-header' : ''}`}>
-				<div className='Header__header-logo Header__title important-left-items'>
+				<span className='Header__header-logo Header__title important-left-items'>
 					Compari's
-				</div>
+				</span>
 				<nav id="header-items">
 					<HeaderButton content='Menu' emphasized />
 					<HeaderButton content='Our Story' />
@@ -498,6 +500,9 @@ function FooterSection() {
 	return (
 		<footer className="Header__footer">
 			<span id="copyright">{new Date().getFullYear()} Compari's Restaurant, Mateo Rodriguez Web Development</span>
+			<span>
+
+			</span>
 		</footer>
 	)
 }
