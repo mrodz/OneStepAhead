@@ -9,6 +9,7 @@ import LocalDiningIcon from '@mui/icons-material/LocalDining'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import PersonPinIcon from '@mui/icons-material/PersonPin'
 import WatchIcon from '@mui/icons-material/Watch'
+import MenuIcon from '@mui/icons-material/Menu'
 
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
@@ -29,6 +30,8 @@ import pasta from './pasta.jpg'
 import styles from './index.sass'
 import './index.sass'
 import './media.sass'
+import { SwipeableDrawer } from '@mui/material'
+import useMobile from '../../hooks/useMobile'
 // import { Badge, BadgeProps, styled } from '@mui/material'
 
 interface LocationBarProps {
@@ -58,8 +61,10 @@ function LocationBar({ signal }: LocationBarProps) {
 
 	return (
 		<div className="LocationBar__location-bar" ref={header}>
-			5490 W Centinela Ave, Westchester, CA 90045
-			<Button sx={{ padding: 0 }} variant='text' href="tel:310-670-8122">
+			<span>
+				5490 W Centinela Ave, Westchester, CA 90045
+			</span>
+			<Button variant='text' href="tel:310-670-8122">
 				<Phone /> (310) 670-8122
 			</Button>
 		</div >
@@ -343,28 +348,48 @@ const actions: readonly DialAction[] = [
 		.onClick(() => window.scrollTo({ top: 0, left: 0 }))
 ]
 
-// const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-// 	'& .MuiBadge-badge': {
-// 		backgroundColor: 'red',
-// 		right: -3,
-// 		top: -7,
-// 		width: 12,
-// 		height: 12,
-// 		borderRadius: '50%',
-// 		padding: '4px 4px',
-// 		pointerEvents: 'none'
-// 	},
-// }))
+function HeaderNav() {
+	const useHamburger = useMediaQuery('(max-width: 700px)')
+
+	const nav_items = <nav id="header-items">
+		<HeaderButton content='Menu' emphasized />
+		<HeaderButton content='Our Story' />
+		<HeaderButton content='Hours' />
+	</nav>
+
+	if (useHamburger) {
+		const Drawer = () => {
+			const [open, setOpen] = useState(false)
+			const isMobile = useMobile()
+
+			return (
+				<>
+					<SwipeableDrawer anchor='right' open={open} onClose={() => setOpen(false)} onOpen={() => setOpen(true)}>
+						{nav_items}
+					</SwipeableDrawer >
+					<IconButton sx={{ color: isMobile ? 'white' : 'unset', marginLeft: 'auto', mr: '12px' }} onClick={() => setOpen(state => !state)}>
+						<MenuIcon />
+					</IconButton>
+				</>
+			)
+		}
+
+		return (
+			<Drawer />
+		)
+	}
+
+	return nav_items
+}
 
 /**
  * @param jiggleHeader if true, apply a shake animation to the header.
  * @returns 
  */
 function Header(props: { jiggleHeader: boolean }) {
-	const mobile = useMediaQuery('(min-width:)')
 	const header = useRef<HTMLDivElement>(null)
-
 	const [extended, setExtended] = useState(true)
+	const isMobile = useMobile()
 
 	useEffect(() => {
 		const observer = new IntersectionObserver(([entry]) => {
@@ -382,21 +407,17 @@ function Header(props: { jiggleHeader: boolean }) {
 
 	return (
 		<>
-			<header ref={header} className={`Header__landing-header landing-content-spacing ${props.jiggleHeader ? 'Header__jiggle-header' : ''} ${!extended ? 'Header__hide-header' : ''}`}>
+			<header ref={header} className={`Header__landing-header landing-content-spacing ${props.jiggleHeader ? 'Header__jiggle-header' : ''} ${!extended && !isMobile ? 'Header__hide-header' : ''}`}>
 				<span className='Header__header-logo Header__title important-left-items'>
 					Compari's
 				</span>
-				<nav id="header-items">
-					<HeaderButton content='Menu' emphasized />
-					<HeaderButton content='Our Story' />
-					<HeaderButton content='Hours' />
-				</nav>
+				<HeaderNav />
 			</header>
 
-			<SpeedDial
+			{!isMobile && <SpeedDial
 				className="Header__dial"
 				hidden={extended}
-				ariaLabel="SpeedDial basic example"
+				ariaLabel="Menu"
 				icon={
 					// <StyledBadge variant={notify ? "dot" : 'standard'} overlap="circular" color="secondary">
 					<SpeedDialIcon className="Header__dial-icon" />
@@ -411,7 +432,7 @@ function Header(props: { jiggleHeader: boolean }) {
 						onClick={action.cb}
 					/>
 				))}
-			</SpeedDial>
+			</SpeedDial>}
 		</>
 	)
 }

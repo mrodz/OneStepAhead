@@ -24,3 +24,35 @@
 
 	.important-left-items
 		width: calc($logo-and-welcome-width*2)
+
+	.LocationBar__location-bar
+		padding: 5px
+
+		& > span
+			display: none
+
+@media screen and (max-width: 500px)
+	.important-left-items
+		width: calc($logo-and-welcome-width*2.5)
+
+@media screen and (max-width: 400px)
+	.Header__landing-header
+		width: 100%
+		background-color: $logo-bg
+		margin: 0
+		top: 0
+		position: fixed
+
+	.LocationBar__location-bar
+		display: none
+
+	.important-left-items
+		width: 100%
+
+@media screen and (max-width: 280px)
+	.Header__landing-header
+		font-size: 80%
+
+@media screen and (max-width: 250px)
+	.Header__landing-header
+		font-size: 50%
