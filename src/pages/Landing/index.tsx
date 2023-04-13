@@ -26,13 +26,14 @@ import pizza from './pizza.webp'
 import wine from './wine.jpg'
 import parm from './parm.jpg'
 import pasta from './pasta.jpg'
+import chocolate from './chocolate.jpg'
+import mobile from './mobile.jpg'
 
 import styles from './index.sass'
 import './index.sass'
 import './media.sass'
 import { SwipeableDrawer } from '@mui/material'
 import useMobile from '../../hooks/useMobile'
-// import { Badge, BadgeProps, styled } from '@mui/material'
 
 interface LocationBarProps {
 	signal?: (arg: boolean) => void
@@ -133,6 +134,10 @@ const IMAGES: ImageCarouselImage[] = [
 	{
 		url: parm,
 		description: 'Check out our fresh cheese'
+	},
+	{
+		url: chocolate,
+		description: 'Size of an iPhone landscape photo'
 	}
 ]
 
@@ -277,9 +282,9 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 
 	return (
 		<div className="ImageCarousel__image-carousel landing-content-spacing">
-			<div role="img" className={`ImageCarousel__image-carousel-img ${switching ? "ImageCarousel__fade-out" : ""}`} style={{ backgroundImage: `url(${images[currentIdx].url})`, }}></div>
+			<div role="img" className={`div-as-img ${switching ? "ImageCarousel__fade-out" : ""}`} style={{ backgroundImage: `url(${images[currentIdx].url})`, }}></div>
 			{switching && (
-				<div role="img" className={`ImageCarousel__image-carousel-img ${switching ? "ImageCarousel__fade-in" : ""}`} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, left: 0, /*backgroundColor: "red",*/ }}></div>
+				<div role="img" className={`div-as-img ${switching ? "ImageCarousel__fade-in" : ""}`} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, left: 0 }}></div>
 			)}
 
 			<div className="ImageCarousel__image-carousel-blurb important-left-items">
@@ -408,20 +413,21 @@ function Header(props: { jiggleHeader: boolean }) {
 	return (
 		<>
 			<header ref={header} className={`Header__landing-header landing-content-spacing ${props.jiggleHeader ? 'Header__jiggle-header' : ''} ${!extended && !isMobile ? 'Header__hide-header' : ''}`}>
-				<span className='Header__header-logo Header__title important-left-items'>
+				<div className='Header__header-logo Header__title important-left-items'>
 					Compari's
-				</span>
-				<HeaderNav />
+				</div>
+				<div className="Header__nav-floater">
+					<HeaderNav />
+				</div>
+				{/* </div> */}
 			</header>
 
 			{!isMobile && <SpeedDial
 				className="Header__dial"
 				hidden={extended}
-				ariaLabel="Menu"
+				ariaLabel="Navigable Menu"
 				icon={
-					// <StyledBadge variant={notify ? "dot" : 'standard'} overlap="circular" color="secondary">
 					<SpeedDialIcon className="Header__dial-icon" />
-					// </StyledBadge>
 				}
 			>
 				{actions.map((action) => (
@@ -501,6 +507,19 @@ function HeroTransition() {
 	)
 }
 
+function MobileHero() {
+	return (
+		<div className="MobileHero__main">
+			<div className='mobile-focus-image'>
+				<div role="img" className='div-as-img' style={{ backgroundImage: `url(${mobile})`, filter: 'blur(4px)' }}></div>
+			</div>
+			<div className='mobile-focus-text'>
+				Eat
+			</div>
+		</div>
+	)
+}
+
 function HeroSection() {
 	const [jiggle, setJiggle] = useState(false)
 
@@ -508,11 +527,15 @@ function HeroSection() {
 		setJiggle(!atTop)
 	}, [])
 
+	const isMobile = useMobile();
+
+	const focus = isMobile ? <MobileHero /> : <ImageCarousel images={IMAGES} />
+
 	return (
 		<section id="hero">
 			<LocationBar signal={cb} />
 			<Header jiggleHeader={jiggle} />
-			<ImageCarousel images={IMAGES} />
+			{focus}
 		</section>
 	)
 }
@@ -565,6 +588,8 @@ export default function Landing() {
 		<main className="landing">
 			<HeroSection />
 			<HeroTransition />
+
+
 			<ParallaxImagesSection items={PARALLAX_IMAGES} />
 			<div ref={greeting} id="visit-us" className={`Header__title ${visible ? 'Landing__fade-in' : ''}`}>
 				Visit us Today!
