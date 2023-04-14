@@ -15,6 +15,10 @@
 	.important-left-items
 		width: calc($logo-and-welcome-width*1.7)
 
+@media screen and (max-width: 800px)
+	.important-left-items
+		width: calc($logo-and-welcome-width*1.9)
+
 @media screen and (max-width: 700px)
 	#header-items 
 		font-size: 100% !important
@@ -31,6 +35,9 @@
 		& > span
 			display: none
 
+	.landing-content-spacing
+		margin: 1rem
+
 @media screen and (max-width: 500px)
 	.important-left-items
 		width: calc($logo-and-welcome-width*2.5)
@@ -44,7 +51,9 @@
 		top: 0
 		position: fixed
 
+
 	.Header__header-logo
+		justify-content: left
 		box-shadow: 0 10px 10px 0 #2e282863
 
 
@@ -60,4 +69,4 @@
 
 @media screen and (max-width: 250px)
 	.Header__landing-header
-		font-size: 50%
+		font-size: 70%

@@ -1,6 +1,6 @@
 @import '../../App.sass'
 
-$backdrop-red: #f833214f
+$backdrop-red: #fab5a3
 $content-bg: #fff
 $logo-bg: #475a3e
 $carousel-delay: 500
@@ -82,8 +82,6 @@ $logo-and-welcome-width: 20%
 	display: flex
 	align-items: center
 	justify-content: center
-	// margin-top: auto
-	// margin-bottom: auto
 
 	color: $content-bg
 
@@ -194,7 +192,7 @@ $logo-and-welcome-width: 20%
 	font-size: 48pt
 	transition: opacity .5s
 	opacity: .5
-
+	
 	&[data-on]
 		opacity: 1
 
@@ -242,6 +240,10 @@ main.landing
 	grid-template-rows: 2rem 2rem 2rem 1fr
 
 	& > svg
+		font-size: 0 // to remove SVG gaps
+
+		box-sizing: border-box
+		// border: solid red 5px
 		width: 100%
 		height: 100%
 
@@ -281,6 +283,13 @@ main.landing
 	padding-left: 3rem
 	padding-right: 3rem
 
+.TwirlDivider
+	text-align: center
+	color: white
+	height: 20px
+	margin-top: 10px
+	margin-bottom: 10px
+
 section#hero
 	display: flex
 	flex-direction: column
@@ -294,19 +303,40 @@ section#hero
 	margin-bottom: 1rem
 	position: relative
 
-.mobile-focus-image
+.MobileHero__focus-image
 	position: absolute
 	width: 90%
 	height: 100%
 
 	left: 5%
 	right: 5%
-	clip-path: polygon(0% 15%, 15% 15%, 15% 0%, 85% 0%, 85% 15%, 100% 15%, 100% 85%, 85% 85%, 85% 100%, 15% 100%, 15% 85%, 0% 85%)
+	z-index: 1
 
-.mobile-focus-text
+.MobileHero__focus-text
+	position: absolute
+
+	display: flex
+	flex-direction: column
+
+	height: 100%
+	align-content: center
+
 	color: white
-	
 	font-size: 24pt
+
+	z-index: 2
+
+	left: 50px
+	right: 50px
+	margin-top: 20px
+	// margin-right: 50px
+
+#mobile-greeting
+	border: solid #a03636 5px
+	text-align: center
+	font-weight: bold
+	display: flex
+	flex-direction: column
 
 section#theory
 	position: relative

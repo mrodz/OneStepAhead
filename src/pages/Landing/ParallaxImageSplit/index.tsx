@@ -75,14 +75,14 @@ export function ParallaxImageTextSection(props: ParallaxImageTextSectionProps) {
 	const components = [
 		(
 			<div className="ParallaxImageTextSection__first-description" key={0}>
-				<div>
-					<h1>
+				<article>
+					<h2>
 						{props.title}
-					</h1>
-					<section className="ParallaxImageTextSection__text-content">
+					</h2>
+					<p className="ParallaxImageTextSection__text-content">
 						{props.content}
-					</section>
-				</div>
+					</p>
+				</article>
 			</div>
 		),
 		(
