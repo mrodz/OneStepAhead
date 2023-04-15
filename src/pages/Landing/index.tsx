@@ -178,7 +178,7 @@ function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 		const image = <ParallaxImageSplit fileName={url} alt={title} leading={i % 2 === 0 ? 'L' : 'R'} />
 
 		result.push(
-			<ParallaxImageTextSection key={i} title={title} content={content} image={image} even={i % 2 === 0} />
+			<ParallaxImageTextSection key={i} title={title} content={content} image={image} />
 		)
 	}
 

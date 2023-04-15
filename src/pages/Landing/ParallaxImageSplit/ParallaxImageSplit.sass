@@ -3,8 +3,12 @@
 	grid-template-columns: 1fr 2fr
 	overflow: hidden
 
-	&[data-even]
+	&:nth-child(odd) 
 		grid-template-columns: 2fr 1fr
+		
+		& > .ParallaxImageTextSection__text-section-image
+			grid-column-start: 1
+			grid-row-start: 1
 
 	&>.ParallaxImageTextSection__first-description
 		background-color: #fff

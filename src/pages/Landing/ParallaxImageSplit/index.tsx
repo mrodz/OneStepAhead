@@ -1,7 +1,6 @@
 import React, { useState, FC } from 'react'
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax'
 import './ParallaxImageSplit.sass'
-import { useMobile } from '../../../hooks/useSizes'
 
 /**
  * Denotes which half of the image you're referring to: L(eft) or R(ight).
@@ -65,7 +64,6 @@ interface ParallaxImageSplitProps {
 }
 
 interface ParallaxImageTextSectionProps {
-	even?: boolean,
 	image: React.ReactElement,
 	title: string,
 	content: string,
@@ -95,13 +93,8 @@ export function ParallaxImageTextSection(props: ParallaxImageTextSectionProps) {
 		)
 	]
 
-	// const mobile = useMobile()
-
-	if (props?.even === false)
-		components.reverse()
-
 	return (
-		<div className="ParallaxImageTextSection" {...!props?.even && { "data-even": true }}>
+		<div className="ParallaxImageTextSection">
 			{components}
 		</div>
 	)
