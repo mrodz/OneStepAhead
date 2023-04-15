@@ -1,6 +1,7 @@
 import React, { useState, FC } from 'react'
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax'
 import './ParallaxImageSplit.sass'
+import { useMobile } from '../../../hooks/useSizes'
 
 /**
  * Denotes which half of the image you're referring to: L(eft) or R(ight).
@@ -94,21 +95,14 @@ export function ParallaxImageTextSection(props: ParallaxImageTextSectionProps) {
 		)
 	]
 
-	// let dim = useContext(AppDimensionContext)
-	let fin: React.ReactElement[] = [...components]
+	// const mobile = useMobile()
 
-	// if the device is not mobile, select every "even" element
-	// and reverse the order (to fit with the grid columns).
-	const mobile = false // dim.width < styles.switchToMobileView
-
-	if (props?.even === false && !mobile) {
-		fin[0] = components[1]
-		fin[1] = components[0]
-	}
+	if (props?.even === false)
+		components.reverse()
 
 	return (
-		<div className="ParallaxImageTextSection__parallax-image-text-section" {...!props?.even && { "data-even": true }}>
-			{fin}
+		<div className="ParallaxImageTextSection" {...!props?.even && { "data-even": true }}>
+			{components}
 		</div>
 	)
 }
@@ -231,15 +225,13 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 	return (
 		<>
 			<ParallaxProvider>
-				<div className={'ParallaxImageSplit__parallax-image-wrapper-1 ' + (props?.className ?? '')} data-parallax-image-split>
-					<div className='ParallaxImageSplit__parallax-image-wrapper'>
-						<Parallax speed={speed(leading)}>
-							<img data-fade-first className='ParallaxImageSplit__parallax-image' draggable="false" src={leftProduct} loading='lazy' alt={props?.alt ? prefixAlt('left half, ') : ''} />
-						</Parallax>
-						<Parallax speed={speed(!leading)}>
-							<img data-fade-second className='ParallaxImageSplit__parallax-image' draggable="false" src={rightProduct} loading='lazy' alt={props?.alt ? prefixAlt('right half, ') : ''} />
-						</Parallax>
-					</div>
+				<div className='ParallaxImageSplit__parallax-image-wrapper'>
+					<Parallax speed={speed(leading)}>
+						<img style={{ objectFit: 'cover', objectPosition: 'right' }} data-fade-first className='ParallaxImageSplit__parallax-image' draggable="false" src={leftProduct} loading='lazy' alt={props?.alt ? prefixAlt('left half, ') : ''} />
+					</Parallax>
+					<Parallax speed={speed(!leading)}>
+						<img style={{ objectFit: 'cover', objectPosition: 'left' }} data-fade-second className='ParallaxImageSplit__parallax-image' draggable="false" src={rightProduct} loading='lazy' alt={props?.alt ? prefixAlt('right half, ') : ''} />
+					</Parallax>
 				</div>
 			</ParallaxProvider>
 		</>

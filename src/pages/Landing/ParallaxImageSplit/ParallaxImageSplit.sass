@@ -1,4 +1,4 @@
-.ParallaxImageTextSection__parallax-image-text-section
+.ParallaxImageTextSection
 	display: grid
 	grid-template-columns: 1fr 2fr
 	overflow: hidden
@@ -22,7 +22,10 @@
 	flex-direction: row
 	overflow: hidden
 	justify-content: center
+
+	height: 100%
 	width: 100%
+
 	margin: 0
 
 	& > div
@@ -41,9 +44,6 @@
 
 		&[data-fade-second]
 			animation: fade-in-parallax-image 3s .3s forwards
-
-.ParallaxImageSplit__parallax-image-wrapper-1
-	width: 100%
 
 .ParallaxImageTextSection__text-section-image
 	display: flex
