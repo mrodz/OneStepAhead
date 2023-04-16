@@ -50,7 +50,7 @@ function LocationBar({ signal }: LocationBarProps) {
 	useEffect(() => {
 		const observer = new IntersectionObserver(([entry]) => {
 			signal?.(entry.isIntersecting)
-		}, { root: null, rootMargin: '0px', threshold: 0.01 })
+		}, { root: null, rootMargin: '0px', threshold: 1.0 })
 
 		const copy = header.current // required per the rules of useEffect with DOM elements.
 
@@ -169,18 +169,13 @@ const ItalySVG = (
 )
 
 function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
-	let result = new Array(items.length)
-	const mobile = useMobile()
-
-	for (let i = 0; i < items.length; i++) {
-		const { url, title, content } = items[i]
-
+	const result = items.map(({ url, title, content }, i) => {
 		const image = <ParallaxImageSplit fileName={url} alt={title} leading={i % 2 === 0 ? 'L' : 'R'} />
 
-		result.push(
+		return (
 			<ParallaxImageTextSection key={i} title={title} content={content} image={image} />
 		)
-	}
+	})
 
 	return (
 		<section id="parallax-images" className="landing-content-spacing">
@@ -189,7 +184,7 @@ function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 			</div>
 
 			<div className="single-cell ParallaxImagesSection__bg">
-				{!mobile && ItalySVG}
+				{ItalySVG}
 			</div>
 		</section>
 	)
@@ -330,7 +325,8 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 	)
 }
 
-const YEARS_OF_OPERATION = new Date().getFullYear() - 1960
+const FOUNDED = 1960
+const YEARS_OF_OPERATION = new Date().getFullYear() - FOUNDED
 
 interface DialAction {
 	icon: JSX.Element,
@@ -418,7 +414,7 @@ function Header(props: { jiggleHeader: boolean }) {
 
 	return (
 		<>
-			<header ref={header} className={`Header__landing-header landing-content-spacing ${props.jiggleHeader ? 'Header__jiggle-header' : ''} ${!extended && !isMobile ? 'Header__hide-header' : ''}`}>
+			<header ref={header} className={`Header__landing-header landing-content-spacing ${!extended && !isMobile ? 'Header__hide-header' : ''}`}>
 				<div className='Header__header-logo Header__title important-left-items'>
 					Compari's
 				</div>
@@ -514,14 +510,14 @@ function HeroTransition() {
 }
 
 const TwirlDivider = memo(() => (
-	<img src={twirlDivider} className='TwirlDivider'></img>
+	<img alt="" src={twirlDivider} className='TwirlDivider'></img>
 ))
 
 function MobileHero() {
 	return (
 		<div className="MobileHero__main">
 			<div className='MobileHero__focus-image'>
-				<div role="img" className='div-as-img' style={{ borderRadius: '20px', backgroundImage: `url(${mobile})`, filter: 'blur(4px)', backgroundColor: '#0000001F', backgroundBlendMode: 'multiply' }}></div>
+				<div role="img" className='div-as-img' style={{ backgroundImage: `url(${mobile})` }}></div>
 			</div>
 			<div className='MobileHero__focus-text'>
 				<h1 id="mobile-greeting">
@@ -534,10 +530,14 @@ function MobileHero() {
 					</span>
 				</h1>
 
-				<div style={{ flexGrow: 1 }}>
-					<Button sx={{ width: '100%' }} color="secondary" variant="contained">Menu</Button>
-					<Button sx={{ width: '100%' }} color="secondary" variant="contained">Hours</Button>
-					<Button sx={{ width: '100%' }} color="secondary" variant="contained">Call Us</Button>
+				<nav id="mobile-hero-nav">
+					<Button color="secondary" variant="contained">Menu</Button>
+					<Button color="secondary" variant="contained">Hours</Button>
+					<Button color="secondary" variant="contained">Call Us</Button>
+				</nav>
+
+				<div id="mobile-years-active">
+					Serving our community since {FOUNDED}
 				</div>
 			</div>
 		</div>

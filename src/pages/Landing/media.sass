@@ -43,10 +43,14 @@
 		width: calc($logo-and-welcome-width*2.5)
 
 // Switch to mobile
-@media screen and (max-width: 400px)
+@media screen and (max-width: 400px), (orientation: portrait) 
 	.ParallaxImageTextSection
 		grid-template-columns: 1fr  !important
 		grid-template-rows: 1fr 1fr !important
+
+	.ParallaxImageTextSection__text-section-image
+		grid-column-start: 1
+		grid-row-start: 1
 			
 	.Header__landing-header
 		width: 100%
@@ -60,7 +64,9 @@
 		justify-content: left
 		box-shadow: 0 10px 10px 0 #2e282863
 
-
+	.ParallaxImagesSection__bg > svg
+		display: none
+	
 	.LocationBar__location-bar
 		display: none
 

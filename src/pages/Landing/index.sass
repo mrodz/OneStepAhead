@@ -294,7 +294,7 @@ section#hero
 	display: flex
 	flex-direction: column
 
-	height: 100vh
+	height: max(100vh, 450px)
 
 .MobileHero__main
 	height: 100%
@@ -311,6 +311,12 @@ section#hero
 	left: 5%
 	right: 5%
 	z-index: 1
+
+	& > [role="img"]
+		border-radius: 20px
+		filter: blur(6px)
+		background-color: #0000001F
+		background-blend-mode: multiply
 
 .MobileHero__focus-text
 	position: absolute
@@ -329,14 +335,41 @@ section#hero
 	left: 50px
 	right: 50px
 	margin-top: 20px
-	// margin-right: 50px
 
 #mobile-greeting
+	margin: 0
+	padding-top: 20px
+	padding-bottom: 20px
+
 	border: solid #a03636 5px
+
 	text-align: center
 	font-weight: bold
+
 	display: flex
 	flex-direction: column
+
+	& > span
+		text-shadow: 1px 1px 2px white
+
+#mobile-hero-nav
+	flex-grow: 1
+
+	display: flex
+	flex-direction: column
+	align-items: center
+	justify-content: center
+
+	& > button
+		width: 100%
+
+		&:not(:last-child)
+			margin-bottom: 10px
+
+
+#mobile-years-active
+	margin-bottom: 5rem
+	text-align: center
 
 section#theory
 	position: relative

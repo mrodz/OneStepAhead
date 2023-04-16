@@ -1,6 +1,7 @@
 import React, { useState, FC } from 'react'
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax'
 import './ParallaxImageSplit.sass'
+import { useMobile } from '../../../hooks/useSizes'
 
 /**
  * Denotes which half of the image you're referring to: L(eft) or R(ight).
@@ -34,31 +35,6 @@ interface ParallaxImageSplitProps {
 	 * Defaults to the Left Side when constructing a .
 	 */
 	leading?: dir,
-
-	/**
-	 * Set the speeds at which each half will move.
-	 */
-	speeds?: {
-		/**
-		 * Callback function to get the speed object.
-		 * You can use the dimensions supplied to supply
-		 * different speeds depending on the width/height
-		 * of the device.
-		 * 
-		 */
-		getSpeeds: (dim: DocumentDimensions) => {
-			/**
-			 * Denoted by the leading property.
-			 * Defaults to +100
-			 */
-			leading: number,
-			/**
-			 * The opposite of leading.
-			 * Defaults to -100
-			 */
-			lagging: number
-		}
-	},
 	className?: string,
 	onLoad?: () => void,
 }
@@ -202,18 +178,18 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 
 	const leading = (props?.leading ?? 'L') === 'L'
 
-	const mobile = false //dim.width < styles.switchToMobileView
+	// const mobile = useMobile() //dim.width < styles.switchToMobileView
 
-	const speeds = props?.speeds?.getSpeeds({
-		height: document.body.clientHeight,
-		width: document.body.clientWidth
-	}) ?? {
-		leading: !mobile ? +50 : +25,
-		lagging: !mobile ? -50 : -25
-	}
+	// const speeds = props?.speeds?.getSpeeds({
+	// 	height: document.body.clientHeight,
+	// 	width: document.body.clientWidth
+	// }) ?? {
+	// 	leading: !mobile ? +50 : +25,
+	// 	lagging: !mobile ? -50 : -25
+	// }
 
 	const prefixAlt = (prefix: string): string => Array.isArray(props.alt) ? props.alt[0] : prefix + props.alt
-	const speed = (l: boolean) => l ? speeds.leading : speeds.lagging
+	const speed = (l: boolean) => l ? +25 : -25
 
 	return (
 		<>
