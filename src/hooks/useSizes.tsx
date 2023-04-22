@@ -15,5 +15,5 @@ export function MobileProvider({ children }: PropsWithChildren) {
 }
 
 export function useMobile() {
-	return useContext(MobileContext) || window.matchMedia("(orientation: portrait)").matches
+	return useContext(MobileContext) //|| window.matchMedia("(orientation: portrait)").matches
 }

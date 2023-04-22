@@ -1,8 +1,6 @@
-@import '../../App.sass'
+@import '../../App'
+@import '../../index'
 
-$backdrop-red: #fab5a3
-$content-bg: #fff
-$logo-bg: #475a3e
 $carousel-delay: 500
 $logo-and-welcome-width: 20%
 
@@ -16,7 +14,7 @@ $logo-and-welcome-width: 20%
 	align-items: center
 	margin-top: 10px
 
-	background-color: $content-bg
+	background-color: $color-page
 	text-transform: uppercase
 	font-weight: bold
 	color: #807777
@@ -27,8 +25,9 @@ $logo-and-welcome-width: 20%
 
 	border-radius: 100vmax
 
+	& > span
+		margin-right: 10px
 	& > a
-		margin-left: 1rem
 		display: flex
 
 .important-left-items
@@ -59,8 +58,8 @@ $logo-and-welcome-width: 20%
 	flex-direction: row
 	position: sticky
 
-	background-color: $content-bg
-	border: solid $logo-bg 3px
+	background-color: $color-page
+	border: solid $color-main 3px
 
 	margin-top: 1rem
 
@@ -74,7 +73,7 @@ $logo-and-welcome-width: 20%
 	font-weight: bold
 
 .Header__header-logo
-	background-color: $logo-bg
+	background-color: $color-main
 
 	text-transform: uppercase
 	letter-spacing: 10px
@@ -83,7 +82,7 @@ $logo-and-welcome-width: 20%
 	align-items: center
 	justify-content: center
 
-	color: $content-bg
+	color: $color-page
 
 #header-items
 	flex-grow: 1
@@ -100,7 +99,7 @@ $logo-and-welcome-width: 20%
 	margin-top: 1rem
 	height: 100%
 	margin-bottom: 1rem
-	background-color: $content-bg
+	background-color: $color-page
 	box-sizing: border-box
 	position: relative
 
@@ -121,8 +120,8 @@ $logo-and-welcome-width: 20%
 
 	padding: 2rem
 
-	background-color: $logo-bg
-	color: $content-bg
+	background-color: $color-main
+	color: $color-page
 
 	& > *:not(:last-child)::after
 		content: ''
@@ -142,7 +141,7 @@ $logo-and-welcome-width: 20%
 	left: 0
 	bottom: 0
 
-	background-color: $content-bg
+	background-color: $color-page
 	box-shadow: inset -5px 5px 10px #937e7e63
 
 @keyframes fade-out
@@ -188,7 +187,7 @@ $logo-and-welcome-width: 20%
 	animation: hide-header 1s forwards
 
 .Dot__carousel-dot
-	color: $content-bg
+	color: $color-page
 	font-size: 48pt
 	transition: opacity .5s
 	opacity: .5
@@ -217,7 +216,7 @@ main.landing
 	min-height: 100%
 
 	background-color: #f7f2e6
-	background-image: linear-gradient(135deg, $backdrop-red 25%, transparent 25%), linear-gradient(225deg, $backdrop-red 25%, transparent 25%), linear-gradient(45deg, $backdrop-red 25%, transparent 25%), linear-gradient(315deg, $backdrop-red 25%, #f7f2e6 25%)
+	background-image: linear-gradient(135deg, $color-splash 25%, transparent 25%), linear-gradient(225deg, $color-splash 25%, transparent 25%), linear-gradient(45deg, $color-splash 25%, transparent 25%), linear-gradient(315deg, $color-splash 25%, #f7f2e6 25%)
 
 	$tile-width: max(2rem, 40px)
 
@@ -262,12 +261,11 @@ main.landing
 	align-items: center
 
 	& > svg
-		opacity: .2
 		width: 10%
 		height: 10%
 
 #theory-explanation
-	background-color: $content-bg
+	background-color: $color-page
 	// box-shadow: inset 0px 5px 10px #5042428a
 
 	width: 50%
@@ -294,7 +292,7 @@ section#hero
 	display: flex
 	flex-direction: column
 
-	height: max(100vh, 450px)
+	height: min(max(100vh, 450px), 700px)
 
 .MobileHero__main
 	height: 100%
@@ -366,8 +364,13 @@ section#hero
 		&:not(:last-child)
 			margin-bottom: 10px
 
+.drawer-text
+	padding: 0 50px
+	text-align: center
+	font-size: 24pt
 
 #mobile-years-active
+	font-size: 12pt
 	margin-bottom: 5rem
 	text-align: center
 
@@ -376,7 +379,7 @@ section#theory
 	display: flex
 	flex-direction: column
 
-	background-color: $content-bg
+	background-color: $color-page
 	margin-top: 2rem
 	margin-bottom: 3rem
 
@@ -385,8 +388,6 @@ section#parallax-images
 	max-width: 100%
 
 :export
-	colorMain: $logo-bg
-	colorBg: $content-bg
 	delay: $carousel-delay
 
 /////////////////////////////////

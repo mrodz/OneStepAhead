@@ -1,0 +1,53 @@
+$color-main: #475a3e
+$color-splash: #fab5a3
+$color-page: #fff
+	
+body,
+html,
+#root
+	height: 100%
+
+html
+	font-family: 'Montserrat', sans-serif
+	scroll-behavior: smooth
+
+body
+	margin: 0
+
+a
+	color: unset
+	text-decoration: none
+
+*
+	box-sizing: border-box
+
+/* width */
+::-webkit-scrollbar
+	width: 10px
+
+/* Track */
+::-webkit-scrollbar-track
+	width: 20px
+	background: $color-main
+
+/* Handle */
+::-webkit-scrollbar-thumb
+	background: #253525
+	border-radius: 100vmax
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover
+	background: #748573
+
+/* CSS reset for div */
+div
+	margin: 0
+	padding: 0
+	border: 0
+	font-size: 100%
+	font: inherit
+	vertical-align: baseline
+
+:export
+	COLOR_MAIN: $color-main,
+	COLOR_SPLASH: $color-splash
