@@ -539,9 +539,9 @@ function HeroTransition() {
 
 	return (
 		<section id="theory" className="landing-content-spacing">
-			<Typography fontFamily="Montserrat" sx={{ textAlign: 'center' }} fontStyle="italic" mt="2rem" mb=".5rem" fontSize="36pt">
+			<h2 id="theory-title">
 				Chi Mangia Bene, Vive Bene
-			</Typography>
+			</h2>
 			<div style={{ display: 'grid' }}>
 				<Transition />
 				<div className="single-cell" id="theory-explanation">
@@ -675,7 +675,7 @@ export default function Landing() {
 
 			<ParallaxImagesSection items={PARALLAX_IMAGES} />
 			<div ref={greeting} id="visit-us" className={`Header__title ${visible ? 'Landing__fade-in' : ''}`}>
-				Visit us Today!
+				Visit Us Today!
 			</div>
 			<FooterSection />
 		</main>
