@@ -76,6 +76,8 @@ export function ParallaxImageTextSection(props: ParallaxImageTextSectionProps) {
 	)
 }
 
+const prefixAlt = (alt: string[] | string, prefix: string): string => prefix + (Array.isArray(alt) ? alt[0] : alt)
+
 /**
  * Component that accepts an image, splits it in half, and applies the 
  * parallax effect to each part. The final effect is one image whose halves,
@@ -145,6 +147,17 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 	const [leftProduct, setLeftProduct] = useState('')
 	const [rightProduct, setRightProduct] = useState('')
 
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+		return (
+			<img
+				style={{ objectFit: 'cover', objectPosition: 'center' }}
+				className='ParallaxImageSplit__parallax-image'
+				draggable="false" src={rightProduct}
+				loading='lazy'
+				alt={prefixAlt(props?.alt ?? '', '(reduced motion)')} />
+		)
+	}
+
 	let img = new Image()
 	img.src = props.fileName
 
@@ -156,7 +169,7 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 			canvas.height = img.height
 
 			// casting to get rid of typescript warnings.
-			const ctx = canvas.getContext('2d') as CanvasRenderingContext2D
+			const ctx: CanvasRenderingContext2D = canvas.getContext('2d')!
 
 			ctx.setTransform(1, 0, 0, 1, 0, 0)
 			ctx.imageSmoothingQuality = 'high'
@@ -178,17 +191,6 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 
 	const leading = (props?.leading ?? 'L') === 'L'
 
-	// const mobile = useMobile() //dim.width < styles.switchToMobileView
-
-	// const speeds = props?.speeds?.getSpeeds({
-	// 	height: document.body.clientHeight,
-	// 	width: document.body.clientWidth
-	// }) ?? {
-	// 	leading: !mobile ? +50 : +25,
-	// 	lagging: !mobile ? -50 : -25
-	// }
-
-	const prefixAlt = (prefix: string): string => Array.isArray(props.alt) ? props.alt[0] : prefix + props.alt
 	const speed = (l: boolean) => l ? +25 : -25
 
 	return (
@@ -196,10 +198,25 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 			<ParallaxProvider>
 				<div className='ParallaxImageSplit__parallax-image-wrapper'>
 					<Parallax speed={speed(leading)}>
-						<img style={{ objectFit: 'cover', objectPosition: 'right' }} data-fade-first className='ParallaxImageSplit__parallax-image' draggable="false" src={leftProduct} loading='lazy' alt={props?.alt ? prefixAlt('left half, ') : ''} />
+						<img
+							style={{ objectFit: 'cover', objectPosition: 'right' }}
+							data-fade-first className='ParallaxImageSplit__parallax-image'
+							draggable="false"
+							src={leftProduct}
+							loading='lazy'
+							alt={props?.alt ? prefixAlt(props.alt, 'left half, ') : ''}
+						/>
 					</Parallax>
 					<Parallax speed={speed(!leading)}>
-						<img style={{ objectFit: 'cover', objectPosition: 'left' }} data-fade-second className='ParallaxImageSplit__parallax-image' draggable="false" src={rightProduct} loading='lazy' alt={props?.alt ? prefixAlt('right half, ') : ''} />
+						<img
+							style={{ objectFit: 'cover', objectPosition: 'left' }}
+							data-fade-second
+							className='ParallaxImageSplit__parallax-image'
+							draggable="false"
+							src={rightProduct}
+							loading='lazy'
+							alt={props?.alt ? prefixAlt(props.alt, 'right half, ') : ''}
+						/>
 					</Parallax>
 				</div>
 			</ParallaxProvider>

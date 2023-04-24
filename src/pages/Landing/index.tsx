@@ -14,7 +14,6 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Avatar from '@mui/material/Avatar'
-import Typography from '@mui/material/Typography'
 import SpeedDial from '@mui/material/SpeedDial'
 import CloseIcon from '@mui/icons-material/Close';
 import SpeedDialAction from '@mui/material/SpeedDialAction'
@@ -43,6 +42,20 @@ interface LocationBarProps {
 	signal?: (arg: boolean) => void
 }
 
+interface PhoneLinkProps {
+	number: string,
+	text?: string,
+	color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
+}
+
+const PhoneLink: FC<PhoneLinkProps> = ({ number, text, color = 'inherit' }) => {
+	return (
+		<Button sx={{ whiteSpace: 'nowrap' }} color={color} variant='text' href={`tel:${number}`}>
+			<Phone /> {text ?? number}
+		</Button>
+	)
+}
+
 /**
  * @param signal a callback function, will fire when this comes into view.
  * @returns JSX
@@ -69,9 +82,7 @@ function LocationBar({ signal }: LocationBarProps) {
 			<span>
 				5490 W Centinela Ave, Westchester, CA 90045
 			</span>
-			<Button variant='text' href="tel:310-670-8122">
-				<Phone /> (310) 670-8122
-			</Button>
+			<PhoneLink number='310-670-8122' text='(310) 670-8122' color="primary" />
 		</div >
 	)
 }
@@ -195,7 +206,7 @@ function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 
 	return (
 		<section id="parallax-images" className="landing-content-spacing">
-			<div className="single-cell" style={{ zIndex: 2 }}>
+			<div className="single-cell" style={{ zIndex: 2, display: 'grid', gridTemplateRows: `repeat(${result.length}, 1fr)` }}>
 				{result}
 			</div>
 
@@ -635,12 +646,41 @@ function HeroSection() {
 
 function FooterSection() {
 	return (
-		<footer className="Header__footer">
-			<span id="copyright">{new Date().getFullYear()} Compari's Restaurant, Mateo Rodriguez Web Development</span>
-			<span>
+		<footer className="Landing__footer">
+			<div id="footer-location">
+				<div id="footer-location-title">Compari's</div>
+				<table id="footer-location-about-desktop" cellSpacing="0">
+					<tbody>
+						<tr>
+							<th>Find us at:</th>
+							<th>Call us at:</th>
+						</tr>
+						<tr>
+							<td>5490 W Centinela Ave, Westchester, CA 90045</td>
+							<td><PhoneLink number='310-670-8122' text='(310) 670-8122' /></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="footer-location-about-mobile">
+					<div>
+						5490 W Centinela Ave, Westchester, CA 90045
+					</div>
+					<PhoneLink number='310-670-8122' text='(310) 670-8122' />
+				</div>
 
-			</span>
-		</footer>
+				<div id="footer-location-quote">
+					&quot;&#9733;&#9733;&#9733;&#9733;&#9733;&quot; since {FOUNDED}
+				</div>
+			</div>
+			<div id="footer-credits">
+				<span id="copyright">
+					{new Date().getFullYear()} Mateo Rodriguez Web Development, All Rights Reserved.
+					For business inquiries and affordable tech solutions, contact us at <span style={{ whiteSpace: 'nowrap', fontSize: 'inherit' }}>+1 (310) 773-8797</span>.
+					Los Angeles, CA
+				</span>
+			</div>
+
+		</footer >
 	)
 }
 

@@ -7,6 +7,9 @@
 
 	#theory-title
 		font-size: 24pt
+	
+	#footer-credits
+		margin-right: 50px
 
 @media screen and (max-width: 1100px)
 	*
@@ -23,6 +26,12 @@
 @media screen and (max-width: 900px)
 	.important-left-items
 		width: calc($logo-and-welcome-width*1.7)
+
+	#footer-location-quote
+		display: none
+	
+	#footer-credits
+		font-size: 90%
 
 @media screen and (max-width: 800px)
 	.important-left-items
@@ -58,7 +67,22 @@
 	.landing-content-spacing
 		margin: 1rem
 
+	#footer-location-title
+		font-size: 20pt
+
 @media screen and (max-width: 500px)
+	.ParallaxImageTextSection
+		overflow: hidden
+		grid-template-columns: 1fr  !important
+		grid-template-rows: 1fr 1fr !important
+
+	.ParallaxImageTextSection__text-section-image
+		grid-column-start: 1
+		grid-row-start: 1
+
+	.ParallaxImagesSection__bg > svg
+		display: none
+
 	.important-left-items
 		width: calc($logo-and-welcome-width*2.5)
 
@@ -68,17 +92,38 @@
 	#theory-explanation
 		width: 80%
 
-// Switch to mobile
-@media screen and (max-width: 400px) //, (orientation: portrait) 
-	.ParallaxImageTextSection
-		overflow: hidden
-		grid-template-columns: 1fr  !important
-		grid-template-rows: 1fr 1fr !important
+	#footer-location
+		grid-template-columns: auto
 
-	.ParallaxImageTextSection__text-section-image
-		grid-column-start: 1
-		grid-row-start: 1
-			
+	#footer-location-title
+		width: 100%
+		height: min-content // for safari
+
+		display: block
+		padding-bottom: 5px
+
+		padding-right: 0
+
+		text-align: center
+		text-decoration: none
+		border-bottom: solid white 2px
+		font-size: 26pt
+
+	#footer-location-about-desktop
+		display: none
+	
+	#footer-location-about-mobile
+		display: flex
+		flex-direction: column
+		align-items: center
+		text-align: center
+
+		& > *
+			font-size: 18pt
+			margin-top: 30px
+
+// Switch to mobile
+@media screen and (max-width: 400px) //, (orientation: portrait) 			
 	.Header__landing-header
 		width: 100%
 		background-color: $color-main
@@ -86,14 +131,10 @@
 		top: 0
 		position: fixed
 
-
 	.Header__header-logo
 		justify-content: left
 		box-shadow: 0 10px 10px 0 #2e282863
 
-	.ParallaxImagesSection__bg > svg
-		display: none
-	
 	.LocationBar__location-bar
 		display: none
 
@@ -102,6 +143,10 @@
 
 	#theory-explanation
 		width: 90%
+
+	#footer-credits
+		margin-right: 0
+		text-align: center
 
 @media screen and (max-width: 280px)
 	.Header__landing-header
