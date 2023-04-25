@@ -9,6 +9,10 @@
 	background-color: white
 	border: solid #e4dede 15px
 	display: grid
+	grid-template-columns: 1fr auto
+
+	&[data-left]
+		grid-template-columns: auto 1fr
 
 .FounderBlurb__circles
 	pointer-events: none
@@ -19,13 +23,16 @@
 .FounderBlurb__image-section
 	display: grid
 
-	& > img
+	& img
+		width: 500px
+		height: 500px
+
+		margin: auto 0
+
 		grid-column: 1
 		grid-row: 1
 
 		border-radius: 50%
-		width: 500px
-		height: 500px
 
 		scale: 80%
 		transition: scale 150ms, rotate 200ms

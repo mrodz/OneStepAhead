@@ -1,0 +1,61 @@
+@media only screen and (max-width: 1200px)
+	.FounderBlurb__image-section img
+		width: 400px
+		height: 400px
+	.FounderBlurb__text-section
+		& p
+			font-size: 90%
+		& h2
+			font-size: 24pt
+
+@media only screen and (max-width: 800px)
+	// !important to get around the [left] attribute selection.
+	.FounderBlurb
+		grid-template-rows: auto auto !important
+		grid-template-columns: auto !important
+	
+	.FounderBlurb__image-section img
+		margin: 0 auto
+
+	.FounderBlurb__text-section
+		padding: 0 50px !important
+		& h2
+			text-align: center
+
+@media only screen and (max-width: 600px)
+	.FounderBlurb__image-section img
+		width: 300px
+		height: 300px
+
+	.Circle
+		font-size: 90% // controls the size of the circle
+
+@media only screen and (max-width: 400px)
+
+	.FounderBlurb__text-section
+		padding: 0 25px !important
+
+	.FounderBlurb__image-section img
+		width: 250px
+		height: 250px
+
+		transition: none
+
+		&:hover
+			scale: 80%
+			rotate: 0deg
+
+	.Circle
+		font-size: 70% // controls the size of the circle
+
+@media only screen and (max-width: 350px)
+	.FounderBlurb__image-section img
+		width: 175px
+		height: 175px
+	
+	.FounderBlurb__text-section
+		& h2
+			font-size: 20pt
+	
+	.Circle
+		font-size: 50% // controls the size of the circle
