@@ -1,0 +1,48 @@
+.Circle
+	position: absolute
+	display: block
+	border-radius: 50%
+	
+.FounderBlurb
+	overflow: hidden
+
+	background-color: white
+	border: solid #e4dede 15px
+	display: grid
+
+.FounderBlurb__circles
+	pointer-events: none
+	position: relative
+	grid-column: 1
+	grid-row: 1
+
+.FounderBlurb__image-section
+	display: grid
+
+	& > img
+		grid-column: 1
+		grid-row: 1
+
+		border-radius: 50%
+		width: 500px
+		height: 500px
+
+		scale: 80%
+		transition: scale 150ms, rotate 200ms
+
+		object-fit: cover
+
+		&:hover
+			rotate: 360deg
+			scale: 90%
+
+.FounderBlurb__text-section
+	padding-left: 30px
+
+	& h2
+		font-size: 36pt
+
+	& p
+		padding: 30px
+		border-radius: 10px
+		background-color: #e4dede

@@ -22,13 +22,14 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 import ParallaxImageSplit, { ParallaxImageTextSection } from './ParallaxImageSplit'
 
-import pizza from './pizza.webp'
-import wine from './wine.jpg'
-import parm from './parm.jpg'
-import pasta from './pasta.jpg'
-import chocolate from './chocolate.jpg'
-import mobile from './mobile.jpg'
-import twirlDivider from './twirl.svg'
+import pizza from './images/pizza.webp'
+import wine from './images/wine.jpg'
+import parm from './images/parm.jpg'
+import pasta from './images/pasta.jpg'
+import chocolate from './images/chocolate.jpg'
+import mobile from './images/mobile.jpg'
+import twirlDivider from './images/twirl.svg'
+import owner from './images/owner.webp'
 
 import GlobalStyles from '../../index.sass'
 import LandingStyles from './index.sass'
@@ -37,6 +38,7 @@ import './index.sass'
 import './media.sass'
 import { Divider, SwipeableDrawer } from '@mui/material'
 import { useMobile } from '../../hooks/useSizes'
+import FounderBlurb from './FounderBlurb'
 
 interface LocationBarProps {
 	signal?: (arg: boolean) => void
@@ -724,6 +726,11 @@ export default function Landing() {
 
 
 			<ParallaxImagesSection items={PARALLAX_IMAGES} />
+
+			<FounderBlurb left colors={[GlobalStyles.COLOR_MAIN, GlobalStyles.COLOR_SPLASH]} url={owner} title="Lorem Ipsum" className="landing-content-spacing landing-content-v-spacing">
+				Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fuga tenetur, esse veniam placeat asperiores deserunt voluptatibus tempora? Iure voluptatem magni cumque dolores ducimus voluptatibus explicabo tenetur tempora autem aut illum animi, hic ipsum eos veritatis nisi in facere architecto saepe obcaecati? Eligendi dolor aperiam velit nihil, impedit eum animi vitae quasi omnis, cupiditate aliquam sunt nostrum architecto porro ipsam magni adipisci natus fuga blanditiis! Dolor molestias, ab iusto aliquam, excepturi rerum veniam a similique beatae reprehenderit quisquam, dicta dolorum sunt quam? Obcaecati dicta, ab eius, quidem necessitatibus quia ducimus earum minima ratione ullam accusantium magni repudiandae sapiente quasi quaerat nam molestias! Unde quisquam fugiat dolorem vitae, quasi omnis officiis distinctio accusantium blanditiis aperiam eos dicta autem, veniam quae. Nam iste pariatur asperiores laboriosam reiciendis aut, vel accusamus nemo animi neque rerum, iusto officia, ab unde? Voluptas libero repellat voluptatibus quisquam. Praesentium dolor quo molestiae, beatae hic iure quam blanditiis, suscipit voluptatem itaque earum assumenda quidem optio sapiente, deleniti soluta! Eligendi, quae, deserunt nobis omnis soluta harum eveniet odit, minus iure adipisci obcaecati aut veniam commodi magnam eos corrupti illum nihil dolore id. Enim quasi repellendus, saepe repudiandae maxime, odio id eius quia reiciendis vero eveniet voluptatibus, recusandae impedit est?
+			</FounderBlurb>
+
 			<div ref={greeting} id="visit-us" className={`Header__title ${visible ? 'Landing__fade-in' : ''}`}>
 				Visit Us Today!
 			</div>

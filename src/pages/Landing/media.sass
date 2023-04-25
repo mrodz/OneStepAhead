@@ -70,7 +70,21 @@
 	#footer-location-title
 		font-size: 20pt
 
+@media screen and (max-width: 600px)
+	#footer-location-about-desktop 
+		& td, & th
+			padding: 0 15px
+
+		& td
+			font-size: 10pt
+
+	.Landing__footer
+		padding: 1rem
+
 @media screen and (max-width: 500px)
+	.Landing__footer
+		padding: 2rem
+		
 	.ParallaxImageTextSection
 		overflow: hidden
 		grid-template-columns: 1fr  !important
