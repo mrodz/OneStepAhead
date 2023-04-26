@@ -52,7 +52,7 @@ interface PhoneLinkProps {
 
 const PhoneLink: FC<PhoneLinkProps> = ({ number, text, color = 'inherit' }) => {
 	return (
-		<Button sx={{ whiteSpace: 'nowrap' }} color={color} variant='text' href={`tel:${number}`}>
+		<Button sx={{ whiteSpace: 'nowrap', fontSize: 'inherit' }} color={color} variant='text' href={`tel:${number}`}>
 			<Phone /> {text ?? number}
 		</Button>
 	)

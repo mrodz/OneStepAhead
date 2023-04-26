@@ -1,6 +1,55 @@
 @import './index'
 @import '../../index'
 
+@media screen and (min-width: 2500px)
+	#footer-location-title
+		font-size: 150%
+
+@media screen and (min-width: 1900px)
+	.Header__landing-header
+		font-size: 170%
+
+	.important-left-items
+		width: 26% 
+
+	#header-items button
+		font-size: 1.5rem
+		width: 12.5rem
+
+	.LocationBar__location-bar
+		font-size: 150%
+
+	.ImageCarousel__image-carousel-blurb
+		font-size: 200%
+
+	.ImageCarousel__image-carousel 
+		& .MuiAvatar-root, & button
+			border: solid lime
+			width: 70px
+			height: 70px
+		
+		& svg
+			width: 40px
+			height: 40px
+
+	#theory-explanation
+		width: 70%
+		font-size: 200%
+
+	.ParallaxImageTextSection
+		font-size: 170%	
+
+	#visit-us, .Dot__carousel-dot
+		font-size: 60pt
+
+	.Landing__footer
+		font-size: 200%
+
+@media screen and (min-width: 1900px), screen and (min-height: 1000px)
+	section#hero
+		height: 90vh
+	
+
 @media screen and (max-width: 1450px)
 	.important-left-items
 		width: calc($logo-and-welcome-width*1.3)
@@ -162,10 +211,28 @@
 		margin-right: 0
 		text-align: center
 
-@media screen and (max-width: 280px)
+@media screen and (max-width: 350px)
+	#footer-location-about-mobile > *
+		font-size: 14pt
+
 	.Header__landing-header
 		font-size: 80%
 
 @media screen and (max-width: 250px)
 	.Header__landing-header
 		font-size: 70%
+
+	*
+		border: solid red
+
+	.Landing__footer
+		padding: 1rem
+
+	#footer-location-about-mobile > *
+		font-size: 10pt
+	
+	#footer-location-title
+		font-size: 18pt
+
+	.Header__title
+		font-size: 100%
