@@ -43,6 +43,27 @@ $logo-and-welcome-width: 20%
 	margin-top: 3rem
 	margin-bottom: 3rem
 
+img.logo-png
+	width: 80%
+	height: auto
+
+.HeaderButton
+	background: unset
+	border: none
+	display: grid
+	grid-template-rows: 1fr 20px
+	font-size: 16pt
+
+	& svg
+		margin-left: auto
+		margin-right: auto
+
+	&:hover
+		color: $color-main
+		transition: 0.3s
+		text-decoration: underline
+
+
 .Header__nav-floater
 	position: absolute
 
@@ -254,7 +275,7 @@ main.landing
 	min-height: 100%
 
 	background-color: #f7f2e6
-	background-image: linear-gradient(135deg, $color-splash 25%, transparent 25%), linear-gradient(225deg, $color-splash 25%, transparent 25%), linear-gradient(45deg, $color-splash 25%, transparent 25%), linear-gradient(315deg, $color-splash 25%, #f7f2e6 25%)
+	// background-image: linear-gradient(135deg, $color-splash 25%, transparent 25%), linear-gradient(225deg, $color-splash 25%, transparent 25%), linear-gradient(45deg, $color-splash 25%, transparent 25%), linear-gradient(315deg, $color-splash 25%, #f7f2e6 25%)
 
 	$tile-width: max(2rem, 40px)
 
