@@ -1,11 +1,10 @@
-import { useEffect, useState, useRef, useCallback, memo, FC, StyleHTMLAttributes, CSSProperties } from 'react'
+import { useEffect, useState, useRef, useCallback, memo, FC, CSSProperties } from 'react'
 
 import Phone from '@mui/icons-material/Phone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 
-import LocalDiningIcon from '@mui/icons-material/LocalDining'
 import MenuBookIcon from '@mui/icons-material/MenuBook'
 import PersonPinIcon from '@mui/icons-material/PersonPin'
 import WatchIcon from '@mui/icons-material/Watch'
@@ -25,11 +24,17 @@ import ParallaxImageSplit, { ParallaxImageTextSection } from './ParallaxImageSpl
 import classroom from './images/classroom.jpg'
 import tutor from './images/tutor.jpg'
 import elmarino from './images/elmarino.jpg'
-import pasta from './images/pasta.webp'
 import chocolate from './images/chocolate.jpg'
 import mobile from './images/mobile.jpg'
 import twirlDivider from './images/twirl.svg'
-import owner from './images/owner.webp'
+import zoom from './images/zoom.jpg'
+import ccef from './images/ccef.png'
+import ccusd from './images/ccusd.png'
+import elmarinologo from './images/elmarinologo.gif'
+import elrinconlogo from './images/elrinconlogo.png'
+import laballonalogo from './images/laballonalogo.png'
+import linhowelogo from './images/linhowelogo.png'
+import farragutlogo from './images/farragutlogo.png'
 
 import GlobalStyles from '../../index.sass'
 import LandingStyles from './index.sass'
@@ -82,9 +87,9 @@ function LocationBar({ signal }: LocationBarProps) {
 	return (
 		<div className="LocationBar__location-bar" ref={header}>
 			<span>
-				5490 W Centinela Ave, Westchester, CA 90045
+				Certified Nonprofit, Student-led, Community Backed
 			</span>
-			<PhoneLink number='310-670-8122' text='(310) 670-8122' color="primary" />
+			{/* <PhoneLink number='310-670-8122' text='(310) 670-8122' color="primary" /> */}
 		</div >
 	)
 }
@@ -164,22 +169,6 @@ interface ItalySVGProps {
 	style?: CSSProperties
 }
 
-const ItalySVG: FC<ItalySVGProps> = ({ width, height, style }) => {
-
-	return (
-		<svg style={{ width, height, ...(style ?? {}) }} version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 543.000000 642.000000" preserveAspectRatio="xMidYMid meet">
-			{RawItalyGraphics}
-		</svg>
-	)
-}
-
-const RawItalyGraphics = (
-	<g transform="translate(0.000000,642.000000) scale(0.100000,-0.100000)" fill="#b6b2b2" stroke="none">
-		<path d="M2480 6404 c-25 -7 -65 -14 -90 -14 -25 -1 -63 -5 -85 -10 -22 -4 -76 -16 -120 -25 -44 -10 -92 -24 -107 -31 -25 -13 -26 -16 -17 -50 9 -29 7 -39 -7 -55 -20 -23 -79 -26 -87 -5 -17 43 -123 73 -189 54 l-38 -11 0 -65 c0 -46 5 -71 16 -83 9 -10 14 -26 10 -34 -8 -21 -58 -12 -98 16 -38 26 -47 24 -64 -16 -13 -33 -13 -39 7 -83 25 -55 26 -109 4 -131 -15 -15 -19 -13 -44 15 -16 17 -30 37 -32 43 -3 9 -20 8 -64 -4 -108 -28 -131 -19 -153 61 -14 48 -29 57 -63 40 -18 -8 -23 -19 -21 -37 2 -15 -14 -62 -38 -109 -26 -56 -40 -98 -40 -124 0 -49 -15 -105 -34 -131 -14 -19 -16 -19 -45 15 -17 21 -32 52 -36 78 -5 37 -9 42 -33 42 -38 1 -63 17 -110 73 -26 29 -43 61 -47 85 -15 91 -15 90 -38 84 -12 -3 -47 -31 -78 -61 -50 -50 -57 -62 -63 -107 -7 -54 -32 -86 -111 -138 -34 -24 -46 -26 -90 -21 -35 5 -69 1 -108 -10 -46 -13 -63 -14 -90 -4 -30 10 -39 8 -104 -25 -40 -19 -74 -44 -77 -54 -9 -26 2 -50 24 -57 11 -4 25 -26 36 -57 9 -29 34 -70 57 -95 35 -39 39 -47 34 -81 -7 -44 -85 -122 -122 -122 -46 0 -125 -45 -125 -71 0 -4 22 -34 49 -67 35 -42 62 -63 95 -76 66 -25 71 -53 17 -111 -46 -51 -44 -45 -31 -81 9 -22 6 -40 -16 -96 -14 -38 -25 -71 -23 -72 20 -17 102 -48 179 -66 l96 -23 48 22 c46 20 50 20 68 5 10 -10 18 -27 18 -39 0 -24 -36 -83 -77 -126 -24 -26 -24 -28 -9 -58 21 -40 41 -40 150 0 93 34 133 68 166 143 9 23 36 58 59 79 23 21 53 56 66 77 42 67 136 76 252 24 35 -15 64 -21 82 -18 31 7 44 -1 163 -94 55 -42 72 -51 93 -46 100 25 155 -51 220 -305 9 -36 27 -86 41 -113 18 -35 27 -77 35 -156 11 -105 21 -142 39 -142 5 0 21 5 36 10 36 14 49 1 68 -65 14 -47 20 -55 56 -69 26 -10 42 -24 46 -40 3 -15 23 -33 55 -50 27 -15 49 -31 49 -35 0 -5 -12 -20 -26 -34 -18 -18 -24 -32 -19 -46 8 -26 20 -26 52 -1 17 13 33 18 47 14 36 -12 167 -126 186 -164 22 -42 53 -72 100 -95 48 -24 69 -44 90 -85 10 -19 37 -55 60 -80 23 -25 60 -69 82 -98 40 -54 71 -73 145 -92 31 -8 52 -23 84 -61 40 -48 41 -51 23 -64 -11 -8 -26 -17 -34 -20 -17 -5 -75 -114 -66 -123 3 -3 20 7 38 22 18 15 60 47 93 72 58 45 62 46 110 39 28 -4 68 -7 89 -7 89 0 163 -87 153 -182 -9 -99 20 -120 117 -86 93 32 120 10 92 -75 -22 -63 -21 -66 20 -49 19 8 64 18 100 21 54 5 67 3 86 -13 42 -38 74 -143 48 -159 -19 -12 -9 -24 49 -59 32 -20 65 -43 72 -52 8 -10 38 -35 67 -56 49 -37 54 -38 74 -23 44 30 52 21 118 -122 34 -76 85 -170 112 -209 49 -70 50 -72 43 -127 -7 -51 -4 -60 30 -121 21 -38 34 -73 31 -83 -11 -36 -54 -70 -94 -77 -22 -3 -48 -13 -57 -22 -14 -15 -14 -19 4 -50 20 -33 20 -35 3 -91 l-17 -57 -60 -13 c-33 -7 -80 -21 -105 -32 -25 -10 -84 -24 -133 -30 -57 -8 -109 -22 -150 -41 -80 -38 -135 -50 -189 -40 -87 17 -181 15 -217 -4 -42 -22 -64 -17 -166 41 -170 97 -179 98 -244 24 -25 -28 -49 -51 -52 -51 -3 0 -14 18 -24 41 -17 37 -21 40 -48 35 -60 -12 -93 -43 -136 -127 -46 -91 -50 -122 -21 -179 23 -46 73 -81 145 -106 28 -9 61 -24 75 -34 14 -9 118 -63 232 -119 157 -76 217 -101 247 -101 53 0 151 -73 203 -151 l37 -57 68 -7 c37 -4 80 -13 95 -21 57 -30 148 -5 148 40 0 9 11 39 25 66 40 79 32 126 -39 231 -40 60 -42 75 -22 140 8 24 17 65 21 91 5 35 18 63 53 109 26 33 57 75 70 92 21 28 56 56 73 57 3 0 11 -19 18 -42 22 -72 46 -95 108 -102 68 -8 82 2 126 92 17 35 40 71 52 80 62 51 145 208 145 276 0 81 38 114 172 147 45 12 91 28 100 37 15 15 15 22 2 72 -7 30 -14 93 -15 140 0 47 -3 92 -5 101 -3 9 -28 27 -57 39 -29 12 -65 28 -82 35 -16 8 -47 21 -67 29 -36 14 -78 65 -78 94 0 7 11 29 24 50 13 20 31 60 40 87 9 28 45 89 80 136 55 74 69 87 104 96 35 9 43 8 71 -14 17 -13 59 -36 93 -50 53 -21 71 -24 125 -18 l62 6 35 -53 c20 -30 42 -80 50 -116 8 -35 23 -73 33 -84 16 -19 93 -58 112 -58 15 0 81 110 93 154 14 52 1 102 -55 216 -30 62 -36 67 -112 109 -44 24 -104 53 -132 65 -33 14 -97 60 -166 120 -103 89 -123 101 -237 150 -69 29 -156 63 -195 75 -67 22 -254 110 -281 132 -24 20 -16 39 44 102 89 95 104 120 96 163 l-7 36 -56 -7 c-31 -4 -77 -15 -103 -25 -39 -15 -60 -16 -120 -10 -114 13 -220 40 -260 66 -20 13 -49 26 -65 30 -15 3 -46 26 -68 51 -23 26 -67 58 -105 76 -60 30 -66 36 -86 87 -16 41 -29 59 -54 72 -47 24 -80 58 -80 84 0 12 -23 67 -51 122 -36 71 -53 118 -59 163 -8 61 -44 180 -70 230 -7 13 -26 38 -42 56 -26 26 -34 30 -58 23 -24 -7 -31 -4 -44 16 -9 13 -96 77 -194 143 -97 66 -187 128 -199 138 -18 14 -30 50 -57 163 -52 216 -59 256 -51 270 4 7 24 10 48 8 39 -3 42 -1 64 37 33 59 30 82 -21 135 -41 42 -76 117 -76 162 0 10 12 37 27 59 31 47 71 71 93 57 12 -8 41 3 115 43 55 28 111 62 123 73 21 18 36 21 116 21 67 0 98 4 111 15 15 13 19 12 35 -8 71 -87 68 -85 95 -68 25 17 41 56 32 79 -3 7 -32 31 -66 53 -57 36 -61 41 -58 73 2 30 -2 36 -23 41 -30 8 -28 19 11 84 36 58 32 76 -16 76 -46 0 -75 15 -75 40 0 11 30 45 70 81 76 68 87 95 43 105 -16 3 -58 14 -95 25 -41 12 -97 19 -148 19 -59 0 -101 7 -153 24 -40 13 -93 27 -120 30 -33 5 -51 13 -60 29 -32 57 -74 107 -99 118 -33 14 -34 17 -9 43 11 12 23 33 26 49 8 31 2 33 -65 11z" />
-		<path d="M1484 2657 c-33 -24 -89 -73 -127 -110 -93 -91 -167 -111 -233 -61 -38 29 -41 44 -18 79 10 16 14 34 10 51 -13 49 -32 7 -46 -98 -7 -57 -19 -115 -27 -130 -21 -42 -16 -56 35 -111 72 -79 98 -125 106 -191 7 -56 7 -59 -24 -91 -25 -26 -31 -39 -28 -66 3 -30 6 -33 38 -34 27 0 37 -6 50 -27 12 -23 13 -31 2 -45 -42 -59 -52 -82 -51 -113 0 -19 -4 -53 -10 -75 -6 -22 -11 -64 -11 -93 0 -29 -4 -62 -10 -72 -5 -10 -11 -44 -12 -75 -4 -70 10 -80 52 -35 l29 31 28 -40 c26 -38 31 -40 78 -41 53 0 155 40 155 60 0 6 -5 20 -10 31 -9 16 -6 25 19 49 38 38 101 42 125 9 14 -21 16 -21 41 -5 31 21 50 62 60 131 4 28 13 60 21 72 8 13 21 55 29 94 15 68 14 75 -5 131 -11 32 -20 69 -20 83 0 14 -8 42 -19 63 -18 35 -18 39 -2 78 9 23 31 54 49 69 28 23 32 33 32 74 0 26 -4 51 -9 57 -6 5 -14 27 -20 49 -16 68 -35 109 -58 128 -16 13 -22 28 -21 55 1 51 -22 109 -49 121 -14 7 -20 16 -17 26 5 12 -2 15 -34 15 -31 0 -52 -9 -98 -43z" />
-	</g>
-)
-
 function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 	const result = items.map(({ url, title, content }, i) => {
 		const image = <ParallaxImageSplit fileName={url} alt={title} leading={i % 2 === 0 ? 'L' : 'R'} />
@@ -196,8 +185,15 @@ function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 			</div>
 
 			<div className="single-cell ParallaxImagesSection__bg">
-				<ItalySVG width="10%" height="10%" />
 			</div>
+		</section>
+	)
+}
+
+function DataSplashSection() {
+	return (
+		<section>
+
 		</section>
 	)
 }
@@ -375,7 +371,7 @@ function HeaderNav() {
 	const useHamburger = useMediaQuery('(max-width: 700px)')
 
 	const nav_items = <nav id="header-items">
-		
+
 		<button className="HeaderButton">
 			<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><path fill="currentColor" d="M255.55 22.36c-30.93 0-56 25.07-56 56c0 30.927 25.07 56 56 56c30.927 0 56-25.073 56-56c0-30.93-25.073-56-56-56zM105.067 144.47c-3.047.028-6.012.55-8.748 1.536c-7.296 2.627-12.95 7.77-17.562 13.617c-3.63 4.602-6.523 9.754-9.012 14.992c-6.79-6.374-14.215-15.785-21.8-30.117l-15.91 8.418c10.115 19.112 20.597 31.962 31.292 40.066c-.405 1.802-.907 3.66-1.164 5.364c-2.005 13.302 2.913 24.966 9.637 34.736c5.34 7.757 11.825 14.87 18.132 22.367c-7.497 15.76-11.35 32.49-11.368 49.366c.07 28.777 11.283 56.823 32.082 80.243l3.655-13.117l17.34 4.832l-25.13 90.18c20.857 6.423 41.04 6.52 61.62-1.072l18.727-66.73l17.33 4.865l-8.892 31.69c17.887 4.99 36.674 7.578 55.607 7.657a212.674 212.674 0 0 0 36.81-3.396l-8.942-39.63l17.558-3.963l14.996 66.473c24.936 11.267 48.496 10.575 72.764 1.222l-25.115-78.986l17.152-5.455l4.97 15.636c21.796-38.09 68.757-29.083 91.825-40.08c11.686-3.894 5.42-69.874 4.916-73.04c-.38-2.39-29.734-3.818-40.16-2.248c-5.975.9-16.344-12.078-27.39-27.597c-5.387-10.488-12.357-20.405-20.753-29.527c-3.988-5.276-2.735-3.092-6.533-6.474c.715 6.697 2.12 12.306 4.152 16.23l-15.986 8.277c-7.378-14.252-7.98-32.853-5.662-52.858c1.583-13.67 4.81-27.957 9.03-41.733c-11.81 6.755-22.626 17.48-32.02 30.586c-13.665 19.064-24.126 42.55-30.647 62.644l-17.12-5.556c2.777-8.56 6.2-17.655 10.255-26.835c-14.467-6.574-35.467-9.76-57.426-8.826c-23.852 1.01-48.83 6.716-68.043 16.2l-7.97-16.143c22.13-10.923 49.122-16.934 75.25-18.043c3.267-.138 6.52-.203 9.747-.19c20.69.086 40.372 3.378 56.274 10.78a227.067 227.067 0 0 1 7.125-12.537c-21.74-7.8-45.253-11.897-69.058-12.03c-63.206.056-121.303 27.923-151.383 72.614c-4.954-5.81-9.525-11.11-12.89-16c-5.26-7.64-7.608-13.682-6.695-21.126c10.458 3.152 20.632 2.07 28.694-1.87c10.316-5.044 17.423-13.85 20.473-23.39c1.526-4.77 2.056-9.862.813-14.928c-1.243-5.065-4.63-10.034-9.598-12.953c-4.862-2.856-10.17-4.187-15.25-4.142zm.328 17.805a6.87 6.87 0 0 1 1 .03c1.362.138 2.86.687 4.803 1.828c.864.508.986.713 1.234 1.722c.247 1.01.248 2.895-.475 5.157c-1.447 4.523-5.713 10-11.235 12.7c-4.346 2.125-9.372 2.917-15.66.847c2.174-5.033 4.823-9.984 7.824-13.787c3.257-4.13 6.74-6.828 9.528-7.832c1.045-.375 1.995-.623 2.978-.665zm278.153 98.647c8.835 0 16 7.163 16 16c0 8.836-7.165 16-16 16c-8.838 0-16-7.164-16-16c0-8.837 7.162-16 16-16z"></path></svg>
 			Donate
@@ -426,8 +422,6 @@ function HeaderNav() {
 						{nav_items}
 
 						<Divider sx={{ mb: '20px' }} />
-
-						<ItalySVG width="50px" height="50px" style={{ alignSelf: 'center' }} />
 
 						<div className="drawer-text" style={{ fontSize: '12pt', margin: '3rem 0' }}>
 							Today is the day to try Ladera's little slice of Italy!
@@ -542,13 +536,6 @@ function HeroTransition() {
 					<rect width="100%" height="100%" fill={TRANSITION_COLORS[1]} />
 					<path fill={TRANSITION_COLORS[2]} fillOpacity="1" d="M0,192L24,192C48,192,96,192,144,181.3C192,171,240,149,288,128C336,107,384,85,432,101.3C480,117,528,171,576,176C624,181,672,139,720,133.3C768,128,816,160,864,154.7C912,149,960,107,1008,117.3C1056,128,1104,192,1152,181.3C1200,171,1248,85,1296,80C1344,75,1392,149,1416,186.7L1440,224L1440,320L1416,320C1392,320,1344,320,1296,320C1248,320,1200,320,1152,320C1104,320,1056,320,1008,320C960,320,912,320,864,320C816,320,768,320,720,320C672,320,624,320,576,320C528,320,480,320,432,320C384,320,336,320,288,320C240,320,192,320,144,320C96,320,48,320,24,320L0,320Z"></path>
 				</svg>
-
-				{/* <div style={{ flex: '1 1 0', backgroundColor: 'hotpink', border: 'solid yellow 3px' }}>
-					{/* Hello */}
-				{/* </div> * /} */}
-				{
-					//<div style={{ backgroundColor: "red" /*TRANSITION_COLORS[2]*/ }}></div> this div expands to paint remaining space the color of TRANSITION_COLORS[2]
-				}
 			</div >
 		)
 	}
@@ -556,21 +543,38 @@ function HeroTransition() {
 	return (
 		<section id="theory" className="landing-content-spacing">
 			<div id="theory-title">
-				Remote peer tutoring,<br/>to minimize CCUSD's<br/>socioeconomic achievement gap
+				Mentoring For a Change
 			</div>
 			<div style={{ display: 'grid', height: '100%' }}>
 				<Transition />
 				<div className="single-cell" id="theory-explanation">
-					What is Lorem Ipsum?
-					
-					Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
-
-					Why do we use it?
-					It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-
-
-					Where does it come from?
-					Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
+					<p>
+						The harsh reality of being a student is that one's ability to perform in the classroom
+						is heavily tied to factors outside the control of children. In our school zone,
+						Culver City Unified School District, resource coordinators at all five elementary schools
+						have reported reading comprehension and math scores far below state standards among kids
+						from disadvantaged households.
+					</p>
+					<p>
+						This socioeconomic gap affects Culver City's future generation of workers and leaders
+						from as early as the first grade. We actively make a difference in our community by
+						fostering 1-on-1 mentoring relationships between qualified high school students and
+						children at risk of falling behind.
+					</p>
+					<p>
+						We are more than just tutors; our mentors get to know their buddies and start building
+						a relationship from the very first session. Our mentors check in with their students at
+						least once a week. This consistency helps guide their buddies through whatever turbulence
+						they may face across all aspects of life.
+					</p>
+					<p>
+						Learn more about <a className="a color-primary" href="/buddies">who we mentor</a> and <a className="a color-primary" href="/program">how to see if a child you know qualifies</a> for One Step
+						Ahead by clicking on the respective links.
+					</p>
+					<p>
+						Do you have what it takes to be a mentor? Find out by <a className="a color-primary" href="/mentors">checking our student profile</a> and
+						talking to a team member today!
+					</p>
 
 					<div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
 						<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 22q-.825 0-1.413-.588T4 20V4q0-.825.588-1.413T6 2h12q.825 0 1.413.588T20 4v16q0 .825-.588 1.413T18 22H6Zm5-11l2.5-1.5L16 11V4h-5v7Z"></path></svg>
@@ -632,6 +636,27 @@ function HeroSection() {
 			<LocationBar signal={cb} />
 			<Header jiggleHeader={jiggle} />
 			{focus}
+		</section>
+	)
+}
+
+function SupportSection() {
+	return (
+		<section id="supporters" className="landing-content-spacing">
+			<div className="Header__title">
+				Thank You To Our Friends
+			</div>
+
+			<div className="SupportSection__images">
+
+				<img width="300px" src={ccef} />
+				<img style={{ maxWidth: "100px" }} src={ccusd} />
+				<img width="300px" src={elmarinologo} />
+				<img width="300px" src={elrinconlogo} />
+				<img width="300px" src={laballonalogo} />
+				<img width="300px" src={linhowelogo} />
+				<img width="300px" src={farragutlogo} />
+			</div>
 		</section>
 	)
 }
@@ -717,12 +742,16 @@ export default function Landing() {
 
 			<ParallaxImagesSection items={PARALLAX_IMAGES} />
 
-			<FounderBlurb left colors={[GlobalStyles.COLOR_MAIN, GlobalStyles.COLOR_SPLASH]} url={owner} title="Lorem Ipsum" className="landing-content-spacing landing-content-v-spacing">
+			<FounderBlurb left colors={[GlobalStyles.COLOR_MAIN, GlobalStyles.COLOR_SPLASH]} url={zoom} title="Lorem Ipsum" className="landing-content-spacing landing-content-v-spacing">
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fuga tenetur, esse veniam placeat asperiores deserunt voluptatibus tempora? Iure voluptatem magni cumque dolores ducimus voluptatibus explicabo tenetur tempora autem aut illum animi, hic ipsum eos veritatis nisi in facere architecto saepe obcaecati? Eligendi dolor aperiam velit nihil, impedit eum animi vitae quasi omnis, cupiditate aliquam sunt nostrum architecto porro ipsam magni adipisci natus fuga blanditiis! Dolor molestias, ab iusto aliquam, excepturi rerum veniam a similique beatae reprehenderit quisquam, dicta dolorum sunt quam? Obcaecati dicta, ab eius, quidem necessitatibus quia ducimus earum minima ratione ullam accusantium magni repudiandae sapiente quasi quaerat nam molestias! Unde quisquam fugiat dolorem vitae, quasi omnis officiis distinctio accusantium blanditiis aperiam eos dicta autem, veniam quae. Nam iste pariatur asperiores laboriosam reiciendis aut, vel accusamus nemo animi neque rerum, iusto officia, ab unde? Voluptas libero repellat voluptatibus quisquam. Praesentium dolor quo molestiae, beatae hic iure quam blanditiis, suscipit voluptatem itaque earum assumenda quidem optio sapiente, deleniti soluta! Eligendi, quae, deserunt nobis omnis soluta harum eveniet odit, minus iure adipisci obcaecati aut veniam commodi magnam eos corrupti illum nihil dolore id. Enim quasi repellendus, saepe repudiandae maxime, odio id eius quia reiciendis vero eveniet voluptatibus, recusandae impedit est?
 			</FounderBlurb>
 
+			<SupportSection />
+
+			<DataSplashSection />
+
 			<div ref={greeting} id="visit-us" className={`Header__title ${visible ? 'Landing__fade-in' : ''}`}>
-				Visit Us Today!
+				Mentoring for a Brighter Future
 			</div>
 			<FooterSection />
 		</main>
