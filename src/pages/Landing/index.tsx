@@ -25,7 +25,7 @@ import classroom from './images/classroom.jpg'
 import tutor from './images/tutor.jpg'
 import elmarino from './images/elmarino.jpg'
 import chocolate from './images/chocolate.jpg'
-import mobile from './images/mobile.jpg'
+import mobile from './images/kidsreading.jpg'
 import twirlDivider from './images/twirl.svg'
 import zoom from './images/zoom.jpg'
 import ccef from './images/ccef.png'
@@ -598,23 +598,19 @@ function MobileHero() {
 			<div className='MobileHero__focus-text'>
 				<h1 id="mobile-greeting">
 					<span>
-						Eat, Drink and Gather with Us!
+						Remote Peer Tutoring
 					</span>
 					<TwirlDivider />
 					<span>
-						Brunch, Lunch and Dinner
+						Accessible to CCUSD's Youth
 					</span>
 				</h1>
 
 				<nav id="mobile-hero-nav">
-					<Button color="secondary" variant="contained">Menu</Button>
-					<Button color="secondary" variant="contained">Hours</Button>
-					<Button color="secondary" variant="contained">Call Us</Button>
+					<Button color="secondary" variant="contained">About</Button>
+					<Button color="secondary" variant="contained">Donate</Button>
+					<Button color="secondary" variant="contained">Join Us</Button>
 				</nav>
-
-				<div id="mobile-years-active">
-					Serving our community since {FOUNDED}
-				</div>
 			</div>
 		</div>
 	)

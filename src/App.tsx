@@ -12,7 +12,7 @@ const themeOptions: ThemeOptions = {
 			main: '#5a794c',
 		},
 		secondary: {
-			main: '#a03636',
+			main: '#93accd',
 		},
 		error: {
 			main: '#ffe000',
