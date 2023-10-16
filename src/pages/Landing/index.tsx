@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback, memo, FC, CSSProperties } from 'react'
+import { useEffect, useState, useRef, useCallback, memo, FC } from 'react'
 
 import Phone from '@mui/icons-material/Phone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
@@ -163,12 +163,6 @@ interface ParallaxImagesSectionProps {
 	items: ParallaxImageItem[]
 }
 
-interface ItalySVGProps {
-	width?: string | number,
-	height?: string | number,
-	style?: CSSProperties
-}
-
 function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 	const result = items.map(({ url, title, content }, i) => {
 		const image = <ParallaxImageSplit fileName={url} alt={title} leading={i % 2 === 0 ? 'L' : 'R'} />
@@ -192,8 +186,12 @@ function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 
 function DataSplashSection() {
 	return (
-		<section>
-
+		<section id="facts">
+			{/* <ul className="DataSplashSection__list landing-content-spacing">
+				<li><div className="DataSplashSection__fact"><strong>##</strong> Students Helped</div></li>
+				<li><div className="DataSplashSection__fact"><strong>$####</strong> Dollars Raised</div></li>
+				<li><div className="DataSplashSection__fact"><strong>##</strong> Qualified Mentors</div></li>
+			</ul> */}
 		</section>
 	)
 }
@@ -333,9 +331,6 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 	)
 }
 
-const FOUNDED = 1960
-const YEARS_OF_OPERATION = new Date().getFullYear() - FOUNDED
-
 interface DialAction {
 	icon: JSX.Element,
 	name: string,
@@ -360,9 +355,9 @@ class DialAction implements DialAction {
 }
 
 const actions: readonly DialAction[] = [
-	new DialAction(<MenuBookIcon />, 'View Our Menu'),
+	new DialAction(<MenuBookIcon />, 'Donate'),
 	new DialAction(<PersonPinIcon />, 'Learn About Us'),
-	new DialAction(<WatchIcon />, 'Check Our Hours'),
+	new DialAction(<WatchIcon />, 'Refer a student'),
 	new DialAction(<KeyboardArrowUpIcon />, 'Back to Top')
 		.onClick(() => window.scrollTo({ top: 0, left: 0 }))
 ]
@@ -409,12 +404,12 @@ function HeaderNav() {
 						}}
 					>
 
-						<IconButton onClick={() => setOpen(false)} sx={{ alignSelf: 'end', mt: '12px', mr: '12px' }}>
+						<IconButton onClick={() => setOpen(false)} sx={{ alignSelf: 'end', mt: '24px', mr: '12px' }}>
 							<CloseIcon />
 						</IconButton>
 
 						<div className="drawer-text">
-							<img src="/mainlogo.png" className="logo-png" />
+							<img alt="One Step Ahead Logo" src="/mainlogo.png" className="logo-png" />
 						</div>
 
 						<Divider sx={{ mt: '20px' }} />
@@ -423,8 +418,8 @@ function HeaderNav() {
 
 						<Divider sx={{ mb: '20px' }} />
 
-						<div className="drawer-text" style={{ fontSize: '12pt', margin: '3rem 0' }}>
-							Today is the day to try Ladera's little slice of Italy!
+						<div className="drawer-text" style={{ fontSize: '12pt', margin: '1rem 0' }}>
+							Today is the day to make real change in your community
 						</div>
 					</SwipeableDrawer >
 					<IconButton sx={{ color: isMobile ? 'white' : 'unset', marginLeft: 'auto', mr: '12px' }} onClick={() => setOpen(state => !state)}>
@@ -470,7 +465,7 @@ function Header(props: { jiggleHeader: boolean }) {
 		<>
 			<header ref={header} className={`Header__landing-header landing-content-spacing ${!extended && !isMobile ? 'Header__hide-header' : ''}`}>
 				<div className='Header__header-logo Header__title important-left-items'>
-					<img src="/mainlogo.png" className="logo-png" />
+					<img alt="One Step Ahead Logo" src="/mainlogo.png" className="logo-png" />
 				</div>
 				<div className="Header__nav-floater">
 					<HeaderNav />
@@ -637,21 +632,38 @@ function HeroSection() {
 }
 
 function SupportSection() {
+	const sectionRef = useRef(null);
+
+	const [visible, setVisible] = useState<boolean>(false);
+
+	useEffect(() => {
+		const observer = new IntersectionObserver(([entry]) => {
+			if (!visible && entry.isIntersecting) setVisible(true)
+		}, { root: null, rootMargin: '0px', threshold: 0.01 })
+
+		const copy = sectionRef.current // required per the rules of useEffect with DOM elements.
+
+		if (copy) observer.observe(copy)
+
+		return () => {
+			if (copy) observer.unobserve(copy)
+		}
+	}, [visible])
+
 	return (
 		<section id="supporters" className="landing-content-spacing">
 			<div className="Header__title">
 				Thank You To Our Friends
 			</div>
 
-			<div className="SupportSection__images">
-
-				<img width="300px" src={ccef} />
-				<img style={{ maxWidth: "100px" }} src={ccusd} />
-				<img width="300px" src={elmarinologo} />
-				<img width="300px" src={elrinconlogo} />
-				<img width="300px" src={laballonalogo} />
-				<img width="300px" src={linhowelogo} />
-				<img width="300px" src={farragutlogo} />
+			<div ref={sectionRef} className={`SupportSection__images ${visible ? "SupportSection__fade-in" : ""}`}>
+				<img alt="Culver City Education Foundation" width="300px" src={ccef} />
+				<img alt="Culver City Unified School District" style={{ maxWidth: "100px" }} src={ccusd} />
+				<img alt="El Marino Language School" width="300px" src={elmarinologo} />
+				<img alt="El Rincon Elementary School" width="300px" src={elrinconlogo} />
+				<img alt="La Ballona Elementary School" width="300px" src={laballonalogo} />
+				<img alt="Linwood E. Howe Elementary School" width="300px" src={linhowelogo} />
+				<img alt="Farragut Elementary School" width="300px" src={farragutlogo} />
 			</div>
 		</section>
 	)
@@ -669,20 +681,20 @@ function FooterSection() {
 							<th>Call us at:</th>
 						</tr>
 						<tr>
-							<td>5490 W Centinela Ave, Westchester, CA 90045</td>
-							<td><PhoneLink number='310-670-8122' text='(310) 670-8122' /></td>
+							<td>Culver City High School &mdash; 4401 Elenda Street, Culver City, CA 90230</td>
+							<td><PhoneLink number='111-222-3333' text='(111) 222-3333' /></td>
 						</tr>
 					</tbody>
 				</table>
 				<div id="footer-location-about-mobile">
 					<div>
-						5490 W Centinela Ave, Westchester, CA 90045
+						Culver City High School &mdash; 4401 Elenda Street, Culver City, CA 90230
 					</div>
-					<PhoneLink number='310-670-8122' text='(310) 670-8122' />
+					<PhoneLink number='111-222-3333' text='(111) 222-3333' />
 				</div>
 
 				<div id="footer-location-quote">
-					&quot;&#9733;&#9733;&#9733;&#9733;&#9733;&quot; since {FOUNDED}
+					&quot;&#9733;&#9733;&#9733;&#9733;&#9733;&quot; Service To Culver's Future
 				</div>
 			</div>
 			<div id="footer-credits">
@@ -699,8 +711,8 @@ function FooterSection() {
 
 const PARALLAX_IMAGES: ParallaxImageItem[] = [
 	{
-		content: "Hi",
-		title: 'Repeat image of kids',
+		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum a mi non risus auctor mollis. Aenean molestie dictum tincidunt. Etiam lobortis porta porttitor. Nulla et porttitor erat. Nam at tellus et quam pellentesque consequat. Vivamus vel placerat massa. Vivamus aliquam iaculis pretium. Quisque fringilla laoreet ornare. Proin a laoreet nibh. Integer dignissim pellentesque dapibus. Pellentesque viverra efficitur eros. Nam feugiat, tellus quis rhoncus gravida, urna justo aliquam est, suscipit mollis augue dui a elit. Etiam sed ex sapien. Aenean eros ex, vehicula id augue non, lacinia venenatis justo. Vivamus facilisis tellus eu urna consequat bibendum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Aenean pellentesque porttitor leo et rutrum.",
+		title: 'Title #1',
 		url: classroom
 	},
 	{
@@ -745,6 +757,8 @@ export default function Landing() {
 			<SupportSection />
 
 			<DataSplashSection />
+
+			<Divider />
 
 			<div ref={greeting} id="visit-us" className={`Header__title ${visible ? 'Landing__fade-in' : ''}`}>
 				Mentoring for a Brighter Future
