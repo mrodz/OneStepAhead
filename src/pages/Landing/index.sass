@@ -63,7 +63,6 @@ img.logo-png
 		transition: 0.3s
 		text-decoration: underline
 
-
 .Header__nav-floater
 	position: absolute
 
@@ -76,8 +75,12 @@ img.logo-png
 	justify-content: center
 
 .Header__landing-header
-	top: 10px // for position: sticky
+	top: 0px // for position: sticky
 	transform: translateX(0) // for animation
+
+	-webkit-box-shadow: 0 5px 5px #555555
+	-moz-box-shadow: 0 5px 5px #555555
+	box-shadow: 0 5px 5px #555555
 
 	display: flex
 	flex-direction: row
@@ -139,6 +142,9 @@ img.logo-png
 .ImageCarousel__image-carousel-img
 	box-shadow: inset 0px -20px 15px #5042428a
 
+#supporters
+	padding-bottom: 2rem
+
 .Landing__footer
 	max-width: 100%
 	height: 100%
@@ -187,6 +193,8 @@ img.logo-png
 	border: solid white 4px
 
 #copyright
+	display: block
+	text-align: center
 	color: #b7c0b8
 	&::before
 		content: '©'
@@ -243,7 +251,11 @@ img.logo-png
 		transform: translateY(0)
 
 .Header__hide-header
-	animation: hide-header 1s forwards
+	position: absolute !important
+	width: 100%
+	margin: 0
+	border: none
+	// animation: hide-header 1s forwards
 
 .Dot__carousel-dot
 	color: $color-page
@@ -274,7 +286,7 @@ main.landing
 
 	min-height: 100%
 
-	background-color: #f7f2e6
+	background-color: #e6f1fd
 	// background-image: linear-gradient(135deg, $color-splash 25%, transparent 25%), linear-gradient(225deg, $color-splash 25%, transparent 25%), linear-gradient(45deg, $color-splash 25%, transparent 25%), linear-gradient(315deg, $color-splash 25%, #f7f2e6 25%)
 
 	$tile-width: max(2rem, 40px)
@@ -358,14 +370,12 @@ main.landing
 	margin-bottom: 10px
 
 section#hero
-	display: flex
-	flex-direction: column
-
-	height: min(max(100vh, 450px), 700px)
+	display: contents
+	// flex-direction: column
 
 .SupportSection__images
 	$number-of-logos: 7
-	
+
 	display: flex
 	flex-wrap: wrap
 	text-align: center
@@ -389,16 +399,15 @@ section#hero
 
 // .DataSplashSection__list
 // 	padding: 4rem 16rem
-	
+
 // 	& > li
 // 		list-style-type: none
 
 // 		&:nth-child(even)
 // 			text-align: right
-			
+
 // 			& .DataSplashSection__fact
 // 				background-color: $color-main	
-			
 
 // .DataSplashSection__fact
 // 	display: -webkit-inline-flex
@@ -416,7 +425,6 @@ section#hero
 
 // 	& > strong
 // 		display: block
-
 
 .MobileHero__main
 	height: 100%
@@ -522,6 +530,9 @@ section#theory
 section#parallax-images
 	display: grid
 	max-width: 100%
+
+.standard-image
+	max-width: 300px
 
 :export
 	delay: $carousel-delay

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback, memo, FC } from 'react'
+import { useEffect, useState, useRef, useCallback, memo, FC, ComponentPropsWithoutRef, CSSProperties } from 'react'
 
 import Phone from '@mui/icons-material/Phone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
@@ -41,9 +41,10 @@ import LandingStyles from './index.sass'
 
 import './index.sass'
 import './media.sass'
-import { Divider, SwipeableDrawer } from '@mui/material'
+import { Divider, Menu, MenuItem, SwipeableDrawer } from '@mui/material'
 import { useMobile } from '../../hooks/useSizes'
 import FounderBlurb from './FounderBlurb'
+import { useNavigate } from 'react-router-dom'
 
 interface LocationBarProps {
 	signal?: (arg: boolean) => void
@@ -87,7 +88,7 @@ function LocationBar({ signal }: LocationBarProps) {
 	return (
 		<div className="LocationBar__location-bar" ref={header}>
 			<span>
-				Certified Nonprofit, Student-led, Community Backed
+				October 2023 &mdash; Applications are open for students
 			</span>
 			{/* <PhoneLink number='310-670-8122' text='(310) 670-8122' color="primary" /> */}
 		</div >
@@ -362,24 +363,73 @@ const actions: readonly DialAction[] = [
 		.onClick(() => window.scrollTo({ top: 0, left: 0 }))
 ]
 
+interface HeaderNavButtonPropsWithContent {
+	subContent: [string, () => void][]
+}
+
+interface HeaderNavButtonPropsWithoutContent {
+	subContent: () => void
+}
+
+type HeaderNavButtonProps = HeaderNavButtonPropsWithContent | HeaderNavButtonPropsWithoutContent
+
+
+function HeaderNavButton({ subContent, children }: HeaderNavButtonProps & ComponentPropsWithoutRef<"button">) {
+	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+	const open = Boolean(anchorEl);
+	const navigate = useNavigate();
+
+	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+		if (!Array.isArray(subContent)) {
+			subContent();
+		} else {
+			setAnchorEl(event.currentTarget);
+		}
+	};
+	const handleClose = () => {
+		setAnchorEl(null);
+	};
+
+	return (
+		<div>
+			<Button
+				id="basic-button"
+				aria-controls={open ? 'basic-menu' : undefined}
+				aria-haspopup="true"
+				aria-expanded={open ? 'true' : undefined}
+				onClick={handleClick}
+			>
+				{children}
+			</Button>
+			{Array.isArray(subContent) && (
+				<Menu
+					id="basic-menu"
+					anchorEl={anchorEl}
+					open={open}
+					onClose={handleClose}
+					MenuListProps={{
+						'aria-labelledby': 'basic-button',
+					}}
+				>
+					{subContent.map(([title, callback]) => (
+						<MenuItem onClick={() => {
+							handleClose();
+							callback();
+						}}>{title}</MenuItem>
+					))}
+					{/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+					{/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
+					{/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
+				</Menu>
+			)}
+		</div>
+
+	)
+}
+
 function HeaderNav() {
 	const useHamburger = useMediaQuery('(max-width: 700px)')
-
-	const nav_items = <nav id="header-items">
-
-		<button className="HeaderButton">
-			<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><path fill="currentColor" d="M255.55 22.36c-30.93 0-56 25.07-56 56c0 30.927 25.07 56 56 56c30.927 0 56-25.073 56-56c0-30.93-25.073-56-56-56zM105.067 144.47c-3.047.028-6.012.55-8.748 1.536c-7.296 2.627-12.95 7.77-17.562 13.617c-3.63 4.602-6.523 9.754-9.012 14.992c-6.79-6.374-14.215-15.785-21.8-30.117l-15.91 8.418c10.115 19.112 20.597 31.962 31.292 40.066c-.405 1.802-.907 3.66-1.164 5.364c-2.005 13.302 2.913 24.966 9.637 34.736c5.34 7.757 11.825 14.87 18.132 22.367c-7.497 15.76-11.35 32.49-11.368 49.366c.07 28.777 11.283 56.823 32.082 80.243l3.655-13.117l17.34 4.832l-25.13 90.18c20.857 6.423 41.04 6.52 61.62-1.072l18.727-66.73l17.33 4.865l-8.892 31.69c17.887 4.99 36.674 7.578 55.607 7.657a212.674 212.674 0 0 0 36.81-3.396l-8.942-39.63l17.558-3.963l14.996 66.473c24.936 11.267 48.496 10.575 72.764 1.222l-25.115-78.986l17.152-5.455l4.97 15.636c21.796-38.09 68.757-29.083 91.825-40.08c11.686-3.894 5.42-69.874 4.916-73.04c-.38-2.39-29.734-3.818-40.16-2.248c-5.975.9-16.344-12.078-27.39-27.597c-5.387-10.488-12.357-20.405-20.753-29.527c-3.988-5.276-2.735-3.092-6.533-6.474c.715 6.697 2.12 12.306 4.152 16.23l-15.986 8.277c-7.378-14.252-7.98-32.853-5.662-52.858c1.583-13.67 4.81-27.957 9.03-41.733c-11.81 6.755-22.626 17.48-32.02 30.586c-13.665 19.064-24.126 42.55-30.647 62.644l-17.12-5.556c2.777-8.56 6.2-17.655 10.255-26.835c-14.467-6.574-35.467-9.76-57.426-8.826c-23.852 1.01-48.83 6.716-68.043 16.2l-7.97-16.143c22.13-10.923 49.122-16.934 75.25-18.043c3.267-.138 6.52-.203 9.747-.19c20.69.086 40.372 3.378 56.274 10.78a227.067 227.067 0 0 1 7.125-12.537c-21.74-7.8-45.253-11.897-69.058-12.03c-63.206.056-121.303 27.923-151.383 72.614c-4.954-5.81-9.525-11.11-12.89-16c-5.26-7.64-7.608-13.682-6.695-21.126c10.458 3.152 20.632 2.07 28.694-1.87c10.316-5.044 17.423-13.85 20.473-23.39c1.526-4.77 2.056-9.862.813-14.928c-1.243-5.065-4.63-10.034-9.598-12.953c-4.862-2.856-10.17-4.187-15.25-4.142zm.328 17.805a6.87 6.87 0 0 1 1 .03c1.362.138 2.86.687 4.803 1.828c.864.508.986.713 1.234 1.722c.247 1.01.248 2.895-.475 5.157c-1.447 4.523-5.713 10-11.235 12.7c-4.346 2.125-9.372 2.917-15.66.847c2.174-5.033 4.823-9.984 7.824-13.787c3.257-4.13 6.74-6.828 9.528-7.832c1.045-.375 1.995-.623 2.978-.665zm278.153 98.647c8.835 0 16 7.163 16 16c0 8.836-7.165 16-16 16c-8.838 0-16-7.164-16-16c0-8.837 7.162-16 16-16z"></path></svg>
-			Donate
-		</button>
-		<button className="HeaderButton">
-			<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5Zm-6.5 3c.279 0 .55.033.81.094a5.948 5.948 0 0 0-.301 1.575L6 16v.086a1.493 1.493 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.355L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14Zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.355-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.308-1.904c.258-.063.53-.096.808-.096Zm-13-6a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5Zm13 0a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5Zm-13 2a.5.5 0 1 0 0 1a.5.5 0 0 0 0-1Zm13 0a.5.5 0 1 0 0 1a.5.5 0 0 0 0-1ZM12 2a4 4 0 1 1 0 8a4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4a2 2 0 0 0 0-4Z"></path></svg>
-			Get Involved
-		</button>
-		<button className="HeaderButton">
-			<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="M13 17.05q1.1-.525 2.212-.788T17.5 16q.9 0 1.763.15T21 16.6V6.7q-.825-.35-1.713-.525T17.5 6q-1.175 0-2.325.3T13 7.2v9.85ZM12 20q-1.2-.95-2.6-1.475T6.5 18q-1.325 0-2.775.5T1 20.05V5.55Q2.1 4.8 3.588 4.4T6.5 4q1.45 0 2.838.375T12 5.5q1.275-.75 2.663-1.125T17.5 4q1.425 0 2.913.4T23 5.55v14.5Q21.75 19 20.287 18.5T17.5 18q-1.5 0-2.9.525T12 20Zm2-10.1V8.2q.825-.35 1.688-.525T17.5 7.5q.65 0 1.275.1T20 7.85v1.6q-.6-.225-1.213-.338T17.5 9q-.95 0-1.825.238T14 9.9Zm0 5.5v-1.7q.825-.35 1.688-.525T17.5 13q.65 0 1.275.1t1.225.25v1.6q-.6-.225-1.213-.338T17.5 14.5q-.95 0-1.825.225T14 15.4Zm0-2.75v-1.7q.825-.35 1.688-.525t1.812-.175q.65 0 1.275.1T20 10.6v1.6q-.6-.225-1.213-.338T17.5 11.75q-.95 0-1.825.238T14 12.65Z"></path></svg>
-			About
-		</button>
-	</nav>
+	const navigate = useNavigate();
 
 	if (useHamburger) {
 		const Drawer = () => {
@@ -414,7 +464,20 @@ function HeaderNav() {
 
 						<Divider sx={{ mt: '20px' }} />
 
-						{nav_items}
+						<nav id="header-items">
+							<button className="HeaderButton">
+								<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 512 512"><path fill="currentColor" d="M255.55 22.36c-30.93 0-56 25.07-56 56c0 30.927 25.07 56 56 56c30.927 0 56-25.073 56-56c0-30.93-25.073-56-56-56zM105.067 144.47c-3.047.028-6.012.55-8.748 1.536c-7.296 2.627-12.95 7.77-17.562 13.617c-3.63 4.602-6.523 9.754-9.012 14.992c-6.79-6.374-14.215-15.785-21.8-30.117l-15.91 8.418c10.115 19.112 20.597 31.962 31.292 40.066c-.405 1.802-.907 3.66-1.164 5.364c-2.005 13.302 2.913 24.966 9.637 34.736c5.34 7.757 11.825 14.87 18.132 22.367c-7.497 15.76-11.35 32.49-11.368 49.366c.07 28.777 11.283 56.823 32.082 80.243l3.655-13.117l17.34 4.832l-25.13 90.18c20.857 6.423 41.04 6.52 61.62-1.072l18.727-66.73l17.33 4.865l-8.892 31.69c17.887 4.99 36.674 7.578 55.607 7.657a212.674 212.674 0 0 0 36.81-3.396l-8.942-39.63l17.558-3.963l14.996 66.473c24.936 11.267 48.496 10.575 72.764 1.222l-25.115-78.986l17.152-5.455l4.97 15.636c21.796-38.09 68.757-29.083 91.825-40.08c11.686-3.894 5.42-69.874 4.916-73.04c-.38-2.39-29.734-3.818-40.16-2.248c-5.975.9-16.344-12.078-27.39-27.597c-5.387-10.488-12.357-20.405-20.753-29.527c-3.988-5.276-2.735-3.092-6.533-6.474c.715 6.697 2.12 12.306 4.152 16.23l-15.986 8.277c-7.378-14.252-7.98-32.853-5.662-52.858c1.583-13.67 4.81-27.957 9.03-41.733c-11.81 6.755-22.626 17.48-32.02 30.586c-13.665 19.064-24.126 42.55-30.647 62.644l-17.12-5.556c2.777-8.56 6.2-17.655 10.255-26.835c-14.467-6.574-35.467-9.76-57.426-8.826c-23.852 1.01-48.83 6.716-68.043 16.2l-7.97-16.143c22.13-10.923 49.122-16.934 75.25-18.043c3.267-.138 6.52-.203 9.747-.19c20.69.086 40.372 3.378 56.274 10.78a227.067 227.067 0 0 1 7.125-12.537c-21.74-7.8-45.253-11.897-69.058-12.03c-63.206.056-121.303 27.923-151.383 72.614c-4.954-5.81-9.525-11.11-12.89-16c-5.26-7.64-7.608-13.682-6.695-21.126c10.458 3.152 20.632 2.07 28.694-1.87c10.316-5.044 17.423-13.85 20.473-23.39c1.526-4.77 2.056-9.862.813-14.928c-1.243-5.065-4.63-10.034-9.598-12.953c-4.862-2.856-10.17-4.187-15.25-4.142zm.328 17.805a6.87 6.87 0 0 1 1 .03c1.362.138 2.86.687 4.803 1.828c.864.508.986.713 1.234 1.722c.247 1.01.248 2.895-.475 5.157c-1.447 4.523-5.713 10-11.235 12.7c-4.346 2.125-9.372 2.917-15.66.847c2.174-5.033 4.823-9.984 7.824-13.787c3.257-4.13 6.74-6.828 9.528-7.832c1.045-.375 1.995-.623 2.978-.665zm278.153 98.647c8.835 0 16 7.163 16 16c0 8.836-7.165 16-16 16c-8.838 0-16-7.164-16-16c0-8.837 7.162-16 16-16z"></path></svg>
+								Donate
+							</button>
+							<button className="HeaderButton">
+								<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="M12 11a5 5 0 0 1 5 5v6h-2v-6a3 3 0 0 0-2.824-2.995L12 13a3 3 0 0 0-2.995 2.824L9 16v6H7v-6a5 5 0 0 1 5-5Zm-6.5 3c.279 0 .55.033.81.094a5.948 5.948 0 0 0-.301 1.575L6 16v.086a1.493 1.493 0 0 0-.356-.08L5.5 16a1.5 1.5 0 0 0-1.493 1.355L4 17.5V22H2v-4.5A3.5 3.5 0 0 1 5.5 14Zm13 0a3.5 3.5 0 0 1 3.5 3.5V22h-2v-4.5a1.5 1.5 0 0 0-1.355-1.493L18.5 16c-.175 0-.343.03-.5.085V16c0-.666-.108-1.306-.308-1.904c.258-.063.53-.096.808-.096Zm-13-6a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5Zm13 0a2.5 2.5 0 1 1 0 5a2.5 2.5 0 0 1 0-5Zm-13 2a.5.5 0 1 0 0 1a.5.5 0 0 0 0-1Zm13 0a.5.5 0 1 0 0 1a.5.5 0 0 0 0-1ZM12 2a4 4 0 1 1 0 8a4 4 0 0 1 0-8Zm0 2a2 2 0 1 0 0 4a2 2 0 0 0 0-4Z"></path></svg>
+								Get Involved
+							</button>
+							<button className="HeaderButton">
+								<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="M13 17.05q1.1-.525 2.212-.788T17.5 16q.9 0 1.763.15T21 16.6V6.7q-.825-.35-1.713-.525T17.5 6q-1.175 0-2.325.3T13 7.2v9.85ZM12 20q-1.2-.95-2.6-1.475T6.5 18q-1.325 0-2.775.5T1 20.05V5.55Q2.1 4.8 3.588 4.4T6.5 4q1.45 0 2.838.375T12 5.5q1.275-.75 2.663-1.125T17.5 4q1.425 0 2.913.4T23 5.55v14.5Q21.75 19 20.287 18.5T17.5 18q-1.5 0-2.9.525T12 20Zm2-10.1V8.2q.825-.35 1.688-.525T17.5 7.5q.65 0 1.275.1T20 7.85v1.6q-.6-.225-1.213-.338T17.5 9q-.95 0-1.825.238T14 9.9Zm0 5.5v-1.7q.825-.35 1.688-.525T17.5 13q.65 0 1.275.1t1.225.25v1.6q-.6-.225-1.213-.338T17.5 14.5q-.95 0-1.825.225T14 15.4Zm0-2.75v-1.7q.825-.35 1.688-.525t1.812-.175q.65 0 1.275.1T20 10.6v1.6q-.6-.225-1.213-.338T17.5 11.75q-.95 0-1.825.238T14 12.65Z"></path></svg>
+								About
+							</button>
+						</nav>
 
 						<Divider sx={{ mb: '20px' }} />
 
@@ -434,36 +497,57 @@ function HeaderNav() {
 		)
 	}
 
-	return nav_items
+	return (
+		<nav id="header-items">
+			<HeaderNavButton subContent={() => navigate("/contact")}>Donate</HeaderNavButton>
+
+			<HeaderNavButton subContent={() => navigate("/contact")}>Contact Us</HeaderNavButton>
+
+			<HeaderNavButton subContent={[
+				["Our Mission", () => navigate("/mission")],
+				["Our Work", () => navigate("/work")],
+				["Our Team", () => navigate("/team")],
+			]}>
+				About
+			</HeaderNavButton>
+			<HeaderNavButton subContent={[
+				["Become a mentor", () => navigate("/join")],
+				["Teacher/Student Referrals", () => navigate("/referrals")],
+				["Enroll My Child", () => navigate("/enroll")],
+				["Donate", () => navigate("/give")],
+			]}>Get Involved</HeaderNavButton>
+		</nav>
+	)
 }
 
 /**
  * @param jiggleHeader if true, apply a shake animation to the header.
  * @returns 
  */
-function Header(props: { jiggleHeader: boolean }) {
+function Header() {
 	const header = useRef<HTMLDivElement>(null)
-	const [extended, setExtended] = useState(true)
+	// const [extended, setExtended] = useState(true)
 	const [open, setOpen] = useState(false)
 	const isMobile = useMobile()
 
-	useEffect(() => {
-		const observer = new IntersectionObserver(([entry]) => {
-			setExtended(entry.isIntersecting)
-		}, { root: null, rootMargin: '0px', threshold: 1.0 })
+	// useEffect(() => {
+	// 	const observer = new IntersectionObserver(([entry]) => {
+	// 		setExtended(!entry.isIntersecting)
+	// 		// alert(`${entry.intersectionRatio} -- ${entry.isIntersecting}`)
+	// 	}, { root: null, rootMargin: '0px', threshold: 1 })
 
-		const copy = header.current // required per the rules of useEffect with DOM elements.
+	// 	const copy = header.current // required per the rules of useEffect with DOM elements.
 
-		if (copy) observer.observe(copy)
+	// 	if (copy) observer.observe(copy)
 
-		return () => {
-			if (copy) observer.unobserve(copy)
-		}
-	}, [header])
+	// 	return () => {
+	// 		if (copy) observer.unobserve(copy)
+	// 	}
+	// }, [header])
 
 	return (
 		<>
-			<header ref={header} className={`Header__landing-header landing-content-spacing ${!extended && !isMobile ? 'Header__hide-header' : ''}`}>
+			<header ref={header} className={"Header__landing-header landing-content-spacing"}>
 				<div className='Header__header-logo Header__title important-left-items'>
 					<img alt="One Step Ahead Logo" src="/mainlogo.png" className="logo-png" />
 				</div>
@@ -474,7 +558,7 @@ function Header(props: { jiggleHeader: boolean }) {
 
 			{!isMobile && <SpeedDial
 				className="Header__dial"
-				hidden={extended}
+				// hidden={extended}
 				open={open}
 				onClose={() => setOpen(false)}
 				onOpen={() => setOpen(true)}
@@ -538,11 +622,13 @@ function HeroTransition() {
 	return (
 		<section id="theory" className="landing-content-spacing">
 			<div id="theory-title">
-				Mentoring For a Change
-			</div>
+				Remote peer mentoring to minimize CCUSD’s socioeconomic achievement gap.			</div>
 			<div style={{ display: 'grid', height: '100%' }}>
 				<Transition />
 				<div className="single-cell" id="theory-explanation">
+					<p>
+						One Step Ahead Culver City is a 501(c)3 non-profit organization and Culver City High School club working towards a more equitable future for all students in CCUSD. We connect students from all five elementary schools with high school mentors who assist them in their individual struggles with reading and math. Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students; to ensure our work is as impactful and long lasting.
+					</p>
 					<p>
 						The harsh reality of being a student is that one's ability to perform in the classroom
 						is heavily tied to factors outside the control of children. In our school zone,
@@ -550,6 +636,11 @@ function HeroTransition() {
 						have reported reading comprehension and math scores far below state standards among kids
 						from disadvantaged households.
 					</p>
+					<Divider style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+						<div style={{ display: 'flex', justifyContent: 'center' }}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 22q-.825 0-1.413-.588T4 20V4q0-.825.588-1.413T6 2h12q.825 0 1.413.588T20 4v16q0 .825-.588 1.413T18 22H6Zm5-11l2.5-1.5L16 11V4h-5v7Z"></path></svg>
+						</div>
+					</Divider>
 					<p>
 						This socioeconomic gap affects Culver City's future generation of workers and leaders
 						from as early as the first grade. We actively make a difference in our community by
@@ -570,18 +661,14 @@ function HeroTransition() {
 						Do you have what it takes to be a mentor? Find out by <a className="a color-primary" href="/mentors">checking our student profile</a> and
 						talking to a team member today!
 					</p>
-
-					<div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
-						<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 22q-.825 0-1.413-.588T4 20V4q0-.825.588-1.413T6 2h12q.825 0 1.413.588T20 4v16q0 .825-.588 1.413T18 22H6Zm5-11l2.5-1.5L16 11V4h-5v7Z"></path></svg>
-					</div>
 				</div>
 			</div>
 		</section>
 	)
 }
 
-const TwirlDivider = memo(() => (
-	<img alt="" src={twirlDivider} className='TwirlDivider'></img>
+const TwirlDivider = memo(({ style }: { style?: CSSProperties }) => (
+	<img alt="" src={twirlDivider} style={style ?? {}} className='TwirlDivider'></img>
 ))
 
 function MobileHero() {
@@ -612,20 +699,20 @@ function MobileHero() {
 }
 
 function HeroSection() {
-	const [jiggle, setJiggle] = useState(false)
+	// const [jiggle, setJiggle] = useState(false)
 
-	const cb = useCallback((atTop: boolean) => {
-		setJiggle(!atTop)
-	}, [])
+	// const cb = useCallback((atTop: boolean) => {
+	// 	setJiggle(!atTop)
+	// }, [])
 
 	const isMobile = useMobile();
 
-	const focus = isMobile ? <MobileHero /> : <ImageCarousel images={IMAGES} />
+	const focus = isMobile ? <MobileHero /> : <div style={{ height: "min(max(60vh, 450px), 700px)" }}><ImageCarousel images={IMAGES} /></div>
 
 	return (
 		<section id="hero">
-			<LocationBar signal={cb} />
-			<Header jiggleHeader={jiggle} />
+			{/* <LocationBar signal={cb} /> */}
+			<Header />
 			{focus}
 		</section>
 	)
@@ -657,14 +744,23 @@ function SupportSection() {
 			</div>
 
 			<div ref={sectionRef} className={`SupportSection__images ${visible ? "SupportSection__fade-in" : ""}`}>
-				<img alt="Culver City Education Foundation" width="300px" src={ccef} />
 				<img alt="Culver City Unified School District" style={{ maxWidth: "100px" }} src={ccusd} />
-				<img alt="El Marino Language School" width="300px" src={elmarinologo} />
-				<img alt="El Rincon Elementary School" width="300px" src={elrinconlogo} />
-				<img alt="La Ballona Elementary School" width="300px" src={laballonalogo} />
-				<img alt="Linwood E. Howe Elementary School" width="300px" src={linhowelogo} />
-				<img alt="Farragut Elementary School" width="300px" src={farragutlogo} />
+				<img alt="El Marino Language School" className="standard-image" src={elmarinologo} />
+				<img alt="El Rincon Elementary School" className="standard-image" src={elrinconlogo} />
+				<img alt="La Ballona Elementary School" className="standard-image" src={laballonalogo} />
+				<img alt="Linwood E. Howe Elementary School" className="standard-image" src={linhowelogo} />
+				<img alt="Farragut Elementary School" className="standard-image" src={farragutlogo} />
 			</div>
+
+			<div className="Header__title" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
+				And A Special Thanks To
+			</div>
+
+			<div ref={sectionRef} className={`SupportSection__images ${visible ? "SupportSection__fade-in" : ""}`}>
+				<img alt="Culver City Education Foundation" className="standard-image" src={ccef} />
+			</div>
+
+
 		</section>
 	)
 }
@@ -694,14 +790,12 @@ function FooterSection() {
 				</div>
 
 				<div id="footer-location-quote">
-					&quot;&#9733;&#9733;&#9733;&#9733;&#9733;&quot; Service To Culver's Future
+					Email Us At: <a href="mailto:onestepaheadculvercity@gmail.com">onestepaheadculvercity@gmail.com</a>
 				</div>
 			</div>
 			<div id="footer-credits">
 				<span id="copyright">
 					{new Date().getFullYear()} Mateo Rodriguez Web Development, All Rights Reserved.
-					For business inquiries and affordable tech solutions, contact us at <span style={{ whiteSpace: 'nowrap', fontSize: 'inherit' }}>+1 (310) 773-8797</span>.
-					Los Angeles, CA
 				</span>
 			</div>
 
@@ -750,8 +844,19 @@ export default function Landing() {
 
 			<ParallaxImagesSection items={PARALLAX_IMAGES} />
 
-			<FounderBlurb left colors={[GlobalStyles.COLOR_MAIN, GlobalStyles.COLOR_SPLASH]} url={zoom} title="Lorem Ipsum" className="landing-content-spacing landing-content-v-spacing">
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fuga tenetur, esse veniam placeat asperiores deserunt voluptatibus tempora? Iure voluptatem magni cumque dolores ducimus voluptatibus explicabo tenetur tempora autem aut illum animi, hic ipsum eos veritatis nisi in facere architecto saepe obcaecati? Eligendi dolor aperiam velit nihil, impedit eum animi vitae quasi omnis, cupiditate aliquam sunt nostrum architecto porro ipsam magni adipisci natus fuga blanditiis! Dolor molestias, ab iusto aliquam, excepturi rerum veniam a similique beatae reprehenderit quisquam, dicta dolorum sunt quam? Obcaecati dicta, ab eius, quidem necessitatibus quia ducimus earum minima ratione ullam accusantium magni repudiandae sapiente quasi quaerat nam molestias! Unde quisquam fugiat dolorem vitae, quasi omnis officiis distinctio accusantium blanditiis aperiam eos dicta autem, veniam quae. Nam iste pariatur asperiores laboriosam reiciendis aut, vel accusamus nemo animi neque rerum, iusto officia, ab unde? Voluptas libero repellat voluptatibus quisquam. Praesentium dolor quo molestiae, beatae hic iure quam blanditiis, suscipit voluptatem itaque earum assumenda quidem optio sapiente, deleniti soluta! Eligendi, quae, deserunt nobis omnis soluta harum eveniet odit, minus iure adipisci obcaecati aut veniam commodi magnam eos corrupti illum nihil dolore id. Enim quasi repellendus, saepe repudiandae maxime, odio id eius quia reiciendis vero eveniet voluptatibus, recusandae impedit est?
+			<FounderBlurb left colors={[GlobalStyles.COLOR_MAIN, GlobalStyles.COLOR_SPLASH]} url={zoom} title="Real Impact" className="landing-content-spacing landing-content-v-spacing">
+				<div>
+					<h3>########'s Mom Wrote</h3>
+					<div>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fuga tenetur, esse veniam placeat asperiores deserunt voluptatibus tempora? Iure voluptatem magni cumque dolores ducimus voluptatibus explicabo tenetur
+					</div>
+				</div>
+				<div>
+					<h3>########'s Grandpa Wrote</h3>
+					<div>
+						Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fuga tenetur, esse veniam placeat asperiores deserunt voluptatibus tempora? Iure voluptatem magni cumque dolores ducimus voluptatibus explicabo tenetur
+					</div>
+				</div>
 			</FounderBlurb>
 
 			<SupportSection />
