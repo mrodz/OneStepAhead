@@ -21,6 +21,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 
 import ParallaxImageSplit, { ParallaxImageTextSection } from './ParallaxImageSplit'
 
+import landinggraphic from './images/landinggraphic.png'
 import classroom from './images/classroom.jpg'
 import tutor from './images/tutor.jpg'
 import elmarino from './images/elmarino.jpg'
@@ -130,6 +131,10 @@ interface ImageCarouselProps {
 
 const IMAGES: ImageCarouselImage[] = [
 	{
+		url: landinggraphic,
+		description: "Check out our new website :-)"
+	},
+	{
 		url: classroom,
 		description: 'Look at these kids hard at work'
 	},
@@ -157,7 +162,7 @@ function rollover(dir: "up" | "down", value: number, limit: number) {
 type ParallaxImageItem = {
 	title: string,
 	url: string,
-	content: string
+	content: JSX.Element | string,
 }
 
 interface ParallaxImagesSectionProps {
@@ -805,14 +810,50 @@ function FooterSection() {
 
 const PARALLAX_IMAGES: ParallaxImageItem[] = [
 	{
-		content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum a mi non risus auctor mollis. Aenean molestie dictum tincidunt. Etiam lobortis porta porttitor. Nulla et porttitor erat. Nam at tellus et quam pellentesque consequat. Vivamus vel placerat massa. Vivamus aliquam iaculis pretium. Quisque fringilla laoreet ornare. Proin a laoreet nibh. Integer dignissim pellentesque dapibus. Pellentesque viverra efficitur eros. Nam feugiat, tellus quis rhoncus gravida, urna justo aliquam est, suscipit mollis augue dui a elit. Etiam sed ex sapien. Aenean eros ex, vehicula id augue non, lacinia venenatis justo. Vivamus facilisis tellus eu urna consequat bibendum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla facilisi. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. In hac habitasse platea dictumst. Aenean pellentesque porttitor leo et rutrum.",
-		title: 'Title #1',
+		title: 'Students helping students one-on-one to stay one step ahead in their education',
+		content: <>
+			<p>
+				Creating a diverse generation of future leaders in Culver City, California.
+			</p>
+			<p>
+				It all starts from the early years of primary education. Not every child starts
+				on the same playing field, but this should not hold any kid back from success in
+				the classroom.
+			</p>
+		</>,
 		url: classroom
 	},
 	{
-		content: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.",
-		title: 'Title #2',
+		title: 'We are a student-led, student-run organization.',
+		content: <>
+			<p>
+				Our mentors are all passionate high school volunteers working to share their
+				knowledge and skills in hopes of a more equitable future.
+			</p>
+			<p>
+				We require that our mentors be extremely well versed in their subject matter, and perform
+				extensive training to ensure that every session is effective.
+			</p>
+			<p>
+				Above all, our goal is for each student to consider their mentor a real friend.
+			</p>
+		</>,
 		url: tutor
+	},
+	{
+		title: 'Community-Centered',
+		content: <>
+			<p>
+				We gather input from teachers, specialists, and parents to target the students
+				who need our help the most.
+			</p>
+			<p>
+				We rely on generous contributions from the community to provide resources for our
+				program. Your donation could go towards purchasing the book that sparks a child's
+				love for reading!
+			</p>
+		</>,
+		url: classroom,
 	}
 ]
 

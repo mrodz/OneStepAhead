@@ -42,7 +42,7 @@ interface ParallaxImageSplitProps {
 interface ParallaxImageTextSectionProps {
 	image: React.ReactElement,
 	title: string,
-	content: string,
+	content: JSX.Element | string,
 	id?: number
 }
 
