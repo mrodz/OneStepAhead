@@ -364,6 +364,9 @@ const actions: readonly DialAction[] = [
 	new DialAction(<MenuBookIcon />, 'Donate'),
 	new DialAction(<PersonPinIcon />, 'Learn About Us'),
 	new DialAction(<WatchIcon />, 'Refer a student'),
+	new DialAction(<MenuBookIcon />, 'Donate'),
+	new DialAction(<PersonPinIcon />, 'Learn About Us'),
+	new DialAction(<WatchIcon />, 'Refer a student'),
 	new DialAction(<KeyboardArrowUpIcon />, 'Back to Top')
 		.onClick(() => window.scrollTo({ top: 0, left: 0 }))
 ]
@@ -634,6 +637,12 @@ function HeroTransition() {
 					<p>
 						One Step Ahead Culver City is a 501(c)3 non-profit organization and Culver City High School club working towards a more equitable future for all students in CCUSD. We connect students from all five elementary schools with high school mentors who assist them in their individual struggles with reading and math. Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students; to ensure our work is as impactful and long lasting.
 					</p>
+
+					<Divider style={{ marginTop: '2rem', marginBottom: '2rem' }}>
+						<div style={{ display: 'flex', justifyContent: 'center' }}>
+							<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 22q-.825 0-1.413-.588T4 20V4q0-.825.588-1.413T6 2h12q.825 0 1.413.588T20 4v16q0 .825-.588 1.413T18 22H6Zm5-11l2.5-1.5L16 11V4h-5v7Z"></path></svg>
+						</div>
+					</Divider>
 					<p>
 						The harsh reality of being a student is that one's ability to perform in the classroom
 						is heavily tied to factors outside the control of children. In our school zone,
@@ -641,12 +650,7 @@ function HeroTransition() {
 						have reported reading comprehension and math scores far below state standards among kids
 						from disadvantaged households.
 					</p>
-					<Divider style={{ marginTop: '2rem', marginBottom: '2rem' }}>
-						<div style={{ display: 'flex', justifyContent: 'center' }}>
-							<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><path fill="currentColor" d="M6 22q-.825 0-1.413-.588T4 20V4q0-.825.588-1.413T6 2h12q.825 0 1.413.588T20 4v16q0 .825-.588 1.413T18 22H6Zm5-11l2.5-1.5L16 11V4h-5v7Z"></path></svg>
-						</div>
-					</Divider>
-					<p>
+					{/*<p>
 						This socioeconomic gap affects Culver City's future generation of workers and leaders
 						from as early as the first grade. We actively make a difference in our community by
 						fostering 1-on-1 mentoring relationships between qualified high school students and
@@ -665,7 +669,7 @@ function HeroTransition() {
 					<p>
 						Do you have what it takes to be a mentor? Find out by <a className="a color-primary" href="/mentors">checking our student profile</a> and
 						talking to a team member today!
-					</p>
+	</p>*/	}
 				</div>
 			</div>
 		</section>
@@ -774,16 +778,16 @@ function FooterSection() {
 	return (
 		<footer className="Landing__footer">
 			<div id="footer-location">
-				<div id="footer-location-title">One Step Ahead</div>
+				<div id="footer-location-title">One Step Ahead Culver City</div>
 				<table id="footer-location-about-desktop" cellSpacing="0">
 					<tbody>
 						<tr>
 							<th>Find us at:</th>
-							<th>Call us at:</th>
+							{/* <th>Call us at:</th> */}
 						</tr>
 						<tr>
 							<td>Culver City High School &mdash; 4401 Elenda Street, Culver City, CA 90230</td>
-							<td><PhoneLink number='111-222-3333' text='(111) 222-3333' /></td>
+							{/* <td><PhoneLink number='111-222-3333' text='(111) 222-3333' /></td> */}
 						</tr>
 					</tbody>
 				</table>
