@@ -1,0 +1,76 @@
+main.team
+	padding: 40px
+
+	width: 100%
+
+	h1
+		text-align: center
+
+.Team__photo-wrapper
+	display: grid
+	// max-width: 500px
+
+	grid-template-columns: 1fr 1fr 1fr
+	// grid-auto-columns: minmax(0, 1fr)
+	grid-auto-flow: row
+
+@keyframes load-image
+	0%
+		opacity: 0
+	50%
+		opacity: 0.1
+	100%
+		opacity: 0
+
+.BlurryPhoto
+	width: min-content
+
+	border-radius: 100vmax
+
+	filter: blur(10px)
+
+	background-position: center
+	background-repeat: no-repeat
+	background-size: cover
+
+	&:not(.loaded)::before
+		content: ""
+		position: absolute
+		inset: 0
+		opacity: 0
+
+		animation: load-image 2.5s infinite
+		background-color: white
+
+	& img
+		border-radius: 100vmax
+
+		width: 250px
+		height: 250px
+		opacity: 0
+		transition: opacity 250ms ease-in-out
+
+	&.loaded
+		filter: none
+
+		& img
+			opacity: 1
+
+.TeamCard
+	display: grid
+	grid-template-columns: auto 1fr
+	margin: 30px
+
+.TeamCard__text
+	margin: 0 20px
+
+.Team__group-photo
+
+	h2
+		text-align: center
+
+	& img
+		display: block
+		margin: 0 auto
+
+		width: 70%

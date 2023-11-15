@@ -4,6 +4,7 @@ import Landing from './pages/Landing'
 import NotFound from './pages/404'
 import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles'
 import { MobileProvider } from './hooks/useSizes'
+import Team from './pages/Team'
 
 const themeOptions: ThemeOptions = {
 	palette: {
@@ -34,8 +35,8 @@ export default function App() {
 			<BrowserRouter>
 				<MobileProvider>
 					<Routes>
-						<Route path="/" element={<Landing />}>
-						</Route>
+						<Route path="/" element={<Landing />} />
+						<Route path="/team" element={<Team />} />
 						<Route path="*" element={<NotFound />} />
 					</Routes>
 				</MobileProvider>

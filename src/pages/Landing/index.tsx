@@ -24,8 +24,8 @@ import ParallaxImageSplit, { ParallaxImageTextSection } from './ParallaxImageSpl
 import landinggraphic from './images/landinggraphic.png'
 import classroom from './images/classroom.jpg'
 import tutor from './images/tutor.jpg'
-import elmarino from './images/elmarino.jpg'
-import chocolate from './images/chocolate.jpg'
+// import elmarino from './images/elmarino.jpg'
+// import chocolate from './images/chocolate.jpg'
 import mobile from './images/kidsreading.jpg'
 import twirlDivider from './images/twirl.svg'
 import zoom from './images/zoom.jpg'
@@ -47,10 +47,6 @@ import { useMobile } from '../../hooks/useSizes'
 import FounderBlurb from './FounderBlurb'
 import { useNavigate } from 'react-router-dom'
 
-interface LocationBarProps {
-	signal?: (arg: boolean) => void
-}
-
 interface PhoneLinkProps {
 	number: string,
 	text?: string,
@@ -62,37 +58,6 @@ const PhoneLink: FC<PhoneLinkProps> = ({ number, text, color = 'inherit' }) => {
 		<Button sx={{ whiteSpace: 'nowrap', fontSize: 'inherit' }} color={color} variant='text' href={`tel:${number}`}>
 			<Phone /> {text ?? number}
 		</Button>
-	)
-}
-
-/**
- * @param signal a callback function, will fire when this comes into view.
- * @returns JSX
- */
-function LocationBar({ signal }: LocationBarProps) {
-	const header = useRef<HTMLDivElement>(null)
-
-	useEffect(() => {
-		const observer = new IntersectionObserver(([entry]) => {
-			signal?.(entry.isIntersecting)
-		}, { root: null, rootMargin: '0px', threshold: 1.0 })
-
-		const copy = header.current // required per the rules of useEffect with DOM elements.
-
-		if (copy) observer.observe(copy)
-
-		return () => {
-			if (copy) observer.unobserve(copy)
-		}
-	}, [header, signal])
-
-	return (
-		<div className="LocationBar__location-bar" ref={header}>
-			<span>
-				October 2023 &mdash; Applications are open for students
-			</span>
-			{/* <PhoneLink number='310-670-8122' text='(310) 670-8122' color="primary" /> */}
-		</div >
 	)
 }
 
@@ -134,22 +99,22 @@ const IMAGES: ImageCarouselImage[] = [
 		url: landinggraphic,
 		description: "Check out our new website :-)"
 	},
-	{
-		url: classroom,
-		description: 'Look at these kids hard at work'
-	},
-	{
-		url: tutor,
-		description: 'Tutoring Description Goes Here'
-	},
-	{
-		url: elmarino,
-		description: 'El Marino Language School'
-	},
-	{
-		url: chocolate,
-		description: 'Size of an iPhone 13 landscape photo'
-	}
+	// {
+	// 	url: classroom,
+	// 	description: 'Look at these kids hard at work'
+	// },
+	// {
+	// 	url: tutor,
+	// 	description: 'Tutoring Description Goes Here'
+	// },
+	// {
+	// 	url: elmarino,
+	// 	description: 'El Marino Language School'
+	// },
+	// {
+	// 	url: chocolate,
+	// 	description: 'Size of an iPhone 13 landscape photo'
+	// }
 ]
 
 function rollover(dir: "up" | "down", value: number, limit: number) {
@@ -293,6 +258,8 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 		preloadImages(images.map(img => img.url))
 	}, [images])
 
+	const multipleItems = images.length > 1
+
 	return (
 		<div className="ImageCarousel__image-carousel landing-content-spacing">
 			<div role="img" className={`div-as-img ${switching ? "ImageCarousel__fade-out" : ""}`} style={{ backgroundImage: `url(${images[currentIdx].url})`, }}></div>
@@ -304,35 +271,37 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 				{images[currentIdx].description}
 			</div>
 
-			<Avatar sx={{
-				bgcolor: '#fff',
-				position: 'absolute',
-				zIndex: 10,
-				top: '50%',
-				bottom: '50%',
-				right: '10px',
-				height: 'max-content'
-			}}>
-				<IconButton ref={nextButton} onClick={advance}>
-					<KeyboardArrowRightIcon />
-				</IconButton>
-			</Avatar>
+			{multipleItems && <>
+				<Avatar sx={{
+					bgcolor: '#fff',
+					position: 'absolute',
+					zIndex: 10,
+					top: '50%',
+					bottom: '50%',
+					right: '10px',
+					height: 'max-content'
+				}}>
+					<IconButton ref={nextButton} onClick={advance}>
+						<KeyboardArrowRightIcon />
+					</IconButton>
+				</Avatar>
 
-			<Avatar sx={{
-				bgcolor: '#fff',
-				position: 'absolute',
-				zIndex: 10,
-				top: '50%',
-				bottom: '50%',
-				left: '10px',
-				height: 'max-content'
-			}}>
-				<IconButton onClick={retract} >
-					<KeyboardArrowLeftIcon />
-				</IconButton>
-			</Avatar>
+				<Avatar sx={{
+					bgcolor: '#fff',
+					position: 'absolute',
+					zIndex: 10,
+					top: '50%',
+					bottom: '50%',
+					left: '10px',
+					height: 'max-content'
+				}}>
+					<IconButton onClick={retract} >
+						<KeyboardArrowLeftIcon />
+					</IconButton>
+				</Avatar>
 
-			<ImageCarouselDots len={images.length} idx={currentIdx} />
+				<ImageCarouselDots len={images.length} idx={currentIdx} />
+			</>}
 		</div >
 	)
 }
@@ -364,9 +333,6 @@ const actions: readonly DialAction[] = [
 	new DialAction(<MenuBookIcon />, 'Donate'),
 	new DialAction(<PersonPinIcon />, 'Learn About Us'),
 	new DialAction(<WatchIcon />, 'Refer a student'),
-	new DialAction(<MenuBookIcon />, 'Donate'),
-	new DialAction(<PersonPinIcon />, 'Learn About Us'),
-	new DialAction(<WatchIcon />, 'Refer a student'),
 	new DialAction(<KeyboardArrowUpIcon />, 'Back to Top')
 		.onClick(() => window.scrollTo({ top: 0, left: 0 }))
 ]
@@ -385,7 +351,6 @@ type HeaderNavButtonProps = HeaderNavButtonPropsWithContent | HeaderNavButtonPro
 function HeaderNavButton({ subContent, children }: HeaderNavButtonProps & ComponentPropsWithoutRef<"button">) {
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const open = Boolean(anchorEl);
-	const navigate = useNavigate();
 
 	const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
 		if (!Array.isArray(subContent)) {
@@ -425,9 +390,6 @@ function HeaderNavButton({ subContent, children }: HeaderNavButtonProps & Compon
 							callback();
 						}}>{title}</MenuItem>
 					))}
-					{/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
-					{/* <MenuItem onClick={handleClose}>My account</MenuItem> */}
-					{/* <MenuItem onClick={handleClose}>Logout</MenuItem> */}
 				</Menu>
 			)}
 		</div>
@@ -512,18 +474,16 @@ function HeaderNav() {
 			<HeaderNavButton subContent={() => navigate("/contact")}>Contact Us</HeaderNavButton>
 
 			<HeaderNavButton subContent={[
+				["Become a mentor", () => navigate("/join")],
+				["Refer a student", () => navigate("/referrals")],
+			]}>Get Involved</HeaderNavButton>
+
+			<HeaderNavButton subContent={[
 				["Our Mission", () => navigate("/mission")],
-				["Our Work", () => navigate("/work")],
 				["Our Team", () => navigate("/team")],
 			]}>
 				About
 			</HeaderNavButton>
-			<HeaderNavButton subContent={[
-				["Become a mentor", () => navigate("/join")],
-				["Teacher/Student Referrals", () => navigate("/referrals")],
-				["Enroll My Child", () => navigate("/enroll")],
-				["Donate", () => navigate("/give")],
-			]}>Get Involved</HeaderNavButton>
 		</nav>
 	)
 }
@@ -534,24 +494,8 @@ function HeaderNav() {
  */
 function Header() {
 	const header = useRef<HTMLDivElement>(null)
-	// const [extended, setExtended] = useState(true)
 	const [open, setOpen] = useState(false)
 	const isMobile = useMobile()
-
-	// useEffect(() => {
-	// 	const observer = new IntersectionObserver(([entry]) => {
-	// 		setExtended(!entry.isIntersecting)
-	// 		// alert(`${entry.intersectionRatio} -- ${entry.isIntersecting}`)
-	// 	}, { root: null, rootMargin: '0px', threshold: 1 })
-
-	// 	const copy = header.current // required per the rules of useEffect with DOM elements.
-
-	// 	if (copy) observer.observe(copy)
-
-	// 	return () => {
-	// 		if (copy) observer.unobserve(copy)
-	// 	}
-	// }, [header])
 
 	return (
 		<>
