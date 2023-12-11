@@ -34,7 +34,7 @@ export default function FounderBlurb({ url, title, left = false, className, ...p
 	if (!!className) className = ' ' + className
 
 	return (
-		<section className={"FounderBlurb" + (className ?? '')} {...left ? { ['data-left']: true } : {}}>
+		<section className={"FounderBlurb" + (className ?? '')} {...left ? { 'data-left': true } : {}}>
 			<div className="FounderBlurb__text-section" {...left ? { style: { order: 1, paddingLeft: 0, paddingRight: '30px' } } : {}}>
 				<h2>
 					{title}
@@ -44,7 +44,7 @@ export default function FounderBlurb({ url, title, left = false, className, ...p
 				</p>
 			</div>
 			<div className="FounderBlurb__image-section">
-				<img src={url} alt={`Image of ${title}`}></img>
+				<img src={url} alt={`${title}`}></img>
 				<div className="FounderBlurb__circles">
 					<Circle background={props.colors[0]} radius="6em" right="20px" bottom="20px" />
 					<Circle background={props.colors[1]} radius="3em" top="60px" left="20px" />

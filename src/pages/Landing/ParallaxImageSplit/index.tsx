@@ -1,17 +1,11 @@
 import React, { useState, FC } from 'react'
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax'
 import './ParallaxImageSplit.sass'
-import { useMobile } from '../../../hooks/useSizes'
 
 /**
  * Denotes which half of the image you're referring to: L(eft) or R(ight).
  */
 type dir = 'L' | 'R'
-
-type DocumentDimensions = {
-	width: number,
-	height: number
-}
 
 interface ParallaxImageSplitProps {
 	/**

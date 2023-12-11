@@ -86,7 +86,7 @@ function ImageCarouselDots({ len, idx = 0 }: ImageCarouselDotsProps) {
 
 type ImageCarouselImage = {
 	url: string,
-	description: string
+	description?: string
 }
 
 interface ImageCarouselProps {
@@ -97,7 +97,7 @@ interface ImageCarouselProps {
 const IMAGES: ImageCarouselImage[] = [
 	{
 		url: landinggraphic,
-		description: "Check out our new website :-)"
+		// description: "Check out our new website :-)"
 	},
 	// {
 	// 	url: classroom,
@@ -267,9 +267,9 @@ function ImageCarousel({ images, startIdx = 0 }: ImageCarouselProps) {
 				<div role="img" className={`div-as-img ${switching ? "ImageCarousel__fade-in" : ""}`} style={{ backgroundImage: `url(${newSrc})`, position: 'absolute', zIndex: 2, top: 0, left: 0 }}></div>
 			)}
 
-			<div className="ImageCarousel__image-carousel-blurb important-left-items">
+			{!!images[currentIdx].description && <div className="ImageCarousel__image-carousel-blurb important-left-items">
 				{images[currentIdx].description}
-			</div>
+			</div>}
 
 			{multipleItems && <>
 				<Avatar sx={{
@@ -469,7 +469,7 @@ function HeaderNav() {
 
 	return (
 		<nav id="header-items">
-			<HeaderNavButton subContent={() => navigate("/contact")}>Donate</HeaderNavButton>
+			<HeaderNavButton subContent={() => navigate("/donate")}>Donate</HeaderNavButton>
 
 			<HeaderNavButton subContent={() => navigate("/contact")}>Contact Us</HeaderNavButton>
 
@@ -579,7 +579,8 @@ function HeroTransition() {
 				<Transition />
 				<div className="single-cell" id="theory-explanation">
 					<p>
-						One Step Ahead Culver City is a 501(c)3 non-profit organization and Culver City High School club working towards a more equitable future for all students in CCUSD. We connect students from all five elementary schools with high school mentors who assist them in their individual struggles with reading and math. Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students; to ensure our work is as impactful and long lasting.
+						{/* One Step Ahead Culver City is a 501(c)3 non-profit organization and Culver City High School club working towards a more equitable future for all students in CCUSD. We connect students from all five elementary schools with high school mentors who assist them in their individual struggles with reading and math. Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students; to ensure our work is as impactful and long lasting. */}
+						One Step Ahead Culver City is a 501(c)3 non-profit organization and Culver City High School club working towards a more equitable future for all students in CCUSD. We connect students from all five elementary schools with high school mentors who assist them in their individual struggles with reading and math.
 					</p>
 
 					<Divider style={{ marginTop: '2rem', marginBottom: '2rem' }}>
@@ -588,11 +589,12 @@ function HeroTransition() {
 						</div>
 					</Divider>
 					<p>
-						The harsh reality of being a student is that one's ability to perform in the classroom
+						Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students; to ensure our work is impactful and long-lasting. We hope to not only catch our students back up but to build intrinsic learning motivation and growth mindsets that will help them for the rest of their education.
+						{/* The harsh reality of being a student is that one's ability to perform in the classroom
 						is heavily tied to factors outside the control of children. In our school zone,
 						Culver City Unified School District, resource coordinators at all five elementary schools
 						have reported reading comprehension and math scores far below state standards among kids
-						from disadvantaged households.
+						from disadvantaged households. */}
 					</p>
 					{/*<p>
 						This socioeconomic gap affects Culver City's future generation of workers and leaders
@@ -761,12 +763,9 @@ const PARALLAX_IMAGES: ParallaxImageItem[] = [
 		title: 'Students helping students one-on-one to stay one step ahead in their education',
 		content: <>
 			<p>
-				Creating a diverse generation of future leaders in Culver City, California.
-			</p>
+				A student's ability to perform in the classroom is heavily tied to factors outside of their control. Students from socioeconomically disadvantaged households are statistically more likely to fall behind and stay behind in both reading and math in our current school system. 			</p>
 			<p>
-				It all starts from the early years of primary education. Not every child starts
-				on the same playing field, but this should not hold any kid back from success in
-				the classroom.
+				Our one-on-one approach to peer mentoring ensures that each student's individual needs are met to keep them academically motivated and engaged. We hope that through our work we can create a more diverse future generation of leaders in Culver City, California.
 			</p>
 		</>,
 		url: classroom

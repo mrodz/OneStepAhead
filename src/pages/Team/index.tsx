@@ -133,7 +133,7 @@ export default function Team() {
 			</Divider>
 
 			<section className="Team__group-photo">
-				<img src="/clubpicture.jpg" />
+				<img alt="school club yearbook snapshot" src="/clubpicture.jpg" />
 			</section>
 		</main>
 	)
