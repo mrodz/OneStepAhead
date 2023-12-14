@@ -44,14 +44,22 @@ $logo-and-welcome-width: 20%
 	margin-bottom: 3rem
 
 img.logo-png
-	width: 80%
+	width: 70%
 	height: auto
 
 .HeaderButton
+	color: black
 	background: unset
 	border: none
-	display: grid
-	grid-template-rows: 1fr 20px
+
+	display: flex
+	flex-direction: column
+
+	align-items: center
+	justify-content: center
+
+	border-radius: 100vmax	
+
 	font-size: 16pt
 
 	& svg
@@ -59,7 +67,7 @@ img.logo-png
 		margin-right: auto
 
 	&:hover
-		color: $color-main
+		color: #fff0f0
 		transition: 0.3s
 		text-decoration: underline
 
@@ -114,7 +122,9 @@ img.logo-png
 
 #header-items
 	flex-grow: 1
+
 	display: flex
+
 	flex-direction: row-reverse
 
 	padding: 1rem
@@ -136,7 +146,7 @@ img.logo-png
 	width: 100%
 
 	background-repeat: no-repeat
-	background-size: cover
+	background-size: contain
 	background-position: center
 
 .ImageCarousel__image-carousel-img
@@ -294,6 +304,10 @@ main.landing
 	background-size: $tile-width $tile-width
 	background-repeat: repeat
 
+#hero-wrapper
+	height: min(max(60vh, 400px), 700px)
+	//  style={{ height: "min(max(60vh, 400px), 300px)" }}
+
 #visit-us
 	opacity: 0
 	margin-top: 3rem
@@ -344,6 +358,30 @@ main.landing
 		width: 10%
 		height: 10%
 
+.ParallaxImagesSection__wrapper
+	z-index: 2
+	display: grid
+
+
+.ParallaxImageTextSection__first-description
+	height: 100%
+	display: flex
+	flex-direction: column
+
+.ParallaxImageTextSection__text-content
+	font-size: 16pt
+	height: 100%
+	display: flex
+	flex-direction: column
+	justify-content: center
+
+	& div:first-child
+		flex-grow: 1
+
+	& div:last-child
+		margin-bottom: 8px
+
+
 #theory-explanation
 	margin-top: 5rem
 
@@ -384,6 +422,8 @@ section#hero
 	align-items: center
 	justify-content: center
 
+	margin: 20px
+
 	& > img
 		margin-left: 10px
 		margin-right: 10px
@@ -399,39 +439,10 @@ section#hero
 				transition: opacity .5s ease-in #{$i * .1}s
 				opacity: 1
 
-// .DataSplashSection__list
-// 	padding: 4rem 16rem
-
-// 	& > li
-// 		list-style-type: none
-
-// 		&:nth-child(even)
-// 			text-align: right
-
-// 			& .DataSplashSection__fact
-// 				background-color: $color-main	
-
-// .DataSplashSection__fact
-// 	display: -webkit-inline-flex
-// 	display: inline-flex
-
-// 	background-color: $color-splash
-
-// 	border-radius: 100vmax
-
-// 	align-items: center
-// 	justify-content: center
-
-// 	width: 250px
-// 	height: 250px
-
-// 	& > strong
-// 		display: block
-
 .MobileHero__main
 	height: 100%
 	width: 100%
-	margin-top: 8rem
+	margin-top: 7rem
 	margin-bottom: 1rem
 	position: relative
 
@@ -451,6 +462,8 @@ section#hero
 		background-blend-mode: multiply
 
 .MobileHero__focus-text
+	border: solid red
+
 	position: absolute
 
 	display: flex
@@ -459,14 +472,12 @@ section#hero
 	height: 100%
 	align-content: center
 
-	color: white
 	font-size: 24pt
 
 	z-index: 2
 
 	left: 20px
 	right: 20px
-	margin-top: 20px
 
 #mobile-greeting
 	margin: 0
@@ -502,6 +513,10 @@ section#hero
 	padding: 0 50px
 	text-align: center
 	font-size: 24pt
+
+	& .logo-png
+		width: 60%
+		height: auto
 
 #mobile-years-active
 	font-size: 12pt

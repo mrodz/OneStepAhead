@@ -1,6 +1,5 @@
-import { useEffect, useState, useRef, useCallback, memo, FC, ComponentPropsWithoutRef, CSSProperties } from 'react'
+import { useEffect, useState, useRef, useCallback, memo, ComponentPropsWithoutRef } from 'react'
 
-import Phone from '@mui/icons-material/Phone'
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
@@ -23,11 +22,6 @@ import ParallaxImageSplit, { ParallaxImageTextSection } from './ParallaxImageSpl
 
 import landinggraphic from './images/landinggraphic.png'
 import classroom from './images/classroom.jpg'
-import tutor from './images/tutor.jpg'
-// import elmarino from './images/elmarino.jpg'
-// import chocolate from './images/chocolate.jpg'
-import mobile from './images/kidsreading.jpg'
-import twirlDivider from './images/twirl.svg'
 import zoom from './images/zoom.jpg'
 import ccef from './images/ccef.png'
 import ccusd from './images/ccusd.png'
@@ -42,24 +36,10 @@ import LandingStyles from './index.sass'
 
 import './index.sass'
 import './media.sass'
-import { Divider, Menu, MenuItem, SwipeableDrawer } from '@mui/material'
+import { ButtonGroup, Divider, Menu, MenuItem, SwipeableDrawer } from '@mui/material'
 import { useMobile } from '../../hooks/useSizes'
 import FounderBlurb from './FounderBlurb'
 import { useNavigate } from 'react-router-dom'
-
-interface PhoneLinkProps {
-	number: string,
-	text?: string,
-	color?: "inherit" | "primary" | "secondary" | "success" | "error" | "info" | "warning"
-}
-
-const PhoneLink: FC<PhoneLinkProps> = ({ number, text, color = 'inherit' }) => {
-	return (
-		<Button sx={{ whiteSpace: 'nowrap', fontSize: 'inherit' }} color={color} variant='text' href={`tel:${number}`}>
-			<Phone /> {text ?? number}
-		</Button>
-	)
-}
 
 interface ImageCarouselDotsProps {
 	len: number,
@@ -136,7 +116,7 @@ interface ParallaxImagesSectionProps {
 
 function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 	const result = items.map(({ url, title, content }, i) => {
-		const image = <ParallaxImageSplit fileName={url} alt={title} leading={i % 2 === 0 ? 'L' : 'R'} />
+		const image = <ParallaxImageSplit bottomLimit={400} fileName={url} alt={title} leading={i % 2 === 0 ? 'L' : 'R'} />
 
 		return (
 			<ParallaxImageTextSection key={i} title={title} content={content} image={image} />
@@ -145,7 +125,7 @@ function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 
 	return (
 		<section id="parallax-images" className="landing-content-spacing">
-			<div className="single-cell" style={{ zIndex: 2, display: 'grid', gridTemplateRows: `repeat(${result.length}, 1fr)` }}>
+			<div className="single-cell ParallaxImagesSection__wrapper" >
 				{result}
 			</div>
 
@@ -444,6 +424,10 @@ function HeaderNav() {
 								Get Involved
 							</button>
 							<button className="HeaderButton">
+								<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 -960 960 960"><path d="M280-40q-33 0-56.5-23.5T200-120v-720q0-33 23.5-56.5T280-920h400q33 0 56.5 23.5T760-840v720q0 33-23.5 56.5T680-40H280Zm0-200v120h400v-120H280Zm200 100q17 0 28.5-11.5T520-180q0-17-11.5-28.5T480-220q-17 0-28.5 11.5T440-180q0 17 11.5 28.5T480-140ZM280-320h400v-400H280v400Zm0-480h400v-40H280v40Zm0 560v120-120Zm0-560v-40 40Z" /></svg>
+								Contact
+							</button>
+							<button className="HeaderButton">
 								<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" viewBox="0 0 24 24"><path fill="currentColor" d="M13 17.05q1.1-.525 2.212-.788T17.5 16q.9 0 1.763.15T21 16.6V6.7q-.825-.35-1.713-.525T17.5 6q-1.175 0-2.325.3T13 7.2v9.85ZM12 20q-1.2-.95-2.6-1.475T6.5 18q-1.325 0-2.775.5T1 20.05V5.55Q2.1 4.8 3.588 4.4T6.5 4q1.45 0 2.838.375T12 5.5q1.275-.75 2.663-1.125T17.5 4q1.425 0 2.913.4T23 5.55v14.5Q21.75 19 20.287 18.5T17.5 18q-1.5 0-2.9.525T12 20Zm2-10.1V8.2q.825-.35 1.688-.525T17.5 7.5q.65 0 1.275.1T20 7.85v1.6q-.6-.225-1.213-.338T17.5 9q-.95 0-1.825.238T14 9.9Zm0 5.5v-1.7q.825-.35 1.688-.525T17.5 13q.65 0 1.275.1t1.225.25v1.6q-.6-.225-1.213-.338T17.5 14.5q-.95 0-1.825.225T14 15.4Zm0-2.75v-1.7q.825-.35 1.688-.525t1.812-.175q.65 0 1.275.1T20 10.6v1.6q-.6-.225-1.213-.338T17.5 11.75q-.95 0-1.825.238T14 12.65Z"></path></svg>
 								About
 							</button>
@@ -622,51 +606,28 @@ function HeroTransition() {
 	)
 }
 
-const TwirlDivider = memo(({ style }: { style?: CSSProperties }) => (
-	<img alt="" src={twirlDivider} style={style ?? {}} className='TwirlDivider'></img>
-))
-
 function MobileHero() {
 	return (
 		<div className="MobileHero__main">
-			<div className='MobileHero__focus-image'>
-				<div role="img" className='div-as-img' style={{ backgroundImage: `url(${mobile})` }}></div>
-			</div>
 			<div className='MobileHero__focus-text'>
-				<h1 id="mobile-greeting">
-					<span>
-						Remote Peer Tutoring
-					</span>
-					<TwirlDivider />
-					<span>
-						Accessible to CCUSD's Youth
-					</span>
-				</h1>
-
-				<nav id="mobile-hero-nav">
-					<Button color="secondary" variant="contained">About</Button>
-					<Button color="secondary" variant="contained">Donate</Button>
-					<Button color="secondary" variant="contained">Join Us</Button>
-				</nav>
+				(tmp) Stuff I need:
+				<ul>
+					<li>Mobile-specific graphics for a beautiful Hero section</li>
+					<li>Direction from Lila about what she needs here</li>
+					<li>Pictures, Pictures, Pictures!!!!!</li>
+				</ul>
 			</div>
 		</div>
 	)
 }
 
 function HeroSection() {
-	// const [jiggle, setJiggle] = useState(false)
-
-	// const cb = useCallback((atTop: boolean) => {
-	// 	setJiggle(!atTop)
-	// }, [])
-
 	const isMobile = useMobile();
 
-	const focus = isMobile ? <MobileHero /> : <div style={{ height: "min(max(60vh, 450px), 700px)" }}><ImageCarousel images={IMAGES} /></div>
+	const focus = isMobile ? <MobileHero /> : <div id="hero-wrapper"><ImageCarousel images={IMAGES} /></div>
 
 	return (
 		<section id="hero">
-			{/* <LocationBar signal={cb} /> */}
 			<Header />
 			{focus}
 		</section>
@@ -695,11 +656,11 @@ function SupportSection() {
 	return (
 		<section id="supporters" className="landing-content-spacing">
 			<div className="Header__title">
-				Thank You To Our Friends
+				Thank You To Our Friends At
 			</div>
 
 			<div ref={sectionRef} className={`SupportSection__images ${visible ? "SupportSection__fade-in" : ""}`}>
-				<img alt="Culver City Unified School District" style={{ maxWidth: "100px" }} src={ccusd} />
+				<img data-do-not-render-mobile alt="Culver City Unified School District" style={{ maxWidth: "100px" }} src={ccusd} />
 				<img alt="El Marino Language School" className="standard-image" src={elmarinologo} />
 				<img alt="El Rincon Elementary School" className="standard-image" src={elrinconlogo} />
 				<img alt="La Ballona Elementary School" className="standard-image" src={laballonalogo} />
@@ -708,7 +669,7 @@ function SupportSection() {
 			</div>
 
 			<div className="Header__title" style={{ marginTop: "1rem", marginBottom: "1rem" }}>
-				And A Special Thanks To
+				And a Special Thanks To
 			</div>
 
 			<div ref={sectionRef} className={`SupportSection__images ${visible ? "SupportSection__fade-in" : ""}`}>
@@ -739,9 +700,9 @@ function FooterSection() {
 				</table>
 				<div id="footer-location-about-mobile">
 					<div>
-						Culver City High School &mdash; 4401 Elenda Street, Culver City, CA 90230
+						Culver City High School, 4401 Elenda Street, Culver City, CA 90230
 					</div>
-					<PhoneLink number='111-222-3333' text='(111) 222-3333' />
+					{/* <PhoneLink number='111-222-3333' text='(111) 222-3333' /> */}
 				</div>
 
 				<div id="footer-location-quote">
@@ -762,43 +723,77 @@ const PARALLAX_IMAGES: ParallaxImageItem[] = [
 	{
 		title: 'Students helping students one-on-one to stay one step ahead in their education',
 		content: <>
-			<p>
-				A student's ability to perform in the classroom is heavily tied to factors outside of their control. Students from socioeconomically disadvantaged households are statistically more likely to fall behind and stay behind in both reading and math in our current school system. 			</p>
-			<p>
-				Our one-on-one approach to peer mentoring ensures that each student's individual needs are met to keep them academically motivated and engaged. We hope that through our work we can create a more diverse future generation of leaders in Culver City, California.
-			</p>
+			<div>
+				<p>
+					A student's ability to perform in the classroom is heavily tied to factors outside of their control.
+					Students from socioeconomically disadvantaged households are statistically more likely to fall behind
+					and stay behind in both reading and math in our current school system.
+				</p>
+				<p>
+					Our one-on-one approach to peer mentoring ensures that each student's individual needs are met to keep them academically motivated and engaged. We hope that through our work we can create a more diverse future generation of leaders in Culver City, California.
+				</p>
+			</div>
+			<ButtonGroup>
+				<Button href="/mission" size='large' variant='contained' fullWidth style={{ textAlign: 'center' }}>
+					Explore our mission and work
+				</Button>
+			</ButtonGroup>
+
 		</>,
 		url: classroom
 	},
 	{
-		title: 'We are a student-led, student-run organization.',
+		title: 'Our mentors are all passionate high school volunteers working to share their knowledge and skills',
 		content: <>
-			<p>
-				Our mentors are all passionate high school volunteers working to share their
-				knowledge and skills in hopes of a more equitable future.
-			</p>
-			<p>
-				We require that our mentors be extremely well versed in their subject matter, and perform
-				extensive training to ensure that every session is effective.
-			</p>
-			<p>
-				Above all, our goal is for each student to consider their mentor a real friend.
-			</p>
+			<div>
+				<p>
+					Our mentors are all passionate high school volunteers working to share their
+					knowledge and skills in hopes of a more equitable future.
+				</p>
+				<p>
+					We require that our mentors be extremely well versed in their subject matter, and perform
+					extensive training to ensure that every session is effective.
+				</p>
+				<p>
+					Above all, our goal is for each student to consider their mentor a real friend.
+				</p>
+			</div>
+			<ButtonGroup>
+				<Button href="/mission" size='large' variant="contained" fullWidth style={{ textAlign: 'center' }}>
+					Become a Mentor
+				</Button>
+				<Button href="/mission" size='large' variant="contained" fullWidth style={{ textAlign: 'center' }}>
+					Meet the Team
+				</Button>
+			</ButtonGroup>
 		</>,
-		url: tutor
+		url: '/clubpicture.jpg',
 	},
 	{
-		title: 'Community-Centered',
+		title: 'We rely on the Culver City community for support make our program the best it can be',
 		content: <>
-			<p>
-				We gather input from teachers, specialists, and parents to target the students
-				who need our help the most.
-			</p>
-			<p>
-				We rely on generous contributions from the community to provide resources for our
-				program. Your donation could go towards purchasing the book that sparks a child's
-				love for reading!
-			</p>
+			<div>
+				<p>
+					We gather input from teachers, specialists, and parents to target the
+					students who need our help the most. One Step Ahead provides these
+					kids with assistance that they may not have received otherwise in their families.
+				</p>
+				<p>
+					While all our mentors and leaders double as volunteers, we still require funds
+					to keep our program going. We are incredibly grateful to the community members
+					and organizations who make it possible for us to buy books for students, fund
+					the legal side of running a nonprofit, register a website domain, and cover
+					extra program costs.
+				</p>
+			</div>
+			<ButtonGroup>
+				<Button href="/mission" size='large' variant="contained" fullWidth style={{ textAlign: 'center' }}>
+					The Referral Process
+				</Button>
+				<Button href="/mission" size='large' variant="contained" fullWidth style={{ textAlign: 'center' }}>
+					Donate Today
+				</Button>
+			</ButtonGroup>
 		</>,
 		url: classroom,
 	}

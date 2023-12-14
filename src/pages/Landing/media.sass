@@ -1,18 +1,28 @@
 @import './index'
 @import '../../index'
 
-@media screen and (min-width: 2500px)
-	#footer-location-title
-		font-size: 150%
+@media screen and (min-width: 1200px)
+	.div-as-img
+		background-size: cover
+
+@media screen and (min-width: 1500px)
+	.Header__title
+		font-size: 28pt
 
 @media screen and (min-width: 1900px)
+	img.logo-png
+		width: 60%
+
+	.ParallaxImageTextSection__text-content
+		font-size: 18pt
+
 	.Header__landing-header
 		font-size: 170%
 
 	.important-left-items
-		width: 20% 
+		width: 20%
 
-	#header-items button
+	.HeaderButton
 		font-size: 1.5rem
 		width: 12.5rem
 
@@ -22,11 +32,11 @@
 	.ImageCarousel__image-carousel-blurb
 		font-size: 200%
 
-	.ImageCarousel__image-carousel 
+	.ImageCarousel__image-carousel
 		& .MuiAvatar-root, & button
 			width: 70px
 			height: 70px
-		
+
 		& svg
 			width: 40px
 			height: 40px
@@ -36,7 +46,7 @@
 		font-size: 200%
 
 	.ParallaxImageTextSection
-		font-size: 170%	
+		font-size: 170%
 
 	#visit-us, .Dot__carousel-dot
 		font-size: 60pt
@@ -47,7 +57,13 @@
 @media screen and (min-width: 1900px), screen and (min-height: 1000px)
 	section#hero
 		height: 90vh
-	
+
+@media screen and (min-width: 2500px)
+	#footer-location-title
+		font-size: 150%
+
+	.ParallaxImageTextSection__text-content
+		font-size: 24pt
 
 @media screen and (max-width: 1450px)
 	.important-left-items
@@ -55,9 +71,16 @@
 
 	#theory-title
 		font-size: 24pt
-	
+
+	.ParallaxImageTextSection__text-content
+		font-size: 14pt
+
 	#footer-credits
 		margin-right: 50px
+
+@media screen and (max-width: 1200px)
+	#hero-wrapper
+		height: min(max(60vh, 350px), 500px)
 
 @media screen and (max-width: 1100px)
 	.important-left-items
@@ -66,27 +89,49 @@
 	#theory-title
 		font-size: 18pt
 
-	
-
 @media screen and (max-width: 900px)
+	#hero-wrapper
+		height: min(max(60vh, 270px), 300px)
+
 	.important-left-items
-		width: calc($logo-and-welcome-width*1.7)
+		width: calc($logo-and-welcome-width*1.5)
 
 	#footer-location-quote
 		display: none
-	
+
 	#footer-credits
 		font-size: 90%
 
+	#visit-us
+		font-size: 28pt
+
 @media screen and (max-width: 800px)
 	.important-left-items
-		width: calc($logo-and-welcome-width*1.9)
+		width: calc($logo-and-welcome-width*1.7)
 
 	#theory-explanation
 		width: 65%
 
 	#theory-title
 		font-size: 14pt
+
+	.ParallaxImageTextSection
+		overflow: hidden
+		grid-template-columns: 1fr !important
+		grid-template-rows: 1fr 1fr !important
+
+	.ParallaxImageTextSection__text-section-image
+		grid-column-start: 1
+		grid-row-start: 1
+
+	.ParallaxImagesSection__bg > svg
+		display: none
+
+	#visit-us
+		font-size: 22pt
+
+	// .important-left-items
+	// 	width: calc($logo-and-welcome-width*2.5)
 
 @media screen and (max-width: 700px)
 	#header-items
@@ -95,7 +140,7 @@
 		justify-content: center
 
 		& > *
-			margin: 10px 20%
+			margin: auto 20%
 
 	.Header__title
 		font-size: 150%
@@ -116,7 +161,10 @@
 		font-size: 20pt
 
 @media screen and (max-width: 600px)
-	#footer-location-about-desktop 
+	.ParallaxImageTextSection
+		grid-template-rows: 1fr 1.5fr !important
+
+	#footer-location-about-desktop
 		& td, & th
 			padding: 0 15px
 
@@ -126,24 +174,12 @@
 	.Landing__footer
 		padding: 1rem
 
+	#hero-wrapper
+		height: min(max(60vh, 150px), 250px)
+
 @media screen and (max-width: 500px)
 	.Landing__footer
 		padding: 2rem
-		
-	.ParallaxImageTextSection
-		overflow: hidden
-		grid-template-columns: 1fr  !important
-		grid-template-rows: 1fr 1fr !important
-
-	.ParallaxImageTextSection__text-section-image
-		grid-column-start: 1
-		grid-row-start: 1
-
-	.ParallaxImagesSection__bg > svg
-		display: none
-
-	.important-left-items
-		width: calc($logo-and-welcome-width*2.5)
 
 	#theory-title
 		font-size: 12pt
@@ -170,7 +206,7 @@
 
 	#footer-location-about-desktop
 		display: none
-	
+
 	#footer-location-about-mobile
 		display: flex
 		flex-direction: column
@@ -181,8 +217,14 @@
 			font-size: 18pt
 			margin-top: 30px
 
+	#visit-us
+		font-size: 18pt
+
+	#hero-wrapper
+		height: min(max(60vh, 125px), 200px)
+
 // Switch to mobile
-@media screen and (max-width: 400px) //, (orientation: portrait) 			
+@media screen and (max-width: 400px) //, (orientation: portrait)
 	.Header__landing-header
 		width: 100%
 		background-color: $color-main
@@ -199,16 +241,14 @@
 		max-width: 200px !important
 
 	img.logo-png
-		width: 50%
+		width: 30%
 		height: auto
 
 	.Header__header-logo
 		justify-content: left
-		box-shadow: 0 10px 10px 0 #2e282863
-
 		display: flex
 		align-self: center
-		padding: 0
+		padding: 10px 0
 		margin-left: 12px
 
 	.LocationBar__location-bar
@@ -224,6 +264,46 @@
 	#footer-credits
 		margin-right: 0
 		text-align: center
+
+	.ParallaxImagesSection__wrapper
+		display: flex
+		flex-direction: column
+
+	.SupportSection__images
+		& > img
+			&[data-do-not-render-mobile]
+				display: none
+
+				padding: 0 20%
+				max-width: none !important
+				width: 100% !important
+
+	#header-items
+		display: grid
+
+		grid-template-columns: 1fr 1fr
+		grid-template-rows: 1fr 1fr
+
+		& > *
+			margin: 10px 20%
+
+	.HeaderButton
+
+
+		&:nth-child(1)
+			background-color: #ea9999
+		&:nth-child(2)
+			background-color: #d8c795
+		&:nth-child(3)
+			background-color: #b6d7a8
+		&:nth-child(4)
+			background-color: #a4c2f4
+
+	.Header__title
+		font-size: 16pt
+
+	#visit-us
+		font-size: 16pt
 
 @media screen and (max-width: 350px)
 	#footer-location-about-mobile > *
@@ -244,7 +324,7 @@
 
 	#footer-location-about-mobile > *
 		font-size: 10pt
-	
+
 	#footer-location-title
 		font-size: 18pt
 

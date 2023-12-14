@@ -1,6 +1,7 @@
 import React, { useState, FC } from 'react'
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax'
 import './ParallaxImageSplit.sass'
+import { useMediaQuery } from '@mui/material'
 
 /**
  * Denotes which half of the image you're referring to: L(eft) or R(ight).
@@ -31,6 +32,7 @@ interface ParallaxImageSplitProps {
 	leading?: dir,
 	className?: string,
 	onLoad?: () => void,
+	bottomLimit?: number,
 }
 
 interface ParallaxImageTextSectionProps {
@@ -44,14 +46,12 @@ export function ParallaxImageTextSection(props: ParallaxImageTextSectionProps) {
 	const components = [
 		(
 			<div className="ParallaxImageTextSection__first-description" key={0}>
-				<article>
-					<h2>
-						{props.title}
-					</h2>
-					<p className="ParallaxImageTextSection__text-content">
-						{props.content}
-					</p>
-				</article>
+				<h2>
+					{props.title}
+				</h2>
+				<div className="ParallaxImageTextSection__text-content">
+					{props.content}
+				</div>
 			</div>
 		),
 		(
@@ -141,14 +141,19 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 	const [leftProduct, setLeftProduct] = useState('')
 	const [rightProduct, setRightProduct] = useState('')
 
-	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+	const size = useMediaQuery(`(max-width:${props.bottomLimit ?? 0}px)`)
+
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || size) {
 		return (
-			<img
-				style={{ objectFit: 'cover', objectPosition: 'center' }}
-				className='ParallaxImageSplit__parallax-image'
-				draggable="false" src={rightProduct}
-				loading='lazy'
-				alt={prefixAlt(props?.alt ?? '', '(reduced motion)')} />
+			<div className='ParallaxImageSplit__parallax-image-wrapper'>
+				<img
+					style={{ objectFit: 'cover', objectPosition: 'center' }}
+					className='ParallaxImageSplit__parallax-image'
+					draggable="false" src={props.fileName}
+					loading='lazy'
+					data-fade-first
+					alt={prefixAlt(props?.alt ?? '', '(reduced motion)')} />
+			</div>
 		)
 	}
 
@@ -198,7 +203,7 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 							draggable="false"
 							src={leftProduct}
 							loading='lazy'
-							alt={props?.alt ? prefixAlt(props.alt, 'left half, ') : ''}
+							alt={props?.alt ? prefixAlt(props.alt!, 'left half, ') : ''}
 						/>
 					</Parallax>
 					<Parallax speed={speed(!leading)}>
@@ -209,7 +214,7 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 							draggable="false"
 							src={rightProduct}
 							loading='lazy'
-							alt={props?.alt ? prefixAlt(props.alt, 'right half, ') : ''}
+							alt={props?.alt ? prefixAlt(props.alt!, 'right half, ') : ''}
 						/>
 					</Parallax>
 				</div>
