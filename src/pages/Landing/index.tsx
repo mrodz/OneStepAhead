@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback, memo, ComponentPropsWithoutRef } from 'react'
+import { useEffect, useState, useRef, useCallback, memo, ComponentPropsWithoutRef, FC, PropsWithChildren } from 'react'
 
 import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft'
 import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight'
@@ -8,6 +8,7 @@ import MenuBookIcon from '@mui/icons-material/MenuBook'
 import PersonPinIcon from '@mui/icons-material/PersonPin'
 import WatchIcon from '@mui/icons-material/Watch'
 import MenuIcon from '@mui/icons-material/Menu'
+import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
@@ -365,7 +366,7 @@ function HeaderNavButton({ subContent, children }: HeaderNavButtonProps & Compon
 					}}
 				>
 					{subContent.map(([title, callback]) => (
-						<MenuItem onClick={() => {
+						<MenuItem key={`MenuItem_${title}`} onClick={() => {
 							handleClose();
 							callback();
 						}}>{title}</MenuItem>
@@ -563,7 +564,6 @@ function HeroTransition() {
 				<Transition />
 				<div className="single-cell" id="theory-explanation">
 					<p>
-						{/* One Step Ahead Culver City is a 501(c)3 non-profit organization and Culver City High School club working towards a more equitable future for all students in CCUSD. We connect students from all five elementary schools with high school mentors who assist them in their individual struggles with reading and math. Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students; to ensure our work is as impactful and long lasting. */}
 						One Step Ahead Culver City is a 501(c)3 non-profit organization and Culver City High School club working towards a more equitable future for all students in CCUSD. We connect students from all five elementary schools with high school mentors who assist them in their individual struggles with reading and math.
 					</p>
 
@@ -574,32 +574,7 @@ function HeroTransition() {
 					</Divider>
 					<p>
 						Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students; to ensure our work is impactful and long-lasting. We hope to not only catch our students back up but to build intrinsic learning motivation and growth mindsets that will help them for the rest of their education.
-						{/* The harsh reality of being a student is that one's ability to perform in the classroom
-						is heavily tied to factors outside the control of children. In our school zone,
-						Culver City Unified School District, resource coordinators at all five elementary schools
-						have reported reading comprehension and math scores far below state standards among kids
-						from disadvantaged households. */}
 					</p>
-					{/*<p>
-						This socioeconomic gap affects Culver City's future generation of workers and leaders
-						from as early as the first grade. We actively make a difference in our community by
-						fostering 1-on-1 mentoring relationships between qualified high school students and
-						children at risk of falling behind.
-					</p>
-					<p>
-						We are more than just tutors; our mentors get to know their buddies and start building
-						a relationship from the very first session. Our mentors check in with their students at
-						least once a week. This consistency helps guide their buddies through whatever turbulence
-						they may face across all aspects of life.
-					</p>
-					<p>
-						Learn more about <a className="a color-primary" href="/buddies">who we mentor</a> and <a className="a color-primary" href="/program">how to see if a child you know qualifies</a> for One Step
-						Ahead by clicking on the respective links.
-					</p>
-					<p>
-						Do you have what it takes to be a mentor? Find out by <a className="a color-primary" href="/mentors">checking our student profile</a> and
-						talking to a team member today!
-	</p>*/	}
 				</div>
 			</div>
 		</section>
@@ -609,13 +584,21 @@ function HeroTransition() {
 function MobileHero() {
 	return (
 		<div className="MobileHero__main">
+			<div className='MobileHero__focus-image' style={{
+				backgroundImage: "url('/hero_image.webp')"
+			}} />
 			<div className='MobileHero__focus-text'>
-				(tmp) Stuff I need:
-				<ul>
-					<li>Mobile-specific graphics for a beautiful Hero section</li>
-					<li>Direction from Lila about what she needs here</li>
-					<li>Pictures, Pictures, Pictures!!!!!</li>
-				</ul>
+				<h1>
+					One Step Ahead
+					<br />
+					&bull;&nbsp;&bull;&nbsp; &bull;
+					<br />
+					Culver City, California
+				</h1>
+				<div className='MobileHero__location'>
+					<img width="80%" src="/kids_in_classroom.jpg" alt="kids in classroom" />
+					{/* Making a <b>real</b> difference in our community, one kid at a time */}
+				</div>
 			</div>
 		</div>
 	)
@@ -642,7 +625,7 @@ function SupportSection() {
 	useEffect(() => {
 		const observer = new IntersectionObserver(([entry]) => {
 			if (!visible && entry.isIntersecting) setVisible(true)
-		}, { root: null, rootMargin: '0px', threshold: 0.01 })
+		}, { root: null, rootMargin: '0px', threshold: 0.001 })
 
 		const copy = sectionRef.current // required per the rules of useEffect with DOM elements.
 
@@ -654,12 +637,12 @@ function SupportSection() {
 	}, [visible])
 
 	return (
-		<section id="supporters" className="landing-content-spacing">
+		<section ref={sectionRef} id="supporters" className="landing-content-spacing">
 			<div className="Header__title">
 				Thank You To Our Friends At
 			</div>
 
-			<div ref={sectionRef} className={`SupportSection__images ${visible ? "SupportSection__fade-in" : ""}`}>
+			<div className={`SupportSection__images ${visible ? "SupportSection__fade-in" : ""}`}>
 				<img data-do-not-render-mobile alt="Culver City Unified School District" style={{ maxWidth: "100px" }} src={ccusd} />
 				<img alt="El Marino Language School" className="standard-image" src={elmarinologo} />
 				<img alt="El Rincon Elementary School" className="standard-image" src={elrinconlogo} />
@@ -770,7 +753,7 @@ const PARALLAX_IMAGES: ParallaxImageItem[] = [
 		url: '/clubpicture.jpg',
 	},
 	{
-		title: 'We rely on the Culver City community for support make our program the best it can be',
+		title: 'We rely on the Culver City community for support to make our program the best it can be',
 		content: <>
 			<div>
 				<p>
@@ -798,6 +781,27 @@ const PARALLAX_IMAGES: ParallaxImageItem[] = [
 		url: classroom,
 	}
 ]
+
+const Quotes: FC<PropsWithChildren> = (props) => {
+	return (
+		<ul className="Quotes">
+			{props.children}
+		</ul>
+	)
+}
+
+const Quote: FC<PropsWithChildren> = (props) => {
+	return (
+		<li className="Quote">
+			<div className="Quote__symbol">
+				<FormatQuoteIcon />
+			</div>
+			<div className="Quote__content">
+				{props.children}
+			</div>
+		</li>
+	)
+}
 
 export default function Landing() {
 	const greeting = useRef<HTMLDivElement>(null)
@@ -827,18 +831,21 @@ export default function Landing() {
 
 			<ParallaxImagesSection items={PARALLAX_IMAGES} />
 
-			<FounderBlurb left colors={[GlobalStyles.COLOR_MAIN, GlobalStyles.COLOR_SPLASH]} url={zoom} title="Real Impact" className="landing-content-spacing landing-content-v-spacing">
+			<FounderBlurb left colors={[GlobalStyles.COLOR_MAIN, GlobalStyles.COLOR_SPLASH]} url={zoom} title="Testimonials" className="landing-content-spacing landing-content-v-spacing">
 				<div>
-					<h3>########'s Mom Wrote</h3>
-					<div>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fuga tenetur, esse veniam placeat asperiores deserunt voluptatibus tempora? Iure voluptatem magni cumque dolores ducimus voluptatibus explicabo tenetur
-					</div>
-				</div>
-				<div>
-					<h3>########'s Grandpa Wrote</h3>
-					<div>
-						Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloribus fuga tenetur, esse veniam placeat asperiores deserunt voluptatibus tempora? Iure voluptatem magni cumque dolores ducimus voluptatibus explicabo tenetur
-					</div>
+					<Quotes>
+						<Quote>
+							<div>
+								I almost automatically saw a massive boost in Sebastian's confidence level when reading aloud with him or with me. Decoding words with Miles, he says, is...
+							</div>
+							<div className="Quote__emphasis">
+								really cool and fun to do!
+							</div>
+							<div>
+								The way in which they read together over Zoom, paragraph by paragraph, and then discussing what the story is about... and knowing it's okay not to know the definition of certain words are two critical factors that I feel Miles is developing and showing Sebastian weekly!
+							</div>
+						</Quote>
+					</Quotes>
 				</div>
 			</FounderBlurb>
 

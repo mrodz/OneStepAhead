@@ -1,17 +1,40 @@
+@media screen and (min-width: 1200px)
+	.FounderBlurb__text-section
+		font-size: 150%
+		& h2
+			font-size: 40pt	
+	
 @media screen and (min-width: 1900px)
 	.FounderBlurb__text-section
 		font-size: 200%
 		& h2
 			font-size: 50pt	
-@media only screen and (max-width: 1200px)
+
+@media only screen and (max-width: 1400px)
 	.FounderBlurb__image-section img
 		width: 400px
 		height: 400px
+
+	.Quote__symbol svg
+		font-size: 72pt
+
+@media only screen and (max-width: 1200px)
+	.FounderBlurb__image-section img
+		width: 300px
+		height: 300px
+
 	.FounderBlurb__text-section
 		& p
 			font-size: 90%
 		& h2
 			font-size: 24pt
+
+@media only screen and (max-width: 1000px)
+	.Quote__symbol
+		display: none
+	
+	.Quotes, .Quote__content
+		padding: 0
 
 @media only screen and (max-width: 800px)
 	// !important to get around the [left] attribute selection.
@@ -23,7 +46,9 @@
 		margin: 0 auto
 
 	.FounderBlurb__text-section
-		padding: 0 50px !important
+		text-align: center
+		padding: 0 20px
+
 		& h2
 			text-align: center
 

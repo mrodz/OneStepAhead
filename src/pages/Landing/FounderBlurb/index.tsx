@@ -26,22 +26,18 @@ function Circle({ background, radius, ...placement }: CircleProps) {
 }
 
 export default function FounderBlurb({ url, title, left = false, className, ...props }: PropsWithChildren<FounderBlurbProps>) {
-	// const templateColumns = ['1fr', 'auto']
-
-	// if (left) templateColumns.reverse()
-
 	// we need to add spacing to the front if we append it
 	if (!!className) className = ' ' + className
 
 	return (
 		<section className={"FounderBlurb" + (className ?? '')} {...left ? { 'data-left': true } : {}}>
-			<div className="FounderBlurb__text-section" {...left ? { style: { order: 1, paddingLeft: 0, paddingRight: '30px' } } : {}}>
+			<div className="FounderBlurb__text-section" {...left ? { style: { order: 1 } } : {}}>
 				<h2>
 					{title}
 				</h2>
-				<p>
+				<div>
 					{props.children}
-				</p>
+				</div>
 			</div>
 			<div className="FounderBlurb__image-section">
 				<img src={url} alt={`${title}`}></img>

@@ -58,7 +58,7 @@ img.logo-png
 	align-items: center
 	justify-content: center
 
-	border-radius: 100vmax	
+	border-radius: 100vmax
 
 	font-size: 16pt
 
@@ -362,7 +362,6 @@ main.landing
 	z-index: 2
 	display: grid
 
-
 .ParallaxImageTextSection__first-description
 	height: 100%
 	display: flex
@@ -381,10 +380,8 @@ main.landing
 	& div:last-child
 		margin-bottom: 8px
 
-
 #theory-explanation
 	margin-top: 5rem
-
 
 	background-color: $color-page
 	// box-shadow: inset 0px 5px 10px #5042428a
@@ -440,7 +437,7 @@ section#hero
 				opacity: 1
 
 .MobileHero__main
-	height: 100%
+	// height: 100%
 	width: 100%
 	margin-top: 7rem
 	margin-bottom: 1rem
@@ -462,9 +459,40 @@ section#hero
 		background-blend-mode: multiply
 
 .MobileHero__focus-text
-	border: solid red
+	position: relative
 
+	z-index: 2
+	margin-top: 2em
+
+	& h1
+		color: #fff
+		font-size: 20pt
+		background-color: rgb(0,0,0) // Fallback color 
+		background-color: rgba(0,0,0, 0.4) // Black w/opacity/see-through 
+		text-align: center
+		border-radius: 100vmax
+		margin: 0 max(1.5em, 20px)
+		padding: 1em
+
+.MobileHero__location
+	text-align: center
+	font-size: 18pt
+	font-weight: bold
+	margin-top: 1em
+	margin: 0 max(1em, 30px)
+
+	& img
+		margin: 1em 0
+		border-radius: 10px
+
+
+.MobileHero__focus-image
 	position: absolute
+
+	background-position: center
+	background-size: cover
+
+	filter: blur(2px)
 
 	display: flex
 	flex-direction: column
@@ -474,10 +502,37 @@ section#hero
 
 	font-size: 24pt
 
-	z-index: 2
-
 	left: 20px
 	right: 20px
+
+.Quotes
+	list-style: none
+
+.Quote
+	display: flex
+
+.Quote__symbol
+	display: flex
+	flex-direction: column
+	justify-content: center
+
+	margin-right: 2rem
+
+	& svg
+		font-size: 96pt
+		color: rgb(147, 172, 205)
+
+.Quote__content
+	flex-grow: 1
+	padding: 0 2em
+
+.Quote__emphasis
+	text-align: center
+	font-size: 150%
+	font-weight: bold
+	// font-style: italic
+	text-decoration: underline dotted
+	margin: .5em 0
 
 #mobile-greeting
 	margin: 0
