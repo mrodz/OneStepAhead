@@ -1,4 +1,4 @@
-main.team
+main#Team
 	padding: 40px
 
 	width: 100%
@@ -6,13 +6,17 @@ main.team
 	h1
 		text-align: center
 
-.Team__photo-wrapper
-	display: grid
+#Team__photo-wrapper
+	display: flex
+	flex-wrap: wrap
+	
+	// margin: 0 auto
 	// max-width: 500px
 
-	grid-template-columns: 1fr 1fr 1fr
+	// grid-template-columns: 1fr 1fr 1fr
 	// grid-auto-columns: minmax(0, 1fr)
-	grid-auto-flow: row
+	
+	// grid-auto-flow: row
 
 @keyframes load-image
 	0%
@@ -33,11 +37,11 @@ main.team
 	background-repeat: no-repeat
 	background-size: cover
 
-	&:not(.loaded)::before
+	&:not(.BlurryPhoto__loaded)::before
 		content: ""
 		position: absolute
 		inset: 0
-		opacity: 0
+		opacity: .3
 
 		animation: load-image 2.5s infinite
 		background-color: white
@@ -50,7 +54,7 @@ main.team
 		opacity: 0
 		transition: opacity 250ms ease-in-out
 
-	&.loaded
+	&.BlurryPhoto__loaded
 		filter: none
 
 		& img
@@ -60,9 +64,12 @@ main.team
 	display: grid
 	grid-template-columns: auto 1fr
 	margin: 30px
+	flex: 1
 
 .TeamCard__text
 	margin: 0 20px
+	min-width: 150px
+
 
 .Team__group-photo
 

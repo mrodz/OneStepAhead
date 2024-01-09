@@ -7,12 +7,12 @@ function getCompressedPath(personNameNoSpaces: string): string {
 	return `Headshots/compressed/${personNameNoSpaces}.jpg`
 }
 
-function BlurryPhoto(props: { personNameNoSpaces: string }) {
+function BlurryPhoto(props: { personNameNoSpaces: string, lazy?: boolean }) {
 	const [loaded, setLoaded] = useState(false)
 
 	return (
-		<div className={`BlurryPhoto ${loaded ? "loaded" : ""}`} style={{ backgroundImage: `url(${getCompressedPath(props.personNameNoSpaces)})` }}>
-			<img loading="lazy" onLoad={() => setLoaded(true)} src={`Headshots/${props.personNameNoSpaces}.jpg`} alt="" />
+		<div className={`BlurryPhoto ${loaded ? "BlurryPhoto__loaded" : ""}`} style={{ backgroundImage: `url(${getCompressedPath(props.personNameNoSpaces)})` }}>
+			<img {...!!props.lazy ? { loading: "lazy" } : {}} onLoad={() => setLoaded(true)} src={`Headshots/${props.personNameNoSpaces}.jpg`} alt={`${props.personNameNoSpaces}'s headshot`} />
 		</div>
 	)
 }
@@ -23,10 +23,10 @@ interface TeamCardProps {
 	description?: string,
 }
 
-function TeamCard(props: TeamCardProps) {
+function TeamCard(props: TeamCardProps & { lazy: boolean }) {
 	return (
 		<div className="TeamCard">
-			<BlurryPhoto personNameNoSpaces={props.name.replaceAll(" ", "")}></BlurryPhoto>
+			<BlurryPhoto lazy={props.lazy} personNameNoSpaces={props.name.replaceAll(" ", "")}></BlurryPhoto>
 			<div className="TeamCard__text">
 				<h2>{props.name}</h2>
 				<h3>{props.role}</h3>
@@ -40,72 +40,73 @@ function TeamCard(props: TeamCardProps) {
 const TEAM_DATA: TeamCardProps[] = [
 	{
 		name: "Annabelle Andreone",
-		role: "Role TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Audrey Rothenberg",
-		role: "TBD",
+		role: "Mentor",
 		description: "I'm eager to teach and always open to new ideas! (This is a sample bio btw)"
 	},
 	{
 		name: "Augusta Poggi",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Brandon Yang",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Emi Sakamoto",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Evan Daurio",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Eve Mott",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Gianna Wong",
-		role: "TBD",
+		role: "Mentor",
+		description: "Hi! I am a tutor who loves helping kids learn."
 	},
 	{
 		name: "Kendyll Hoang",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Kira Connors",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Malia Valentic",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "MarenBrown",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Miles Katz Facher",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Nina Faeh",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Tiffany Hotton",
-		role: "TBD",
+		role: "Mentor",
 	},
 	{
 		name: "Una Finn",
-		role: "TBD",
+		role: "Mentor",
 	},
 ]
 
-export default function Team() {
+export default function About() {
 
 	useEffect(() => {
 		const images = []
@@ -118,14 +119,11 @@ export default function Team() {
 	})
 
 	return (
-		<main className="team">
+		<main id="Team">
 			<h1>Meet Our Team</h1>
 
-			<section className="Team__photo-wrapper">
-				{TEAM_DATA.map((props) => <TeamCard key={`TEAM_CARD_${props.name}`} {...props} ></TeamCard>)}
-				<div style={{ margin: "auto 0", fontStyle: "italic" }}>
-					... We're growing! Check back for more mentors to come
-				</div>
+			<section id="Team__photo-wrapper">
+				{TEAM_DATA.map((props, i) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
 			</section>
 
 			<Divider>
