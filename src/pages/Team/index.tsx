@@ -122,7 +122,7 @@ export default function Team() {
 			<h1>Meet Our Team</h1>
 
 			<section className="Team__photo-wrapper">
-				{TEAM_DATA.map((props) => <TeamCard {...props} ></TeamCard>)}
+				{TEAM_DATA.map((props) => <TeamCard key={`TEAM_CARD_${props.name}`} {...props} ></TeamCard>)}
 				<div style={{ margin: "auto 0", fontStyle: "italic" }}>
 					... We're growing! Check back for more mentors to come
 				</div>

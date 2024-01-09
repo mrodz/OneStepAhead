@@ -1,0 +1,42 @@
+main#NotFound 
+	display: flex
+	flex-direction: column
+	width: 100%
+	top: 50%
+	position: absolute
+	-ms-transform: translateY(-50%)
+	transform: translateY(-50%)
+
+
+#NotFound h1
+	animation: NotFound__fade-in 1s .1s forwards 
+	opacity: 0
+	text-align: center
+	font-size: 72px
+	background: -webkit-linear-gradient(#475a3e, #51b810)
+	-webkit-background-clip: text
+	-webkit-text-fill-color: transparent
+
+@keyframes NotFound__fade-in
+	to
+		opacity: 1
+
+#NotFound__welcome
+	text-align: center
+	font-size: 36pt
+	opacity: 0
+	animation: NotFound__fade-in 1s .5s forwards 
+
+#NotFound__description
+	text-align: center
+	margin: 50px auto
+	width: 500px
+	font-size: 24pt
+	opacity: 0
+	animation: NotFound__fade-in 1s .9s forwards 
+
+#NotFound__button
+	width: 500px
+	margin: 0 auto
+	opacity: 0
+	animation: NotFound__fade-in 1s 1.3s forwards 
