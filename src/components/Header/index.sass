@@ -1,0 +1,89 @@
+@use '../../App'
+@use '../../index'
+	
+.HeaderButton
+	text-align: center
+	
+	color: black
+	background: unset
+	border: none
+
+	display: flex
+	flex-direction: column
+
+	align-items: center
+	justify-content: center
+
+	border-radius: 100vmax
+
+	font-size: 16pt
+
+	& svg
+		margin-left: auto
+		margin-right: auto
+
+	&:hover
+		color: #fff0f0
+		transition: 0.3s
+		text-decoration: underline
+
+.Header__nav-floater
+	position: absolute
+
+	right: 0
+	top: 50%
+	bottom: 50%
+
+	display: flex
+	flex-direction: column
+	justify-content: center
+
+.Header__landing-header
+	top: 0
+	transform: translateX(0) // for animation
+
+	-webkit-box-shadow: 0 5px 5px #555555
+	-moz-box-shadow: 0 5px 5px #555555
+	box-shadow: 0 5px 5px #555555
+
+	display: flex
+	flex-direction: row
+
+	position: sticky
+	width: 100%
+
+	background-color: index.$color-page
+
+	z-index: 50
+
+	box-sizing: border-box
+
+.Header__title
+	text-align: center
+	font-size: 200%
+	font-weight: bold
+
+.Header__header-logo
+	background-color: index.$color-main
+
+	text-transform: uppercase
+	letter-spacing: 10px
+
+	display: flex
+	align-items: center
+	justify-content: center
+
+	color: index.$color-page
+
+#Header__items
+	flex-grow: 1
+
+	display: flex
+
+	flex-direction: row-reverse
+
+	padding: 1rem
+
+	& > *
+		margin-left: .5rem
+		margin-right: .5rem

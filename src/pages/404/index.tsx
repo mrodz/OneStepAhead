@@ -17,6 +17,15 @@ export default function NotFound() {
 			<div id="NotFound__description">
 				Unfortunately, this page either does not exist or is still being built.
 				This website is under construction! 🏗️
+
+				<br />
+				<br />
+
+				You're at:
+				<br />
+				<code>
+					{window.location.pathname}
+				</code>
 			</div>
 			<Button id="NotFound__button" variant='contained' onClick={() => navigate(-1)}>
 				Go Back

@@ -1,6 +1,6 @@
 import React, { useState, FC } from 'react'
 import { Parallax, ParallaxProvider } from 'react-scroll-parallax'
-import './ParallaxImageSplit.sass'
+import './index.sass'
 import { useMediaQuery } from '@mui/material'
 
 /**

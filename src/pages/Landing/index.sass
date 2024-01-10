@@ -1,8 +1,7 @@
-@import '../../App'
-@import '../../index'
+@use '../../App'
+@use '../../index'
 
 $carousel-delay: 500
-$logo-and-welcome-width: 20%
 
 @mixin border($color)
 	border: $color solid 2px
@@ -14,7 +13,7 @@ $logo-and-welcome-width: 20%
 	align-items: center
 	margin-top: 10px
 
-	background-color: $color-page
+	background-color: index.$color-page
 	text-transform: uppercase
 	font-weight: bold
 	color: #807777
@@ -32,7 +31,7 @@ $logo-and-welcome-width: 20%
 
 .important-left-items
 	vertical-align: middle
-	width: $logo-and-welcome-width
+	width: index.$logo-and-welcome-width
 	padding: 1rem
 
 .landing-content-spacing
@@ -47,99 +46,11 @@ img.logo-png
 	width: 70%
 	height: auto
 
-.HeaderButton
-	text-align: center
-	
-	color: black
-	background: unset
-	border: none
-
-	display: flex
-	flex-direction: column
-
-	align-items: center
-	justify-content: center
-
-	border-radius: 100vmax
-
-	font-size: 16pt
-
-	& svg
-		margin-left: auto
-		margin-right: auto
-
-	&:hover
-		color: #fff0f0
-		transition: 0.3s
-		text-decoration: underline
-
-.Header__nav-floater
-	position: absolute
-
-	right: 0
-	top: 50%
-	bottom: 50%
-
-	display: flex
-	flex-direction: column
-	justify-content: center
-
-.Header__landing-header
-	top: 0px // for position: sticky
-	transform: translateX(0) // for animation
-
-	-webkit-box-shadow: 0 5px 5px #555555
-	-moz-box-shadow: 0 5px 5px #555555
-	box-shadow: 0 5px 5px #555555
-
-	display: flex
-	flex-direction: row
-	position: sticky
-
-	background-color: $color-page
-	// border: solid $color-main 3px
-
-	// margin-top: 1rem
-
-	z-index: 50
-
-	box-sizing: border-box
-
-.Header__title
-	text-align: center
-	font-size: 200%
-	font-weight: bold
-
-.Header__header-logo
-	background-color: $color-main
-
-	text-transform: uppercase
-	letter-spacing: 10px
-
-	display: flex
-	align-items: center
-	justify-content: center
-
-	color: $color-page
-
-#header-items
-	flex-grow: 1
-
-	display: flex
-
-	flex-direction: row-reverse
-
-	padding: 1rem
-
-	& > *
-		margin-left: .5rem
-		margin-right: .5rem
-
 .ImageCarousel__image-carousel
 	margin-top: 1rem
 	height: 100%
 	margin-bottom: 1rem
-	background-color: $color-page
+	background-color: index.$color-page
 	box-sizing: border-box
 	position: relative
 
@@ -163,8 +74,8 @@ img.logo-png
 
 	padding: 2rem
 
-	background-color: $color-main
-	color: $color-page
+	background-color: index.$color-main
+	color: index.$color-page
 
 	display: flex
 	flex-direction: column
@@ -220,7 +131,7 @@ img.logo-png
 	left: 0
 	bottom: 0
 
-	background-color: $color-page
+	background-color: index.$color-page
 	box-shadow: inset -5px 5px 10px #937e7e63
 
 @keyframes fade-out
@@ -230,16 +141,16 @@ img.logo-png
 		opacity: 0
 
 .ImageCarousel__fade-out
-	@include fade-out($duration: #{$carousel-delay}ms)
+	@include App.fade-out($duration: #{$carousel-delay}ms)
 
 .ImageCarousel__fade-in
-	@include fade-in($duration: #{$carousel-delay}ms)
+	@include App.fade-in($duration: #{$carousel-delay}ms)
 
 .Landing__fade-in
-	@include fade-in($duration: 2s)
+	@include App.fade-in($duration: 2s)
 
 .Header__jiggle-header
-	@include jiggle($duration: .5s)
+	@include App.jiggle($duration: .5s)
 
 .Header__dial
 	position: fixed
@@ -248,7 +159,7 @@ img.logo-png
 
 	&:not(:hover)
 		transform-origin: bottom center
-		@include pulse($duration: 3s)
+		@include App.pulse($duration: 3s)
 
 @keyframes hide-header
 	0%
@@ -267,10 +178,9 @@ img.logo-png
 	width: 100%
 	margin: 0
 	border: none
-	// animation: hide-header 1s forwards
 
 .Dot__carousel-dot
-	color: $color-page
+	color: index.$color-page
 	font-size: 48pt
 	transition: opacity .5s
 	opacity: .5
@@ -292,13 +202,11 @@ img.logo-png
 	z-index: 3
 	justify-self: center
 
-main.landing
+main#Landing
 	display: flex
 	flex-direction: column
 
 	min-height: 100%
-
-	// background-image: linear-gradient(135deg, $color-splash 25%, transparent 25%), linear-gradient(225deg, $color-splash 25%, transparent 25%), linear-gradient(45deg, $color-splash 25%, transparent 25%), linear-gradient(315deg, $color-splash 25%, #f7f2e6 25%)
 
 	$tile-width: max(2rem, 40px)
 
@@ -308,7 +216,6 @@ main.landing
 
 #hero-wrapper
 	height: min(max(60vh, 400px), 700px)
-	//  style={{ height: "min(max(60vh, 400px), 300px)" }}
 
 #visit-us
 	opacity: 0
@@ -340,7 +247,7 @@ main.landing
 		height: 20px
 
 		&:first-child
-			background-color: $color-page
+			background-color: index.$color-page
 
 	// & *:last-child:not(svg)
 	// 	height: 100%
@@ -385,7 +292,7 @@ main.landing
 #theory-explanation
 	margin-top: 5rem
 
-	background-color: $color-page
+	background-color: index.$color-page
 	// box-shadow: inset 0px 5px 10px #5042428a
 
 	width: 60%
@@ -540,7 +447,7 @@ section#hero
 	margin: 0
 	padding: 20px
 
-	border: solid $color-splash 5px
+	border: solid index.$color-splash 5px
 
 	text-align: center
 	font-weight: bold
@@ -585,7 +492,7 @@ section#theory
 	display: flex
 	flex-direction: column
 
-	background-color: $color-main
+	background-color: index.$color-main
 	margin-top: 2rem
 	margin-bottom: 3rem
 
@@ -598,7 +505,7 @@ section#theory
 
 	font-size: 36pt
 
-	background-color: $color-page
+	background-color: index.$color-page
 	color: #2f2d2d
 
 section#parallax-images

@@ -1,0 +1,68 @@
+@use '../../index'
+	
+@media screen and (min-width: 1500px)
+	.Header__title
+		font-size: 28pt
+
+	#Header__items button
+		font-size: 14pt
+
+@media screen and (min-width: 1900px)
+	.Header__landing-header
+		font-size: 170%
+	
+	.HeaderButton
+		font-size: 1.5rem
+		width: 12.5rem
+
+@media screen and (max-width: 700px)
+	.Header__title
+		font-size: 150%
+
+@media screen and (max-width: 400px) //, (orientation: portrait)
+	.Header__landing-header
+		width: 100%
+		background-color: index.$color-main
+		margin: 0
+		top: 0
+		position: fixed
+	
+	.Header__header-logo
+		justify-content: left
+		display: flex
+		align-self: center
+		padding: 10px 0
+		margin-left: 12px
+
+	.HeaderButton
+		&:nth-child(1)
+			background-color: #ea9999
+		&:nth-child(2)
+			background-color: #d8c795
+		&:nth-child(3)
+			background-color: #b6d7a8
+		&:nth-child(4)
+			background-color: #a4c2f4
+
+	.Header__title
+		font-size: 16pt
+
+	#Header__items
+		display: grid
+
+		grid-template-columns: 1fr 1fr
+		grid-template-rows: 1fr 1fr
+
+		& > *
+			margin: 10px 20%
+
+@media screen and (max-width: 350px)
+	.Header__landing-header
+		font-size: 80%
+
+@media screen and (max-width: 250px)
+	.Header__landing-header
+		font-size: 70%
+
+	.Header__title
+		font-size: 100%

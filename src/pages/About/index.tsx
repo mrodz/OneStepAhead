@@ -8,19 +8,25 @@ function getCompressedPath(personNameNoSpaces: string): string {
 }
 
 function BlurryPhoto(props: { personNameNoSpaces: string, lazy?: boolean }) {
-	const [loaded, setLoaded] = useState(false)
+	const iOS =
+		typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+
+	// the styles for pulsating loading do not work on iOS for some reason
+	const [loaded, setLoaded] = useState(iOS)
 
 	return (
-		<div className={`BlurryPhoto ${loaded ? "BlurryPhoto__loaded" : ""}`} style={{ backgroundImage: `url(${getCompressedPath(props.personNameNoSpaces)})` }}>
+		<div className={`BlurryPhoto ${loaded ? "BlurryPhoto__loaded" : ""}`} {...!loaded ? { style: { backgroundImage: `url(${getCompressedPath(props.personNameNoSpaces)})` } } : {}}>
 			<img {...!!props.lazy ? { loading: "lazy" } : {}} onLoad={() => setLoaded(true)} src={`Headshots/${props.personNameNoSpaces}.jpg`} alt={`${props.personNameNoSpaces}'s headshot`} />
 		</div>
 	)
 }
 
+
 interface TeamCardProps {
 	name: string,
 	role: string,
 	description?: string,
+	leadership?: number,
 }
 
 function TeamCard(props: TeamCardProps & { lazy: boolean }) {
@@ -31,7 +37,7 @@ function TeamCard(props: TeamCardProps & { lazy: boolean }) {
 				<h2>{props.name}</h2>
 				<h3>{props.role}</h3>
 
-				<p>{props.description ?? "No description yet!"}</p>
+				<p>{props.description ?? "No bio yet!"}</p>
 			</div>
 		</div>
 	)
@@ -44,8 +50,8 @@ const TEAM_DATA: TeamCardProps[] = [
 	},
 	{
 		name: "Audrey Rothenberg",
-		role: "Mentor",
-		description: "I'm eager to teach and always open to new ideas! (This is a sample bio btw)"
+		role: "COO",
+		leadership: 2,
 	},
 	{
 		name: "Augusta Poggi",
@@ -56,8 +62,13 @@ const TEAM_DATA: TeamCardProps[] = [
 		role: "Mentor",
 	},
 	{
-		name: "Emi Sakamoto",
+		name: "Carmen Piro",
 		role: "Mentor",
+	},
+	{
+		name: "Emi Sakamoto",
+		role: "Reading Curriculum Director",
+		leadership: 1,
 	},
 	{
 		name: "Evan Daurio",
@@ -68,9 +79,13 @@ const TEAM_DATA: TeamCardProps[] = [
 		role: "Mentor",
 	},
 	{
+		name: "Flora Woo",
+		role: "CFO",
+		leadership: 2,
+	},
+	{
 		name: "Gianna Wong",
 		role: "Mentor",
-		description: "Hi! I am a tutor who loves helping kids learn."
 	},
 	{
 		name: "Kendyll Hoang",
@@ -85,8 +100,15 @@ const TEAM_DATA: TeamCardProps[] = [
 		role: "Mentor",
 	},
 	{
-		name: "MarenBrown",
-		role: "Mentor",
+		name: "Maren Brown",
+		role: "Mathematics Curriculum Director",
+		leadership: 1,
+	},
+	{
+		name: "Mateo Rodriguez",
+		role: "CTO",
+		description: "Hey! I'm a passionate developer, and I'm managing the website and other tech-related affairs.",
+		leadership: 2,
 	},
 	{
 		name: "Miles Katz Facher",
@@ -104,6 +126,32 @@ const TEAM_DATA: TeamCardProps[] = [
 		name: "Una Finn",
 		role: "Mentor",
 	},
+	{
+		name: "Katie Sirio",
+		role: "Reading Project Manager",
+		leadership: 1,
+	},
+	{
+		name: "Miriam Mirvish",
+		role: "Mathematics Project Manager",
+		leadership: 1,
+	},
+	{
+		name: "Sofia Kinsella",
+		role: "Creative Director",
+		leadership: 1,
+	},
+	{
+		name: "Robert Logan",
+		role: "Project Controls Manager",
+		leadership: 1,
+	},
+	{
+		name: "Lila Bragard",
+		role: "CEO",
+		leadership: 10,
+	},
+
 ]
 
 export default function About() {
@@ -120,14 +168,35 @@ export default function About() {
 
 	return (
 		<main id="Team">
-			<h1>Meet Our Team</h1>
+			<h1>Learn About Us</h1>
+
+			<h2>Our Mission</h2>
+
+			<section id="Team__description">
+				Lorem Ipsum Dolor Sit Amet
+			</section>
+
+			<hr />
+
+			<h2>Meet Our Team</h2>
+
+			<section id="Team__description">
+				Our workforce consists of lovely people who are each passionate about personal growth and teaching. We are proud to work with all of these individuals!
+			</section>
+
+			<section id="Team__leadership">
+				<h3>Leadership</h3>
+				{TEAM_DATA.filter(prop => prop.leadership !== undefined).sort((a, b) => b.leadership! - a.leadership!).map((props) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
+
+			</section>
 
 			<section id="Team__photo-wrapper">
-				{TEAM_DATA.map((props, i) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
+				<h3>Mentors</h3>
+				{TEAM_DATA.filter(prop => prop.leadership === undefined).map((props) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
 			</section>
 
 			<Divider>
-				<h2>2023-2024 Club Members</h2>
+				<h3>2023-2024 Club Members</h3>
 			</Divider>
 
 			<section className="Team__group-photo">

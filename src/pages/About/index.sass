@@ -3,20 +3,37 @@ main#Team
 
 	width: 100%
 
-	h1
-		text-align: center
+#Team h1
+	font-size: 36pt
+	text-align: center
 
-#Team__photo-wrapper
+#Team h2
+	font-size: 28pt
+	text-align: center
+
+#Team section > h3
+	font-size: 28pt
+	text-align: center
+	width: 100%
+
+#Team__description
+	font-size: 24pt
+	width: 800px
+	margin: 0 auto
+	padding: .5em
+	border-radius: 10px
+	background: #fff
+	margin-bottom: 1.5em
+
+#Team__photo-wrapper, #Team__leadership
 	display: flex
 	flex-wrap: wrap
-	
-	// margin: 0 auto
-	// max-width: 500px
+	justify-content: center
 
-	// grid-template-columns: 1fr 1fr 1fr
-	// grid-auto-columns: minmax(0, 1fr)
-	
-	// grid-auto-flow: row
+#Team__leadership
+	margin: 2em auto
+	max-width: 1200px
+	border-bottom: solid black 2px
 
 @keyframes load-image
 	0%
@@ -64,7 +81,8 @@ main#Team
 	display: grid
 	grid-template-columns: auto 1fr
 	margin: 30px
-	flex: 1
+	width: 450px
+	// flex: 1
 
 .TeamCard__text
 	margin: 0 20px
@@ -73,7 +91,7 @@ main#Team
 
 .Team__group-photo
 
-	h2
+	& h3
 		text-align: center
 
 	& img

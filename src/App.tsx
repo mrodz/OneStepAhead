@@ -5,6 +5,7 @@ import NotFound from './pages/404'
 import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles'
 import { MobileProvider } from './hooks/useSizes'
 import About from './pages/About'
+import Header from './components/Header'
 
 const themeOptions: ThemeOptions = {
 	palette: {
@@ -34,6 +35,7 @@ export default function App() {
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<MobileProvider>
+					<Header />
 					<Routes>
 						<Route path="/" element={<Landing />} />
 						<Route path="/about" element={<About />} />
