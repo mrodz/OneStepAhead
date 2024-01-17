@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { ComponentProps, useEffect, useState } from "react"
 import "./index.sass"
 import "./media.sass"
 import { Divider } from "@mui/material"
@@ -7,15 +7,25 @@ function getCompressedPath(personNameNoSpaces: string): string {
 	return `Headshots/compressed/${personNameNoSpaces}.jpg`
 }
 
-function BlurryPhoto(props: { personNameNoSpaces: string, lazy?: boolean }) {
+function BlurryPhoto(props: { personNameNoSpaces: string, lazy?: boolean, leadership: boolean }) {
 	const iOS =
 		typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
 	// the styles for pulsating loading do not work on iOS for some reason
 	const [loaded, setLoaded] = useState(iOS)
 
+	const optionalProperties: any = {};
+
+	if (!loaded) {
+		optionalProperties["style"] = { backgroundImage: `url(${getCompressedPath(props.personNameNoSpaces)})` };
+	}
+
+	if (props.leadership) {
+		optionalProperties["data-leadership"] = true
+	}
+
 	return (
-		<div className={`BlurryPhoto ${loaded ? "BlurryPhoto__loaded" : ""}`} {...!loaded ? { style: { backgroundImage: `url(${getCompressedPath(props.personNameNoSpaces)})` } } : {}}>
+		<div className={`BlurryPhoto ${loaded ? "BlurryPhoto__loaded" : ""}`} {...optionalProperties}>
 			<img {...!!props.lazy ? { loading: "lazy" } : {}} onLoad={() => setLoaded(true)} src={`Headshots/${props.personNameNoSpaces}.jpg`} alt={`${props.personNameNoSpaces}'s headshot`} />
 		</div>
 	)
@@ -30,8 +40,8 @@ interface TeamCardProps {
 
 function TeamCard(props: TeamCardProps & { lazy: boolean }) {
 	return (
-		<div className="TeamCard">
-			<BlurryPhoto lazy={props.lazy} personNameNoSpaces={props.name.replaceAll(" ", "")}></BlurryPhoto>
+		<div className="TeamCard" {...props.leadership ? { "data-leadership": props.leadership } : {}}>
+			<BlurryPhoto lazy={props.lazy} leadership={!!props.leadership} personNameNoSpaces={props.name.replaceAll(" ", "")}></BlurryPhoto>
 			<div className="TeamCard__text">
 				<h2>{props.name}</h2>
 				<h3>{props.role}</h3>
@@ -166,6 +176,10 @@ export default function About() {
 		<main id="Team">
 			<h1>Our Team</h1>
 
+			<section id="Team__group-photo">
+				<img alt="school club yearbook snapshot" src="/clubpicture.jpg" />
+			</section>
+
 			<section id="Team__description">
 				One Step Ahead Culver City was founded in 2023 by Culver City High School students and has remained a student-led, student-run organization. Every member of our team mentors for our program in addition to any of their additional leadership or organizational responsibilities.
 			</section>
@@ -179,14 +193,6 @@ export default function About() {
 			<section id="Team__photo-wrapper">
 				<h3 style={{ fontSize: "200%" }}>Mentors</h3>
 				{TEAM_DATA.filter(prop => prop.leadership === undefined).map((props) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
-			</section>
-
-			<Divider>
-				<h3>2023-2024 Club Members</h3>
-			</Divider>
-
-			<section className="Team__group-photo">
-				<img alt="school club yearbook snapshot" src="/clubpicture.jpg" />
 			</section>
 		</main>
 	)

@@ -1,6 +1,4 @@
 main#Team
-	padding: 40px
-
 	width: 100%
 
 #Team h1
@@ -18,7 +16,7 @@ main#Team
 #Team__description
 	font-size: 24pt
 	width: 800px
-	margin: 0 auto
+	margin: 2em auto
 	padding: .5em
 	border-radius: 10px
 	background: #fff
@@ -30,8 +28,7 @@ main#Team
 	justify-content: center
 
 #Team__photo-wrapper
-	margin: 2em auto
-	max-width: 1600px
+	max-width: 1700px
 
 #Team__leadership
 	margin: 2em auto
@@ -69,10 +66,14 @@ main#Team
 	& img
 		border-radius: 100vmax
 
-		width: 250px
-		height: 250px
+		width: 200px
+		height: 200px
 		opacity: 0
 		transition: opacity 250ms ease-in-out
+
+	&[data-leadership] img
+		width: 250px
+		height: 250px
 
 	&.BlurryPhoto__loaded
 		filter: none
@@ -83,16 +84,22 @@ main#Team
 .TeamCard
 	display: grid
 	grid-template-columns: auto 1fr
+
 	margin: 30px
-	width: 500px
-	// flex: 1
+	width: 400px
+
+	&[data-leadership]
+		// border: solid red
+		// margin: 50px
+		// width: unset
+		width: 500px
 
 .TeamCard__text
 	margin: 0 20px
 	min-width: 150px
 
 
-.Team__group-photo
+#Team__group-photo
 
 	& h3
 		text-align: center
@@ -100,5 +107,7 @@ main#Team
 	& img
 		display: block
 		margin: 0 auto
+
+		border-radius: 10px
 
 		width: 70%
