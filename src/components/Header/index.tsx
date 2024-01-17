@@ -205,7 +205,16 @@ function HeaderNav() {
 				}
 			]}>Get Involved</HeaderNavButton>
 
-			<HeaderNavButton href="/about">
+			<HeaderNavButton dropdown={[
+				{
+					title: "About us",
+					href: "/about"
+				},
+				{
+					title: "Our mission",
+					href: "/mission"
+				}
+			]}>
 				About
 			</HeaderNavButton>
 		</nav >

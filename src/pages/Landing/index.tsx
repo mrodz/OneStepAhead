@@ -310,7 +310,7 @@ function HeroTransition() {
 	return (
 		<section id="theory" className="landing-content-spacing">
 			<div id="theory-title">
-				Remote peer mentoring to minimize CCUSD’s socioeconomic achievement gap.			</div>
+				Remote peer mentoring to minimize CCUSD's socioeconomic achievement gap.			</div>
 			<div style={{ display: 'grid', height: '100%' }}>
 				<Transition />
 				<div className="single-cell" id="theory-explanation">
@@ -324,7 +324,9 @@ function HeroTransition() {
 						</div>
 					</Divider>
 					<p>
-						Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students; to ensure our work is impactful and long-lasting. We hope to not only catch our students back up but to build intrinsic learning motivation and growth mindsets that will help them for the rest of their education.
+						Our vision is centered around community: we work with teachers, MTSS specialists, administrators, parents, and students
+						to ensure our work is impactful and long-lasting. We hope to not only help our students catch up but to build intrinsic
+						learning motivation and growth mindsets that will help them for the rest of their lives.
 					</p>
 				</div>
 			</div>
@@ -540,14 +542,19 @@ const Quotes: FC<PropsWithChildren> = (props) => {
 	)
 }
 
-const Quote: FC<PropsWithChildren> = (props) => {
+const Quote: FC<PropsWithChildren & { by: string }> = (props) => {
 	return (
 		<li className="Quote">
-			<div className="Quote__symbol">
-				<FormatQuoteIcon />
+			<div style={{ display: "flex" }}>
+				<div className="Quote__symbol">
+					<FormatQuoteIcon />
+				</div>
+				<div className="Quote__content">
+					{props.children}
+				</div>
 			</div>
-			<div className="Quote__content">
-				{props.children}
+			<div className="Quote__author">
+				&mdash; {props.by}
 			</div>
 		</li>
 	)
@@ -582,15 +589,16 @@ export default function Landing() {
 
 			<FounderBlurb left colors={[GlobalStyles.COLOR_MAIN, GlobalStyles.COLOR_SPLASH]} url={zoom} title="Testimonials" className="landing-content-spacing landing-content-v-spacing">
 				<div>
+					Our students' parents say:
 					<Quotes>
-						<Quote>
+						<Quote by="Antonette">
 							<div>
-								I almost automatically saw a massive boost in Sebastian's confidence level when reading aloud with him or with me. Decoding words with Miles, he says, is...
-							</div>
-							<div className="Quote__emphasis">
+								I almost automatically saw a massive boost in Sebastian's confidence level when reading aloud with him or with me. Decoding words with Miles, he says, is
+								{/* </div>
+							<div className="Quote__emphasis"> */}
 								really cool and fun to do!
-							</div>
-							<div>
+								{/* </div>
+							<div> */}
 								The way in which they read together over Zoom, paragraph by paragraph, and then discussing what the story is about... and knowing it's okay not to know the definition of certain words are two critical factors that I feel Miles is developing and showing Sebastian weekly!
 							</div>
 						</Quote>

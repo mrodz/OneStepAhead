@@ -25,7 +25,6 @@ function BlurryPhoto(props: { personNameNoSpaces: string, lazy?: boolean }) {
 interface TeamCardProps {
 	name: string,
 	role: string,
-	description?: string,
 	leadership?: number,
 }
 
@@ -36,8 +35,6 @@ function TeamCard(props: TeamCardProps & { lazy: boolean }) {
 			<div className="TeamCard__text">
 				<h2>{props.name}</h2>
 				<h3>{props.role}</h3>
-
-				<p>{props.description ?? "No bio yet!"}</p>
 			</div>
 		</div>
 	)
@@ -50,8 +47,8 @@ const TEAM_DATA: TeamCardProps[] = [
 	},
 	{
 		name: "Audrey Rothenberg",
-		role: "COO",
-		leadership: 2,
+		role: "Chief Operating Officer",
+		leadership: 9,
 	},
 	{
 		name: "Augusta Poggi",
@@ -63,12 +60,13 @@ const TEAM_DATA: TeamCardProps[] = [
 	},
 	{
 		name: "Carmen Piro",
-		role: "Mentor",
+		role: "Mathematics Project Manager",
+		leadership: 2
 	},
 	{
 		name: "Emi Sakamoto",
 		role: "Reading Curriculum Director",
-		leadership: 1,
+		leadership: 8,
 	},
 	{
 		name: "Evan Daurio",
@@ -80,8 +78,8 @@ const TEAM_DATA: TeamCardProps[] = [
 	},
 	{
 		name: "Flora Woo",
-		role: "CFO",
-		leadership: 2,
+		role: "Chief Financial Officer",
+		leadership: 5,
 	},
 	{
 		name: "Gianna Wong",
@@ -102,13 +100,12 @@ const TEAM_DATA: TeamCardProps[] = [
 	{
 		name: "Maren Brown",
 		role: "Mathematics Curriculum Director",
-		leadership: 1,
+		leadership: 7,
 	},
 	{
 		name: "Mateo Rodriguez",
-		role: "CTO",
-		description: "Hey! I'm a passionate developer, and I'm managing the website and other tech-related affairs.",
-		leadership: 2,
+		role: "Chief Technology Officer",
+		leadership: 6,
 	},
 	{
 		name: "Miles Katz Facher",
@@ -129,17 +126,16 @@ const TEAM_DATA: TeamCardProps[] = [
 	{
 		name: "Katie Sirio",
 		role: "Reading Project Manager",
-		leadership: 1,
+		leadership: 3,
 	},
 	{
 		name: "Miriam Mirvish",
-		role: "Mathematics Project Manager",
-		leadership: 1,
+		role: "Mentor",
 	},
 	{
 		name: "Sofia Kinsella",
 		role: "Creative Director",
-		leadership: 1,
+		leadership: 4,
 	},
 	{
 		name: "Robert Logan",
@@ -148,7 +144,7 @@ const TEAM_DATA: TeamCardProps[] = [
 	},
 	{
 		name: "Lila Bragard",
-		role: "CEO",
+		role: "Chief Executive Officer and Founder",
 		leadership: 10,
 	},
 
@@ -168,30 +164,20 @@ export default function About() {
 
 	return (
 		<main id="Team">
-			<h1>Learn About Us</h1>
-
-			<h2>Our Mission</h2>
+			<h1>Our Team</h1>
 
 			<section id="Team__description">
-				Lorem Ipsum Dolor Sit Amet
-			</section>
-
-			<hr />
-
-			<h2>Meet Our Team</h2>
-
-			<section id="Team__description">
-				Our workforce consists of lovely people who are each passionate about personal growth and teaching. We are proud to work with all of these individuals!
+				One Step Ahead Culver City was founded in 2023 by Culver City High School students and has remained a student-led, student-run organization. Every member of our team mentors for our program in addition to any of their additional leadership or organizational responsibilities.
 			</section>
 
 			<section id="Team__leadership">
-				<h3>Leadership</h3>
+				<h3 style={{ fontSize: "200%" }}>Leadership</h3>
 				{TEAM_DATA.filter(prop => prop.leadership !== undefined).sort((a, b) => b.leadership! - a.leadership!).map((props) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
 
 			</section>
 
 			<section id="Team__photo-wrapper">
-				<h3>Mentors</h3>
+				<h3 style={{ fontSize: "200%" }}>Mentors</h3>
 				{TEAM_DATA.filter(prop => prop.leadership === undefined).map((props) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
 			</section>
 
