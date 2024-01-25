@@ -1,7 +1,6 @@
-import { ComponentProps, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import "./index.sass"
 import "./media.sass"
-import { Divider } from "@mui/material"
 
 function getCompressedPath(personNameNoSpaces: string): string {
 	return `Headshots/compressed/${personNameNoSpaces}.jpg`
