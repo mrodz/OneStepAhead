@@ -416,44 +416,6 @@ function SupportSection() {
 	)
 }
 
-function FooterSection() {
-	return (
-		<footer className="Landing__footer">
-			<div id="footer-location">
-				<div id="footer-location-title">One Step Ahead Culver City</div>
-				<table id="footer-location-about-desktop" cellSpacing="0">
-					<tbody>
-						<tr>
-							<th>Find us at:</th>
-							{/* <th>Call us at:</th> */}
-						</tr>
-						<tr>
-							<td>Culver City High School &mdash; 4401 Elenda Street, Culver City, CA 90230</td>
-							{/* <td><PhoneLink number='111-222-3333' text='(111) 222-3333' /></td> */}
-						</tr>
-					</tbody>
-				</table>
-				<div id="footer-location-about-mobile">
-					<div>
-						Culver City High School, 4401 Elenda Street, Culver City, CA 90230
-					</div>
-					{/* <PhoneLink number='111-222-3333' text='(111) 222-3333' /> */}
-				</div>
-
-				<div id="footer-location-quote">
-					Email Us At: <a href="mailto:onestepaheadculvercity@gmail.com">onestepaheadculvercity@gmail.com</a>
-				</div>
-			</div>
-			<div id="footer-credits">
-				<span id="copyright">
-					{new Date().getFullYear()} Mateo Rodriguez Web Development, All Rights Reserved.
-				</span>
-			</div>
-
-		</footer >
-	)
-}
-
 const PARALLAX_IMAGES: ParallaxImageItem[] = [
 	{
 		title: 'Students helping students one-on-one to stay one step ahead in their education',
@@ -594,12 +556,7 @@ export default function Landing() {
 						<Quote by="Antonette">
 							<div>
 								I almost automatically saw a massive boost in Sebastian's confidence level when reading aloud with him or with me. Decoding words with Miles, he says, is
-								{/* </div>
-							<div className="Quote__emphasis"> */}
-								really cool and fun to do!
-								{/* </div>
-							<div> */}
-								The way in which they read together over Zoom, paragraph by paragraph, and then discussing what the story is about... and knowing it's okay not to know the definition of certain words are two critical factors that I feel Miles is developing and showing Sebastian weekly!
+								really cool and fun to do! The way in which they read together over Zoom, paragraph by paragraph, and then discussing what the story is about... and knowing it's okay not to know the definition of certain words are two critical factors that I feel Miles is developing and showing Sebastian weekly!
 							</div>
 						</Quote>
 					</Quotes>
@@ -615,7 +572,6 @@ export default function Landing() {
 			<div ref={greeting} id="visit-us" className={`Header__title ${visible ? 'Landing__fade-in' : ''}`}>
 				Mentoring for a Brighter Future
 			</div>
-			<FooterSection />
 		</main>
 	)
 }

@@ -138,7 +138,7 @@ const TEAM_DATA: TeamCardProps[] = [
 		leadership: 3,
 	},
 	{
-		name: "Miriam Mirvish",
+		name: "Mimi Mirvish",
 		role: "Mentor",
 	},
 	{
@@ -175,9 +175,9 @@ export default function About() {
 		<main id="Team">
 			<h1>Our Team</h1>
 
-			<section id="Team__group-photo">
+			{/* <section id="Team__group-photo">
 				<img alt="school club yearbook snapshot" src="/clubpicture.jpg" />
-			</section>
+			</section> */}
 
 			<section id="Team__description">
 				One Step Ahead Culver City was founded in 2023 by Culver City High School students and has remained a student-led, student-run organization. Every member of our team mentors for our program in addition to any of their additional leadership or organizational responsibilities.

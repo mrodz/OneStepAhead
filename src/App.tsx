@@ -28,6 +28,43 @@ const themeOptions: ThemeOptions = {
 	},
 }
 
+function FooterSection() {
+	return (
+		<footer className="Landing__footer">
+			<div id="footer-location">
+				<div id="footer-location-title">One Step Ahead Culver City</div>
+				<table id="footer-location-about-desktop" cellSpacing="0">
+					<tbody>
+						<tr>
+							<th>Find us at:</th>
+							{/* <th>Call us at:</th> */}
+						</tr>
+						<tr>
+							<td>Culver City High School &mdash; 4401 Elenda Street, Culver City, CA 90230</td>
+							{/* <td><PhoneLink number='111-222-3333' text='(111) 222-3333' /></td> */}
+						</tr>
+					</tbody>
+				</table>
+				<div id="footer-location-about-mobile">
+					<div>
+						Culver City High School, 4401 Elenda Street, Culver City, CA 90230
+					</div>
+					{/* <PhoneLink number='111-222-3333' text='(111) 222-3333' /> */}
+				</div>
+
+				<div id="footer-location-quote">
+					Email Us At: <a href="mailto:onestepaheadculvercity@gmail.com">onestepaheadculvercity@gmail.com</a>
+				</div>
+			</div>
+			<div id="footer-credits">
+				<span id="copyright">
+					{new Date().getFullYear()} Mateo Rodriguez Web Development, All Rights Reserved.
+				</span>
+			</div>
+		</footer >
+	)
+}
+
 const theme = createTheme(themeOptions)
 
 export default function App() {
@@ -41,6 +78,7 @@ export default function App() {
 						<Route path="/about" element={<About />} />
 						<Route path="*" element={<NotFound />} />
 					</Routes>
+					<FooterSection />
 				</MobileProvider>
 			</BrowserRouter >
 		</ThemeProvider>

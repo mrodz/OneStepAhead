@@ -51,12 +51,18 @@ $carousel-delay: 500
 	position: relative
 
 .div-as-img
-	height: 100%
+	// height: 100%
 	width: 100%
+	height: 0
+
+	padding-top: 24% // (img-height / img-width * container-width)
+	// (1080 / 450 * 100)
 
 	background-repeat: no-repeat
 	background-size: contain
 	background-position: center
+
+
 
 .ImageCarousel__image-carousel-img
 	box-shadow: inset 0px -20px 15px #5042428a
@@ -211,7 +217,7 @@ main#Landing
 	background-repeat: repeat
 
 #hero-wrapper
-	height: min(max(60vh, 400px), 700px)
+	// height: min(max(60vh, 400px), 700px)
 
 #visit-us
 	opacity: 0
