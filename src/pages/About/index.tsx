@@ -156,7 +156,10 @@ const TEAM_DATA: TeamCardProps[] = [
 		role: "Chief Executive Officer and Founder",
 		leadership: 10,
 	},
-
+	{
+		name: "Juliet Ashley",
+		role: "Mentor",
+	}
 ]
 
 export default function About() {
@@ -175,9 +178,9 @@ export default function About() {
 		<main id="Team">
 			<h1>Our Team</h1>
 
-			{/* <section id="Team__group-photo">
+			<section id="Team__group-photo">
 				<img alt="school club yearbook snapshot" src="/clubpicture.jpg" />
-			</section> */}
+			</section>
 
 			<section id="Team__description">
 				One Step Ahead Culver City was founded in 2023 by Culver City High School students and has remained a student-led, student-run organization. Every member of our team mentors for our program in addition to any of their additional leadership or organizational responsibilities.
@@ -191,7 +194,7 @@ export default function About() {
 
 			<section id="Team__photo-wrapper">
 				<h3 style={{ fontSize: "200%" }}>Mentors</h3>
-				{TEAM_DATA.filter(prop => prop.leadership === undefined).map((props) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
+				{TEAM_DATA.filter(prop => prop.leadership === undefined).sort((a, b) => a.name.localeCompare(b.name)).map((props) => <TeamCard lazy key={`TEAM_CARD_${props.name}`}  {...props} ></TeamCard>)}
 			</section>
 		</main>
 	)

@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { Button } from '@mui/material'
+import { Button, ButtonGroup } from '@mui/material'
 import './index.sass'
 import './media.sass'
 
@@ -28,9 +28,15 @@ export default function NotFound() {
 						{window.location.pathname}
 					</code>
 				</div>
-				<Button id="NotFound__button" variant='contained' onClick={() => navigate(-1)}>
-					Go Back
-				</Button>
+
+				<ButtonGroup id="NotFound__button">
+					<Button variant='contained' onClick={() => navigate(-1)}>
+						Go Back
+					</Button>
+					<Button variant='contained' onClick={() => navigate("/")}>
+						Go Home
+					</Button>
+				</ButtonGroup>
 			</main>
 		</div>
 	)

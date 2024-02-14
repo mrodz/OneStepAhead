@@ -6,6 +6,7 @@ import { createTheme, ThemeOptions, ThemeProvider } from '@mui/material/styles'
 import { MobileProvider } from './hooks/useSizes'
 import About from './pages/About'
 import Header from './components/Header'
+import Mission from './pages/Mission'
 
 const themeOptions: ThemeOptions = {
 	palette: {
@@ -76,6 +77,7 @@ export default function App() {
 					<Routes>
 						<Route path="/" element={<Landing />} />
 						<Route path="/about" element={<About />} />
+						<Route path="/mission" element={<Mission />} />
 						<Route path="*" element={<NotFound />} />
 					</Routes>
 					<FooterSection />
