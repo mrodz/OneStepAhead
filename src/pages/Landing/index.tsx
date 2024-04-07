@@ -7,7 +7,9 @@ import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import ParallaxImageSplit, { ParallaxImageTextSection } from '../../components/ParallaxImageSplit'
 
 import landinggraphic from './images/landinggraphic.png'
-import classroom from './images/classroom.jpg'
+import herreraclassroom from './images/herreraclassroom.webp'
+import flora from './images/flora_banner.jpg'
+import mathtutor from './images/math_tutor.jpg'
 import zoom from './images/zoom.jpg'
 import ccef from './images/ccef.png'
 import ccusd from './images/ccusd.png'
@@ -101,7 +103,7 @@ interface ParallaxImagesSectionProps {
 
 function ParallaxImagesSection({ items }: ParallaxImagesSectionProps) {
 	const result = items.map(({ url, title, content }, i) => {
-		const image = <ParallaxImageSplit bottomLimit={400} fileName={url} alt={title} leading={i % 2 === 0 ? 'L' : 'R'} />
+		const image = <ParallaxImageSplit bottomLimit={400} fileName={url} alt={title} parallax={false} leading={i % 2 === 0 ? 'L' : 'R'} />
 
 		return (
 			<ParallaxImageTextSection key={i} title={title} content={content} image={image} />
@@ -437,7 +439,7 @@ const PARALLAX_IMAGES: ParallaxImageItem[] = [
 			</ButtonGroup>
 
 		</>,
-		url: classroom
+		url: flora
 	},
 	{
 		title: 'Our mentors are all passionate high school volunteers working to share their knowledge and skills',
@@ -464,7 +466,7 @@ const PARALLAX_IMAGES: ParallaxImageItem[] = [
 				</Button>
 			</ButtonGroup>
 		</>,
-		url: '/clubpicture.jpg',
+		url: mathtutor,
 	},
 	{
 		title: 'We rely on the Culver City community for support to make our program the best it can be',
@@ -492,7 +494,7 @@ const PARALLAX_IMAGES: ParallaxImageItem[] = [
 				</Button>
 			</ButtonGroup>
 		</>,
-		url: classroom,
+		url: herreraclassroom,
 	}
 ]
 

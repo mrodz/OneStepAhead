@@ -7,6 +7,7 @@ import { MobileProvider } from './hooks/useSizes'
 import About from './pages/About'
 import Header from './components/Header'
 import Mission from './pages/Mission'
+import Contact from './pages/Contact'
 
 const themeOptions: ThemeOptions = {
 	palette: {
@@ -78,6 +79,7 @@ export default function App() {
 						<Route path="/" element={<Landing />} />
 						<Route path="/about" element={<About />} />
 						<Route path="/mission" element={<Mission />} />
+						<Route path="/contact" element={<Contact />} />
 						<Route path="*" element={<NotFound />} />
 					</Routes>
 					<FooterSection />

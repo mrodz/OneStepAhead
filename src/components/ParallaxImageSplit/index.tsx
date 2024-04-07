@@ -33,6 +33,7 @@ interface ParallaxImageSplitProps {
 	className?: string,
 	onLoad?: () => void,
 	bottomLimit?: number,
+	parallax?: boolean,
 }
 
 interface ParallaxImageTextSectionProps {
@@ -143,7 +144,7 @@ const ParallaxImageSplit: FC<ParallaxImageSplitProps> = React.memo((props) => {
 
 	const size = useMediaQuery(`(max-width:${props.bottomLimit ?? 0}px)`)
 
-	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || size) {
+	if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || size || props.parallax === false) {
 		return (
 			<div className='ParallaxImageSplit__parallax-image-wrapper'>
 				<img
