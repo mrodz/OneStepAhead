@@ -45,7 +45,7 @@ export default function Contact() {
 				</div>
 
 				<div id="Contact__img-wrapper">
-					<img src={contactimg} />
+					<img alt="logo" src={contactimg} />
 				</div>
 			</div>
 
