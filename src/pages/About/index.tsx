@@ -154,7 +154,7 @@ const TEAM_DATA: TeamCardProps[] = [
     role: "Mentor",
   },
   {
-    name: "Katie Sirio",
+    name: "Katie Sriro",
     role: "Reading Project Manager",
     leadership: 3,
   },
