@@ -9,6 +9,7 @@ import Header from "./components/Header";
 import Mission from "./pages/Mission";
 import Contact from "./pages/Contact";
 import Join from "./pages/Join";
+import Referals from "./pages/Referrals";
 
 const themeOptions: ThemeOptions = {
   palette: {
@@ -89,6 +90,7 @@ export default function App() {
             <Route path="/mission" element={<Mission />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/join" element={<Join />} />
+            <Route path="/referrals" element={<Referals />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <FooterSection />

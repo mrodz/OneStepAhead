@@ -18,7 +18,7 @@ export default function Join() {
       </div>
 
       <Divider style={{ margin: "1rem 0" }}>
-        <span id="Join__sounds-cool">Sounds cool!</span>
+        <span id="Join__sounds-cool">Sounds cool!&nbsp;</span>
         What do I need to know?
       </Divider>
 
@@ -60,7 +60,6 @@ export default function Join() {
             >
               bit.ly/osatutorapp
             </Button>
-            .
           </div>
         </div>
       </div>
