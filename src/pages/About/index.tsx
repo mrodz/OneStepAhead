@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./index.sass";
 import "./media.sass";
 
+import TEAM_DATA from "./members.json"
+
 function getCompressedPath(personNameNoSpaces: string): string {
   return `Headshots/compressed/${personNameNoSpaces}.jpg`;
 }
@@ -45,10 +47,15 @@ function BlurryPhoto(props: {
   );
 }
 
+interface TeamCardActive {
+
+}
+
 interface TeamCardProps {
   name: string;
   role: string;
   leadership?: number;
+  active?: TeamCardActive;
 }
 
 function TeamCard(props: TeamCardProps & { lazy: boolean }) {
@@ -69,119 +76,6 @@ function TeamCard(props: TeamCardProps & { lazy: boolean }) {
     </div>
   );
 }
-
-const TEAM_DATA: TeamCardProps[] = [
-  {
-    name: "Annabelle Andreone",
-    role: "Mentor",
-  },
-  {
-    name: "Audrey Rothenberg",
-    role: "Chief Operating Officer",
-    leadership: 9,
-  },
-  {
-    name: "Augusta Poggi",
-    role: "Mentor",
-  },
-  {
-    name: "Brandon Yang",
-    role: "Mentor",
-  },
-  {
-    name: "Carmen Piro",
-    role: "Mathematics Project Manager",
-    leadership: 2,
-  },
-  {
-    name: "Emi Sakamoto",
-    role: "Reading Curriculum Director",
-    leadership: 8,
-  },
-  {
-    name: "Evan Daurio",
-    role: "Mentor",
-  },
-  {
-    name: "Eve Mott",
-    role: "Mentor",
-  },
-  {
-    name: "Flora Woo",
-    role: "Chief Financial Officer",
-    leadership: 5,
-  },
-  {
-    name: "Gianna Wong",
-    role: "Mentor",
-  },
-  {
-    name: "Kendyll Hoang",
-    role: "Mentor",
-  },
-  {
-    name: "Kira Connors",
-    role: "Mentor",
-  },
-  {
-    name: "Malia Valentic",
-    role: "Mentor",
-  },
-  {
-    name: "Maren Brown",
-    role: "Mathematics Curriculum Director",
-    leadership: 7,
-  },
-  {
-    name: "Mateo Rodriguez",
-    role: "Chief Technology Officer",
-    leadership: 6,
-  },
-  {
-    name: "Miles Katz Facher",
-    role: "Mentor",
-  },
-  {
-    name: "Nina Faeh",
-    role: "Mentor",
-  },
-  {
-    name: "Tiffany Hotton",
-    role: "Mentor",
-  },
-  {
-    name: "Una Finn",
-    role: "Mentor",
-  },
-  {
-    name: "Katie Sriro",
-    role: "Reading Project Manager",
-    leadership: 3,
-  },
-  {
-    name: "Mimi Mirvish",
-    role: "Mentor",
-  },
-  {
-    name: "Sofia Kinsella",
-    role: "Creative Director",
-    leadership: 4,
-  },
-  {
-    name: "Robert Logan",
-    role: "Project Controls Manager",
-    leadership: 1,
-  },
-  {
-    name: "Lila Bragard",
-    role: "Chief Executive Officer and Founder",
-    leadership: 10,
-  },
-  {
-    name: "Juliet Ashley",
-    role: "Mentor",
-  },
-];
 
 export default function About() {
   useEffect(() => {

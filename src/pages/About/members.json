@@ -1,39 +1,144 @@
-{
-  "Lila Bragard": {},
-  "Audrey Rothenberg": {},
-  "Flora Woo": {},
-  "Mateo Rodriguez": {},
-  "Emi Sakamoto": {},
-  "Katie Sriro": {},
-  "Maren Brown": {},
-  "Carmen Piro": {},
-  "Sofia Kinsella": {},
-  "Robert Logan": {},
-  "Gianna Wong": {},
-  "Robin Akemann": {},
-  "Leo Katz Facher": {},
-  "Ava Steins": {},
-  "Mimi Mirvish": {},
-  "Leila Behforouz": {},
-  "Brandon Yang": {},
-  "Una Finn": {},
-  "Tiffany Hotton": {},
-  "Kendyll Hoang": {},
-  "Chance Lagasse": {},
-  "Samuel Tefera": {},
-  "Eve Mott": {},
-  "Merritt McManus": {},
-  "Kai Johnson": {},
-  "Miles Katz Facher": {},
-  "Nina Faeh": {},
-  "Annabelle Andreone": {},
-  "Malia Valentic": {},
-  "Augusta Poggi": {},
-  "Evan Daurio": {},
-  "Will Shiflett": {},
-  "Ruby Gentz": {},
-  "Sara Herscovitz": {},
-  "Caelyn Salzmann": {},
-  "Juliet Ashley": {},
-  "Kira Connors": {}
-}
+[
+  {
+    "name": "Annabelle Andreone",
+    "role": "Mentor"
+  },
+  {
+    "name": "Audrey Rothenberg",
+    "role": "Chief Operating Officer",
+    "leadership": 9
+  },
+  {
+    "name": "Augusta Poggi",
+    "role": "Mentor"
+  },
+  {
+    "name": "Brandon Yang",
+    "role": "Mentor"
+  },
+  {
+    "name": "Carmen Piro",
+    "role": "Mathematics Project Manager",
+    "leadership": 2
+  },
+  {
+    "name": "Emi Sakamoto",
+    "role": "Ex. Reading Curriculum Director"
+  },
+  {
+    "name": "Evan Daurio",
+    "role": "Mentor"
+  },
+  {
+    "name": "Eve Mott",
+    "role": "Mentor"
+  },
+  {
+    "name": "Flora Woo",
+    "role": "Chief Financial Officer",
+    "leadership": 5
+  },
+  {
+    "name": "Gianna Wong",
+    "role": "Mentor"
+  },
+  {
+    "name": "Kendyll Hoang",
+    "role": "Mentor"
+  },
+  {
+    "name": "Kira Connors",
+    "role": "Mentor"
+  },
+  {
+    "name": "Malia Valentic",
+    "role": "Mentor"
+  },
+  {
+    "name": "Maren Brown",
+    "role": "Mathematics Curriculum Director",
+    "leadership": 7
+  },
+  {
+    "name": "Mateo Rodriguez",
+    "role": "Chief Technology Officer",
+    "leadership": 6
+  },
+  {
+    "name": "Miles Katz Facher",
+    "role": "Mentor"
+  },
+  {
+    "name": "Nina Faeh",
+    "role": "Mentor"
+  },
+  {
+    "name": "Tiffany Hotton",
+    "role": "Mentor"
+  },
+  {
+    "name": "Una Finn",
+    "role": "Mentor"
+  },
+  {
+    "name": "Katie Sriro",
+    "role": "Chief Executive Officer",
+    "leadership": 11
+  },
+  {
+    "name": "Mimi Mirvish",
+    "role": "Mentor"
+  },
+  {
+    "name": "Sofia Kinsella",
+    "role": "Creative Director",
+    "leadership": 4
+  },
+  {
+    "name": "Robert Logan",
+    "role": "Project Controls Manager",
+    "leadership": 1
+  },
+  {
+    "name": "Lila Bragard",
+    "role": "Founder, Ex. Chief Executive Officer",
+    "leadership": 10
+  },
+  {
+    "name": "Juliet Ashley",
+    "role": "Mentor"
+  },
+  {
+    "name": "Alexia Prieto",
+    "role": "Mentor"
+  },
+  {
+    "name": "Amani Mehta",
+    "role": "Mentor"
+  },
+  {
+    "name": "Ava Steins",
+    "role": "",
+    "leadership": 7
+  },
+  {
+    "name": "Emerson Babineau",
+    "role": "Mentor"
+  },
+  {
+    "name": "Francesca Piro",
+    "role": "Mentor"
+  },
+  {
+    "name": "Lua Booker",
+    "role": "Mentor"
+  },
+  {
+    "name": "Nika Nadi",
+    "role": "Mentor"
+  },
+  {
+    "name": "Sara Herscovitz",
+    "role": "Mentor"
+  }
+]
