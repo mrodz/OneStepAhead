@@ -42,6 +42,8 @@ function UpdateCommand {
 		}
 	}
 
+	py.exe ./normalize_extensions.py
+
 	return $users;
 }
 
