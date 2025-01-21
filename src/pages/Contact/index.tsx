@@ -3,7 +3,7 @@ import "./index.sass";
 import "./media.sass";
 import contactimg from "./graphic.jpg";
 
-function EmailButton() {
+export function EmailButton() {
   return (
     <Button href="mailto:onestepaheadculvercity@gmail.com">
       <span id="EmailButton__text-long">onestepaheadculvercity@gmail.com</span>

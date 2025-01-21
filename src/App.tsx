@@ -10,6 +10,7 @@ import Mission from "./pages/Mission";
 import Contact from "./pages/Contact";
 import Join from "./pages/Join";
 import Referals from "./pages/Referrals";
+import Donate from "./pages/Donate";
 
 const themeOptions: ThemeOptions = {
   palette: {
@@ -91,6 +92,7 @@ export default function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/join" element={<Join />} />
             <Route path="/referrals" element={<Referals />} />
+            <Route path="/donate" element={<Donate />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <FooterSection />
