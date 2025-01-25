@@ -1,12 +1,13 @@
 [
   {
     "name": "Annabelle Andreone",
-    "role": "Mentor"
+    "role": "Mentor",
+    "leadership": 1
   },
   {
     "name": "Audrey Rothenberg",
-    "role": "Chief Operating Officer",
-    "leadership": 9
+    "role": "Co-President, Chief Operating Officer",
+    "leadership": 10
   },
   {
     "name": "Augusta Poggi",
@@ -82,7 +83,7 @@
   },
   {
     "name": "Katie Sriro",
-    "role": "Chief Executive Officer",
+    "role": "President, Chief Executive Officer",
     "leadership": 11
   },
   {
@@ -101,7 +102,7 @@
   {
     "name": "Lila Bragard",
     "role": "Founder, Ex. Chief Executive Officer",
-    "leadership": 10
+    "leadership": 9
   },
   {
     "name": "Juliet Ashley",
